@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_10_101609) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_10_103309) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "recipes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.integer "portions"
+    t.integer "portions_displayed"
+    t.string "description", default: [], array: true
+    t.string "description_displayed", default: [], array: true
+    t.integer "preparation_time"
+    t.string "url_image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_recipes_on_user_id"
+  end
 
   create_table "restrictions", force: :cascade do |t|
     t.jsonb "diet"
@@ -35,5 +49,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_10_101609) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "recipes", "users"
   add_foreign_key "restrictions", "users"
 end
