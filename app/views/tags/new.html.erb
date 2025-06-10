@@ -1,0 +1,9 @@
+<%= link_to "◀️back", collection_path(@collection), class: "text-primary fw-bold small" %>
+<%= simple_form_for [@collection, @tag] do |f| %>
+  <div class="mb-3">
+    <%= f.association :recipe, label: "Choose a recipe", input_html: { class: "form-select" } %>
+  </div>
+  <div class="mb-3">
+  </div>
+  <%= f.button :submit, "🍽️ Add to #{@collection.name}", class: "btn btn-primary w-100 mb-3" %>
+<% end %>
