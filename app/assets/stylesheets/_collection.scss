@@ -82,18 +82,29 @@
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
     }
 
+    .text-overlay-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+    }
+
     .card-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    text-align: center;
     font-size: 1.2rem;
-    color: white; /* si tu veux que le texte reste visible sur une image */
     font-weight: bold;
     padding: 0; /* inutile ici mais peut être conservé selon le style */
-  }
+    }
+
+    .card-recipe-count {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    font-size: 0.7rem;
+    height: 0.7rem;
+    font-weight: lighter;
+    }
+
 
 
     &.favorites {
