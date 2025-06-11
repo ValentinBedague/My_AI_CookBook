@@ -20,9 +20,12 @@
   <!-- Collection cards -->
   <div class="collections-grid">
     <%= link_to collection_path(@favorites), class: "collection-card favorites" do %>
+      <div class="text-overlay-container">
+        <div class="card-overlay">Favorites</div>
+        <div class="card-overlay">🤍</div>
+      </div>
       <div class="card-content">
-        <p>Favorites</p>
-        <span>🤍</span>
+
       </div>
     <% end %>
     <% @collections.reject { |c| c.name == "Favorites" }.each do |collection| %>
@@ -31,7 +34,10 @@
           <img src="<%= collection.url_image %>" alt="<%= collection.name %>" style="width: 100%; height: 100%; object-fit: cover; display: block;">
           <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4)); pointer-events: none;"></div>
         </div>
-        <div class="card-overlay"><%= collection.name %></div>
+        <div class="text-overlay-container">
+          <div class="card-overlay"><%= collection.name %></div>
+          <div class="card-recipe-count"><%= pluralize(collection.recipes.count, 'recipe') %></div>
+        </div>
       <% end %>
     <% end %>
   </div>
