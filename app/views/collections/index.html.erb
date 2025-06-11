@@ -1,8 +1,11 @@
+<div>
   <%= link_to "📚collections", collections_path, class: "text-primary fw-bold small" %>
   <%= link_to "🏠home", root_path, class: "text-primary fw-bold small" %>
   <%= link_to "🍽️recipes", root_path, class: "text-primary fw-bold small" %>
-  <%= link_to "🙎‍♂️profile",user_path(current_user), class: "text-primary fw-bold small" %>
-<h3>🍽️My books📚</h3>
+  <% if current_user %>
+  <%= link_to "🙎‍♂️profile", user_path(current_user), class: "text-primary fw-bold small" %>
+  <% end %>
+</div><h3>🍽️My books📚</h3>
 <% @collections.each do |collection| %>
 <div>
   <%= link_to collection.name, collection_path(collection), class: 'btn btn-primary' %>
