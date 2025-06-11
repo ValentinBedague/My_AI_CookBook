@@ -192,11 +192,11 @@ tag3 = Tag.create!(
   recipe_id: spaghetti.id
 )
 tag4 = Tag.create!(
-  collection_id: favorite.id,
+  collection_id: favorites.id,
   recipe_id: spaghetti.id
 )
 tag5 = Tag.create!(
-  collection_id: favorite.id,
+  collection_id: favorites.id,
   recipe_id: curry.id
 )
-puts "Collections successfully fulfilled 🚀"
+puts "Collections successfully fulfilled 🚀🚀"
