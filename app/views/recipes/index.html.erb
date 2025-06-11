@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4">My AI Cookbook</h1>
+    <%= link_to 'New Recipe', new_recipe_path, class: 'btn btn-success' %>
+  </div>
+
+  <div class="form-group mb-4">
+    <%= form_with url: recipes_path, method: :get, local: true do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Find a recipe", class: "form-control" %>
+    <% end %>
+  </div>
+
+  <% grouped = @recipes.order(:name).group_by { |r| r.name[0].upcase } %>
+
+  <% grouped.each do |letter, recipes| %>
+    <h5 class="text-uppercase mt-4"><%= letter %></h5>
+    <div class="row">
+      <% recipes.each do |recipe| %>
+        <div class="col-md-6 mb-3">
+          <div class="card shadow-sm">
+            <%= image_tag(recipe.url_image.presence || "placeholder.jpg", class: "card-img-top", style: "height: 150px; object-fit: cover;") %>
+            <div class="card-body">
+              <h5 class="card-title"><%= link_to recipe.name, recipe_path(recipe), class: "stretched-link text-decoration-none text-dark" %></h5>
+              <p class="card-text text-muted">
+                <%= pluralize(recipe.ingredients.count, "ingredient") %> |
+                <%= recipe.preparation_time %> min
+              </p>
+              <%= link_to recipe_path(recipe), class: 'btn btn-light btn-sm float-end' do %>
+                <i class="bi bi-heart"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
