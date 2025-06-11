@@ -1,15 +1,80 @@
-<div>
-  <%= link_to "📚collections", collections_path, class: "text-primary fw-bold small" %>
-  <%= link_to "🏠home", root_path, class: "text-primary fw-bold small" %>
-  <%= link_to "🍽️recipes", root_path, class: "text-primary fw-bold small" %>
+<div class="collections-index">
+
+  <!-- Logo -->
+    <%= image_tag("myaicookbook.svg", alt: "My AI Cookbook Logo", class: "logo") %>
+  <div class="header">
+    <h1>My books</h1>
+
+    <div class="header-actions">
+      <%= link_to "#", class: "icon-button" do %>
+          <%= image_tag "loupe.svg", alt: "loupe", class: "nav-icon" %>
+      <% end %>
+      <%= link_to new_collection_path, class: "icon-button" do %>
+          <%= image_tag "icon-plus.svg", alt: "plus", class: "nav-icon" %>
+      <% end %>
+    </div>
+  </div>
+
+
+
+  <!-- Collection cards -->
+  <div class="collections-grid">
+    <%= link_to collection_path(@favorites), class: "collection-card favorites" do %>
+      <div class="card-content">
+        <p>Favorites</p>
+        <span>🤍</span>
+      </div>
+    <% end %>
+    <% @collections.reject { |c| c.name == "Favorites" }.each do |collection| %>
+      <%= link_to collection_path(collection), class: "collection-card" do %>
+        <div style="position: relative; width: 100%; height: 100%;">
+          <img src="<%= collection.url_image %>" alt="<%= collection.name %>" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4)); pointer-events: none;"></div>
+        </div>
+        <div class="card-overlay"><%= collection.name %></div>
+      <% end %>
+    <% end %>
+  </div>
+
+<!-- Bottom navbar -->
+<nav class="bottom-nav">
+  <%= link_to root_path, class: "nav-link" do %>
+    <div class="nav-content">
+      <%= image_tag "home.svg", alt: "Home", class: "nav-icon" %>
+      <span class="nav-label">Home</span>
+    </div>
+  <% end %>
+
+  <%= link_to recipes_path, class: "nav-link" do %>
+    <div class="nav-content">
+      <%= image_tag "spoon.svg", alt: "Recipes", class: "nav-icon" %>
+      <span class="nav-label">Recipes</span>
+    </div>
+  <% end %>
+
+  <%= link_to collections_path, class: "nav-link active" do %>
+    <div class="nav-content">
+      <%= image_tag "book.svg", alt: "Books", class: "nav-icon" %>
+      <span class="nav-label">Books</span>
+    </div>
+  <% end %>
+
   <% if current_user %>
-  <%= link_to "🙎‍♂️profile", user_path(current_user), class: "text-primary fw-bold small" %>
+    <%= link_to user_path(current_user), class: "nav-link" do %>
+      <div class="nav-content">
+        <%= image_tag "profile.svg", alt: "Profile", class: "nav-icon" %>
+        <span class="nav-label">Profile</span>
+      </div>
+    <% end %>
+  <% else %>
+    <%= link_to new_user_session_path, class: "nav-link" do %>
+      <div class="nav-content">
+        <%= image_tag "profile.svg", alt: "Profile", class: "nav-icon" %>
+        <span class="nav-label">Profile</span>
+      </div>
+    <% end %>
   <% end %>
-</div><h3>🍽️My books📚</h3>
-<% @collections.each do |collection| %>
-<div>
-  <%= link_to collection.name, collection_path(collection), class: 'btn btn-primary' %>
-  <p> id de la collection : <%= collection.id %></p>
-  <img src="<%= collection.url_image %>" alt="book image">
+</nav>
+
+
 </div>
-  <% end %>
