@@ -156,39 +156,49 @@ units = ["g", "", "ml", "g", "g", "pinch"]
   crepes.ingredients.create!(name: names[i], quantity: quantities[i], unit: units[i])
 end
 puts "Sweet Crepes recipe successfully created ✅"
-dessert = Collection.create!(
-  name: "Dessert",
-  url_image: "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg"
+brunch = Collection.create!(
+  name: "brunch",
+  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654124/brunch_x10hlt.png"
 )
-puts "Dessert collection successfully created ✅"
-veggie = Collection.create!(
-  name: "Veggie",
-  url_image: "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/lunch.jpg"
+puts "brunch collection successfully created ✅"
+healthy = Collection.create!(
+  name: "healthy",
+  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654213/healthy_ystbgg.jpg"
 )
-puts "Veggie collection successfully created ✅"
+puts "healthy collection successfully created ✅"
 favorites = Collection.create!(
   name: "Favorites",
   url_image: "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/dinner.jpg"
 )
 puts "Favorites collection successfully created ✅"
-pancaketodessert = Tag.create!(
-  collection_id: dessert.id,
+cheap = Collection.create!(
+  name: "cheap",
+  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654154/cheap_pm6vvh.jpg"
+)
+asian = Collection.create!(
+  name: "asian",
+  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654186/asian_jimmjc.jpg"
+)
+puts "Favorites collection successfully created ✅"
+
+pancaketobrunch = Tag.create!(
+  collection_id: brunch.id,
   recipe_id: pancake.id
 )
-crepestodessert = Tag.create!(
-  collection_id: dessert.id,
+crepestobrunch = Tag.create!(
+  collection_id: brunch.id,
   recipe_id: crepes.id
 )
 tag1 = Tag.create!(
-  collection_id: veggie.id,
+  collection_id: healthy.id,
   recipe_id: gratin.id
 )
 tag2 = Tag.create!(
-  collection_id: veggie.id,
+  collection_id: healthy.id,
   recipe_id: salad.id
 )
 tag3 = Tag.create!(
-  collection_id: veggie.id,
+  collection_id: healthy.id,
   recipe_id: spaghetti.id
 )
 tag4 = Tag.create!(
@@ -199,4 +209,4 @@ tag5 = Tag.create!(
   collection_id: favorites.id,
   recipe_id: curry.id
 )
-puts "Collections successfully fulfilled 🚀🚀"
+puts "Collections successfully fulfilled 🚀"
