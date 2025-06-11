@@ -57,7 +57,7 @@
 .collections-grid {
   margin-top: 1.5rem;
   display: grid;
-  grid-template-columns: repeat(2, 210px);
+  grid-template-columns: repeat(2, 161px);
   gap: 1rem;
   justify-content: center;
 
@@ -65,8 +65,8 @@
     position: relative;
     border-radius: 10px;
     overflow: hidden;
-    height: 210px;
-    width: 202px;
+    height: 161px;
+    width: 155px;
     text-decoration: none;
     color: white;
     font-weight: bold;
