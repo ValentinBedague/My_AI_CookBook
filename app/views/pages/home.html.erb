@@ -3,7 +3,9 @@
   <%= link_to "📚collections", collections_path, class: "text-primary fw-bold small" %>
   <%= link_to "🏠home", root_path, class: "text-primary fw-bold small" %>
   <%= link_to "🍽️recipes", root_path, class: "text-primary fw-bold small" %>
-  <%= link_to "🙎‍♂️profile",user_path(current_user), class: "text-primary fw-bold small" %>
+ <% if current_user %>
+  <%= link_to "🙎‍♂️profile", user_path(current_user), class: "text-primary fw-bold small" %>
+<% end %>
 </div>
 <p>Find me in app/views/pages/home.html.erb</p>
 <%= link_to "add a recipe manually", new_recipe_path, class: "btn btn-primary" %>
