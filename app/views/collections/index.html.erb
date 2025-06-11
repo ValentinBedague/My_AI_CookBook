@@ -1,16 +1,16 @@
 <div class="collections-index">
 
   <!-- Logo -->
-    <%= image_tag("myaicookbook.svg", alt: "My AI Cookbook Logo", class: "logo") %>
+    <%= image_tag("https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg", alt: "My AI Cookbook Logo", class: "logo") %>
   <div class="collection-header">
     <h1>My books</h1>
 
     <div class="collection-header-actions">
       <%= link_to "#", class: "icon-button" do %>
-          <%= image_tag "loupe.svg", alt: "loupe", class: "nav-icon" %>
+          <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/loupe_vqrpe1.svg", alt: "loupe", class: "nav-icon" %>
       <% end %>
       <%= link_to new_collection_path, class: "icon-button" do %>
-          <%= image_tag "icon-plus.svg", alt: "plus", class: "nav-icon" %>
+          <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/icon-plus_lipxxr.svg", alt: "plus", class: "nav-icon" %>
       <% end %>
     </div>
   </div>
@@ -40,21 +40,21 @@
 <nav class="bottom-nav">
   <%= link_to root_path, class: "nav-link" do %>
     <div class="nav-content">
-      <%= image_tag "home.svg", alt: "Home", class: "nav-icon" %>
+      <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/home_afkoel.svg", alt: "Home", class: "nav-icon" %>
       <span class="nav-label">Home</span>
     </div>
   <% end %>
 
   <%= link_to recipes_path, class: "nav-link" do %>
     <div class="nav-content">
-      <%= image_tag "spoon.svg", alt: "Recipes", class: "nav-icon" %>
+      <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654035/spoon_ubduiu.svg", alt: "Recipes", class: "nav-icon" %>
       <span class="nav-label">Recipes</span>
     </div>
   <% end %>
 
   <%= link_to collections_path, class: "nav-link active" do %>
     <div class="nav-content">
-      <%= image_tag "book.svg", alt: "Books", class: "nav-icon" %>
+      <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/book_vljedv.svg", alt: "Books", class: "nav-icon" %>
       <span class="nav-label">Books</span>
     </div>
   <% end %>
@@ -62,14 +62,14 @@
   <% if current_user %>
     <%= link_to user_path(current_user), class: "nav-link" do %>
       <div class="nav-content">
-        <%= image_tag "profile.svg", alt: "Profile", class: "nav-icon" %>
+        <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/profile_f9vtwn.svg", alt: "Profile", class: "nav-icon" %>
         <span class="nav-label">Profile</span>
       </div>
     <% end %>
   <% else %>
     <%= link_to new_user_session_path, class: "nav-link" do %>
       <div class="nav-content">
-        <%= image_tag "profile.svg", alt: "Profile", class: "nav-icon" %>
+        <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/profile_f9vtwn.svg", alt: "Profile", class: "nav-icon" %>
         <span class="nav-label">Profile</span>
       </div>
     <% end %>
