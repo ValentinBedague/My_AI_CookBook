@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :recipes, only: [:new, :create, :show, :edit, :update, :destroy] do
+  resources :recipes, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
     collection do
       get :new_via_url
       post :create_via_url
