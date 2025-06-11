@@ -166,11 +166,11 @@ veggie = Collection.create!(
   url_image: "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/lunch.jpg"
 )
 puts "Veggie collection successfully created ✅"
-favorite = Collection.create!(
-  name: "Favorite",
+favorites = Collection.create!(
+  name: "Favorites",
   url_image: "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/dinner.jpg"
 )
-puts "Favorite collection successfully created ✅"
+puts "Favorites collection successfully created ✅"
 pancaketodessert = Tag.create!(
   collection_id: dessert.id,
   recipe_id: pancake.id

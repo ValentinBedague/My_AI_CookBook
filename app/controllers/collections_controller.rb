@@ -1,6 +1,7 @@
 class CollectionsController < ApplicationController
   def index
     @collections = Collection.all
+    @favorites = Collection.find_by(name: "Favorites")
   end
 
   def show
