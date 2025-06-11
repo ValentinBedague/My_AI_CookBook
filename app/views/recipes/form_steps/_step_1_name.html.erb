@@ -1,0 +1,6 @@
+<%= simple_form_for recipe, url: recipes_path, method: :post do |f| %>
+  <%= f.input :name, label: "What’s the name of your recipe?" %>
+  <%= f.input :portions, label: "How many portions?" %>
+  <%= f.input :url_image, label: "Image URL (optional)" %>
+  <%= f.submit "Create recipe", class: "btn btn-success mt-3" %>
+<% end %>
