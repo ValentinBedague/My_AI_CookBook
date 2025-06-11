@@ -1,7 +1,12 @@
 <div>
   <%=@collection.name %>
+  <%= link_to "📚collections", collections_path, class: "text-primary fw-bold small" %>
+  <%= link_to "🏠home", root_path, class: "text-primary fw-bold small" %>
+  <%= link_to "🍽️recipes", collections_path, class: "text-primary fw-bold small" %>
+  <div>
   <%= link_to "❌delete book", collection_path(@collection), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "text-danger fw-bold small" %>
   <%= link_to "🍽️add a recipe to the book", new_collection_tag_path(@collection), class: "text-primary fw-bold small" %>
+  </div>
   </div>
 <%= link_to "↩️ back", collections_path, class: 'btn btn-ghost  btn-sm' %>
 <% @collection.recipes.each do |recipe| %>

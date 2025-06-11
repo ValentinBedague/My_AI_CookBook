@@ -24,4 +24,8 @@ Rails.application.routes.draw do
   end
   resources :tags, only: [:destroy]
 
+  resources :users, only: [:show] do
+    resources :restrictions, only: [:edit, :patch]
+  end
+
 end

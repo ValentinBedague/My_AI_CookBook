@@ -1,0 +1,8 @@
+<div>
+    <%= link_to "📚collections", collections_path, class: "text-primary fw-bold small" %>
+  <%= link_to "🏠home", root_path, class: "text-primary fw-bold small" %>
+  <%= link_to "🍽️recipes", root_path, class: "text-primary fw-bold small" %>
+  <%= link_to "🙎‍♂️profile",user_path(current_user), class: "text-primary fw-bold small" %>
+  <p>ceci est la show du current user :</p>
+<%= @user.email %>
+</div>
