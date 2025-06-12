@@ -51,7 +51,7 @@ class RecipesController < ApplicationController
       "name": "Name of the recipe as a string (leave empty if not found)",
       "portions": "Number of servings as a string or integer (leave empty if not found)",
       "preparation_time": "Preparation time as an integer (in minutes, e.g., 30 for 30 minutes) (leave empty if not found)",
-      "description": "Step-by-step instructions, using numbered steps (e.g., '1. ..., 2. ...') (leave empty if not found)",
+      "description": "An array of step-by-step instructions as strings (e.g., 'Do this', 'Then do that'). Leave empty if not found.",
       "ingredients": {
         "ingredient1": {
           "name": "Ingredient name as a string (leave empty if not found)",
@@ -133,7 +133,7 @@ def create_via_img
       "name": "Name of the recipe as a string (leave empty if not found)",
       "portions": "Number of servings as a string or integer (leave empty if not found)",
       "preparation_time": "Preparation time as an integer (in minutes, e.g., 30 for 30 minutes) (leave empty if not found)",
-      "description": "Step-by-step instructions, using numbered steps (e.g., '1. ..., 2. ...') (leave empty if not found)",
+      "description": "An array of step-by-step instructions as strings (e.g., 'Do this', 'Then do that'). Leave empty if not found.",
       "ingredients": {
         "ingredient1": {
           "name": "Ingredient name as a string (leave empty if not found)",
