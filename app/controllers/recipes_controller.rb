@@ -114,7 +114,7 @@ PROMPT
     @recipe = Recipe.new
   end
 
-  def create_via_img
+def create_via_img
     @recipe = Recipe.new(recipe_params)
     @recipe.user = current_user
     @recipe.save
@@ -153,12 +153,13 @@ PROMPT
     - If a piece of information is missing or not clearly visible in the image, leave the corresponding field empty. Do not guess or make assumptions.
     - Return **only** the final JSON object.
     - Do not include explanations, notes, or headers.
+    - Do NOT include markdown code blocks or any formatting.
     - Ensure the JSON is syntactically valid.
 PROMPT
    @instruction =SYSTEM_PROMPT
    @message = Message.new(role:"user", content: @img_prompt, recipe: @recipe)
    @chat = RubyLLM.chat(model: "gpt-4o")
-   response = @chat.with_instructions(@instruction).ask(@message.content, with: {image: @recipe.image.url})
+   response = @chat.with_instructions(@instruction).ask(@message.content, with: {image: @recipe.image})
    Message.create(role: "assistant", content: response.content, recipe: @recipe)
 
    json_response = Message.last.content
