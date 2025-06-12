@@ -1,10 +1,21 @@
 .btn-plain{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   background-color: $green-primary;
   height: 45px;
   width: 249px;
   color: #FFFF;
-  border-radius: 12px;
+  border-radius: 10px;
   padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-width: 0;
+
+    .btn-icon {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .btn-outline{
@@ -25,4 +36,15 @@
   border-radius: 12px;
   border: 1px solid #b00100;
   padding-top: 0.5rem;
+}
+.fixed-bottom-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  position: fixed;
+  bottom: 39px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  align-items: center; // ✅ aligne verticalement
 }

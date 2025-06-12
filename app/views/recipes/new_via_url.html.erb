@@ -1,12 +1,29 @@
-<h1 class="mb-5">Import a recipe from an URL</h1>
-<div class="row justify-content-center">
-  <div class="col-8">
-    <div class="card bg-white rounded-4 p-5">
-      <%= simple_form_for :url_form, url: create_via_url_recipes_path, method: :post do |f| %>
-        <%= f.input :url, label: "Recipe URL" %>
-        <%= f.submit "Import a recipe 🚀", class: "btn btn-ghost" %>
-      <% end %>
+<div class="container justify-content-center col-10">
+  <div class="header-actions">
+        <%= link_to root_path do %>
+            <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749757945/back_epdna9.svg", alt: "loupe" %>
+        <% end %>
+        <%= link_to new_collection_path do %>
+            <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749757944/quit_jweu9c.svg", alt: "plus" %>
+        <% end %>
+      </div>
+    <h1 class="mb-5">Import a recipe from the Web</h1>
+          <%= simple_form_for :url_form, url: create_via_url_recipes_path, method: :post do |f| %>
+            <div class="input-with-icon">
+              <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749763790/link_dvg4sa.svg", class: "input-icon" %>
+              <%= f.input :url,
+                name: "recipe_url",
+                placeholder: "Paste your recipe’s page link",
+                input_html: { class: "custom-input" },
+                label: false
+                %>
+            </div>
+            <div class="fixed-bottom-button">
+              <%= button_tag(type: "submit", class: "btn-plain") do %>
+                <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg", class: "btn-icon" %>
+                 Import recipe
+              <% end %>
+            </div>
+          <% end %>
 
-    </div>
-  </div>
 </div>
