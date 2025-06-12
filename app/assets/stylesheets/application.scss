@@ -10,3 +10,22 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+body {
+  color: $green-text;
+  background-color: $green-secondary;
+}
+
+h1 {
+  color: $green-primary;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  flex-grow: 1;
+  text-align:left;
+}
+
+h2 {
+  color: $green-primary;
+  font-size: 22px;
+}
