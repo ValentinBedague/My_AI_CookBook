@@ -9,12 +9,12 @@
 #   end
 Tag.destroy_all
 puts "Tags succesfully destroyed ❎"
+Message.destroy_all
+puts "Messages succesfully destroyed ❎"
 Recipe.destroy_all
 puts "Recipes succesfully destroyed ❎"
 Collection.destroy_all
 puts "Collections succesfully destroyed ❎"
-Message.destroy_all
-puts "Messages succesfully destroyed ❎"
 User.destroy_all
 puts "Users succesfully destroyed ❎"
 
