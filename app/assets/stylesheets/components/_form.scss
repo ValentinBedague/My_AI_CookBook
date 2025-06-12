@@ -6,3 +6,31 @@
 .form-label {
   color: $green-text;
 }
+
+input::placeholder,
+textarea::placeholder {
+  color: $green-text !important;
+  font-family: $body-font;
+  font-size: 17px;
+  opacity: 1; /* pour éviter que le placeholder soit trop pâle */
+}
+
+.input-with-icon {
+  position: relative;
+
+  .input-icon {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+  }
+
+  .custom-input {
+    padding-left: 45px !important; // espace pour l'icône
+    height: 50px;
+    border-radius: 25px;
+  }
+}
