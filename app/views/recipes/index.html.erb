@@ -10,7 +10,7 @@
     <% end %>
   </div>
 
-  <% grouped = @recipes.order(:name).group_by { |r| r.name[0].upcase } %>
+  <% grouped = @recipes.select { |r| r.name.present? }.sort_by(&:name).group_by { |r| r.name[0].upcase } %>
 
   <% grouped.each do |letter, recipes| %>
     <h5 class="text-uppercase mt-4"><%= letter %></h5>
