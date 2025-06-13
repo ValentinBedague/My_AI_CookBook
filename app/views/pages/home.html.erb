@@ -1,12 +1,12 @@
 <div class="container p-4">
   <%= link_to root_path do %>
-    <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/book_vljedv.svg", alt: "Books", class: "nav-icon" %>
-    <h1>My AI cookbook</h1>
+    <!-- Logo -->
+    <%= image_tag("https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg", alt: "My AI Cookbook Logo", class: "logo") %>
   <% end %>
 
 
   <%= form_with url: "", method: :get, local: true,
-      class: "d-flex mt-5", role: "search" do |f| %>
+      class: "d-flex mt-2", role: "search" do |f| %>
     <div class="search-wrapper position-relative flex-grow-1 me-2">
       <i class="fa-solid fa-magnifying-glass search-icon"></i>
       <%= f.text_field :q,
