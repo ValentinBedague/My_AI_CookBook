@@ -1,13 +1,16 @@
-const plus = document.querySelector("#plus");
-const creation = document.querySelector("#create-recipe");
-const container = document.querySelector(".container");
+import { Controller } from "@hotwired/stimulus"
 
-
-if (plus) {
-  plus.addEventListener("click", (event) => {
+// Connects to data-controller="create-recipe"
+export default class extends Controller {
+  connect() {
+    const plus = document.querySelector("#plus");
+    const creation = document.querySelector("#create-recipe");
+    const container = document.querySelector(".container");
+    console.log("hello")
+    plus.addEventListener("click", (event) => {
     // Code JS pour cette page uniquement
     event.preventDefault();
-    console.log("hello")
+
     creation.classList.toggle("d-none");
     if (creation.classList != "d-none") {
       container.setAttribute("style", "filter: blur(4px);");
@@ -20,4 +23,5 @@ if (plus) {
       document.body.classList.remove('no-scroll');
     }
   });
+  }
 }
