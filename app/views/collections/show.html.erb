@@ -1,5 +1,5 @@
-  <div class="container p-4">
-    <div class="d-flex justify-content-between align-items-center mb-2">
+  <div class="container p-4" data-controller="edit-book">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
       <%= link_to :back do %>
        <i class='rounded-white fas fa-arrow-left'></i>
@@ -13,14 +13,34 @@
       </div>
     </div>
 
-     <h1><%=@collection.name %></h1>
-      <%= link_to "🍽️add a recipe to the book", new_collection_tag_path(@collection), class: "text-primary fw-bold small" %>
+     <h1 class="mb-4"><%=@collection.name.capitalize %></h1>
 
     <% @collection.recipes.each do |recipe| %>
       <% tag = @tags.find{ |t| t.recipe_id == recipe.id} %>
     <div>
-      <%= link_to recipe.name,recipe_path(recipe) %>
-      <%= link_to "delete", tag_path(tag), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "text-danger fw-bold small" %>
+      <div class="recipe-card-link">
+        <div class="recipe-card mb-3" style="background-image: url('<%= recipe.url_image %>');">
+          <!-- Heart button, sorti du link-->
+          <div class="favorite-icon" id="favorite-icon-<%= recipe.id %>">
+
+            <%= button_to tag_path(tag),
+                          method: :delete,
+                          data: { turbo_confirm: "Are you sure?" },
+                          class: "btn btn-link text-danger fw-bold small p-0" do %>
+              <i data-edit-book-target="minusIcon" class="rounded-white fas fa-minus d-none"></i>
+            <% end %>
+          </div>
+          <!-- Cliquable vers la recette -->
+          <%= link_to recipe_path(recipe), class: "card-full-link" do %>
+            <span class="sr-only"><%= recipe.name %></span>
+          <% end %>
+          <!-- Overlay-->
+          <div class="card-overlay">
+            <h5><%= recipe.name %></h5>
+            <p><%= pluralize(recipe.ingredients.count, "ingredient") %> | <%= recipe.preparation_time %> Min</p>
+          </div>
+        </div>
+      </div>
     </div>
     <% end %>
 
@@ -33,7 +53,11 @@
     <%= link_to "<i id='close' style='font-size: 25px;' class='rounded-white fa-solid fa-xmark'></i>".html_safe %>
     <h1 class= "text-center fw-normal my-3">Options</h1>
     <div class="row justify-content-center">
-      <%= link_to "<i class='fa-solid fa-pencil me-2'></i> Edit book".html_safe, new_collection_path, class:"btn btn-outline mt-3" %>
+      <%= link_to "<i class='fa-solid fa-utensils me-2'></i> Add a recipe".html_safe, new_collection_path, class:"btn btn-plain mt-3" %>
+      <%= link_to "<i class='fa-solid fa-pencil me-2'></i> Edit book".html_safe, "#",
+      class: "btn btn-outline mt-3",
+      data: { action: "click->edit-book#toggleMinusIcons", edit_book_target: "editButton" } %>
+
       <%= link_to collection_path(@collection),
           data: {
             turbo_method: :delete,
