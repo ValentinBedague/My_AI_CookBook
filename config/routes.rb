@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   resources :recipes, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
+    post 'toggle_favorite', on: :member
     collection do
       get :new_via_url
       post :create_via_url
