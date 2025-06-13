@@ -1,0 +1,25 @@
+<div id="recipe_form_container">
+  <%= form_with model: @recipe, url: recipes_path, method: :post, data: { turbo_action: "replace" } do |f| %>
+    <%= hidden_field_tag :step, "ingredients" %>
+    <%= hidden_field_tag :id, @recipe.id %>
+
+    <div data-controller="ingredients">
+      <h3>Ingredients</h3>
+
+      <div id="ingredients-list" data-ingredients-target="list">
+      </div>
+
+        <%= f.fields_for :ingredients do |ingredient_fields| %>
+          <div class="ingredient-field">
+            <%= ingredient_fields.text_field :name, placeholder: "Ingredient" %>
+            <%= ingredient_fields.text_field :quantity, placeholder: "Quantity" %>
+            <%= ingredient_fields.text_field :unit, placeholder: "Unit" %>
+          </div>
+        <% end %>
+
+      <button type="button" data-action="click->ingredients#addIngredient">Add</button>
+    </div>
+
+    <%= f.submit "Next" %>
+  <% end %>
+</div>

@@ -1,0 +1,15 @@
+<div id="recipe_form_container">
+  <%= form_with model: @recipe, url: recipes_path, method: :post, data: { turbo_action: "replace" } do |f| %>
+    <%= hidden_field_tag :step, "create" %>
+    <%= hidden_field_tag :id, @recipe.id %>
+    <%= f.hidden_field :url_image %>
+
+    <h3>Cover image</h3>
+
+    <div>
+      <img src="<%= @recipe.url_image %>" alt="recipe image">
+    </div>
+
+    <%= f.submit "Create recipe" %>
+  <% end %>
+</div>

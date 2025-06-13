@@ -1,0 +1,14 @@
+<div id="recipe_form_container">
+  <%= form_with model: @recipe, url: recipes_path, method: :post, data: { turbo_action: "replace" } do |f| %>
+    <%= hidden_field_tag :step, "name" %>
+
+    <h3>Name</h3>
+
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <%= f.submit "Next" %>
+  <% end %>
+</div>
