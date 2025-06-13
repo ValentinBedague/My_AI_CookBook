@@ -42,7 +42,11 @@
 
     .nav-label {
       line-height: 1;
-      color: #438866;
+      color: $green-bg-icon;
+    }
+      .active-label {
+      line-height: 1;
+      color: $green-primary;
     }
   }
 }
