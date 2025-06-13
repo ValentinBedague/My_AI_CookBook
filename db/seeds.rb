@@ -20,8 +20,8 @@ puts "Users succesfully destroyed ❎"
 
 puts "Creating models..."
 user1 = User.create!(
-  email: "user1@gmail.com",
-  password: "password"
+  email: "remilebogoss@gmail.com",
+  password: "Remidu69"
 )
 
 puts "User 1 succesfully created ✅"
@@ -125,7 +125,7 @@ gratin = Recipe.create!(
     "Add salt, pepper, and bake for 1h at 180°C.",
     "Let rest before serving."
   ],
-  url_image: "https://images.pexels.com/photos/586520/pexels-photo-586520.jpeg",
+  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749823157/scalloped-potatoes_tfzsen.png",
   user_id: user1.id
 )
 names = ["potatoes", "heavy cream", "milk", "garlic", "salt", "pepper"]
