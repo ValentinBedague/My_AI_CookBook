@@ -4,9 +4,11 @@ const container = document.querySelector(".container")
 const close = document.querySelector("#close")
 
 if (modal) {
+  console.log(modal)
   dots.addEventListener("click", (event) => {
 
       // Code JS pour cette page uniquement
+      console.log("hello")
       event.preventDefault();
       modal.classList.remove("d-none");
       modal.setAttribute("style", "position: fixed; bottom:60px;");
