@@ -82,3 +82,28 @@ textarea::placeholder {
 .custom-file-input {
   display: none !important;
 }
+
+// <--search-bar-->>
+
+.search-bar {
+  background-color: white;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  width: 326px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+    input {
+      border: none;
+      outline: none;
+      flex-grow: 1;
+      margin: 0 0.5rem;
+      font-size: 1rem;
+      color: #03542c;
+    }
+
+    i {
+      color: #03542c;
+    }
+  }
