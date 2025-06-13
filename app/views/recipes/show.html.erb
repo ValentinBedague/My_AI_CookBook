@@ -8,11 +8,12 @@
       <%= link_to :back do %>
        <i class='rounded-white fas fa-arrow-left'></i>
       <% end %>
-      <div>
+      <div class="d-flex">
         <i class="far fa-heart me-2 rounded-white"></i>
 
-        <%= link_to "<i class='fas fa-ellipsis-v rounded-white dots'></i>".html_safe %>
-
+        <%= button_to false, class:"dot-button" do %>
+        <i class='fas fa-ellipsis-v rounded-white dots'></i>
+        <% end %>
       </div>
     </div>
 
