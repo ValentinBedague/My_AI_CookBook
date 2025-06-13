@@ -9,7 +9,7 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.all.order(:name)
-    @grouped_recipes = @recipes.group_by { |recipe| recipe.name[0].upcase }
+    @grouped_recipes = @recipes.select { |r| r.name.present?}.group_by { |recipe| recipe.name[0].upcase }
   end
 
   def new
@@ -182,7 +182,7 @@ PROMPT
    @instruction =SYSTEM_PROMPT
    @message = Message.new(role:"user", content: @img_prompt, recipe: @recipe)
    @chat = RubyLLM.chat(model: "gpt-4o")
-   response = @chat.with_instructions(@instruction).ask(@message.content, with: {image: @recipe.image.url})
+   response = @chat.with_instructions(@instruction).ask(@message.content, with: {image: @recipe.image})
    Message.create(role: "assistant", content: response.content, recipe: @recipe)
 
    json_response = Message.last.content

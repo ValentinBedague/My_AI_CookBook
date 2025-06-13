@@ -51,7 +51,7 @@
 </div>
 
 <%= link_to "<i id='plus' class='fa-solid fa-plus rounded-white'></i>".html_safe %>
-<div id="create-recipe", class="d-none">
+<div id="create-recipe", class="d-none", data-controller="create-recipe">
   <%= link_to " Manual entry <i class='fa-solid fa-pencil me-2'></i>".html_safe, new_recipe_path, id: "manual-create", class: "btn-create" %>
   <%= link_to "Take a picture <i class='fa-solid fa-camera'></i>".html_safe, new_via_img_recipes_path, id: "img-create", class: "btn-create" %>
   <%= link_to "Import from web <i class='fa-solid fa-link'></i>".html_safe, new_via_url_recipes_path, id: "url-create", class: "btn-create" %>

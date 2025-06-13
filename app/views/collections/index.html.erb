@@ -1,4 +1,5 @@
-<div class="collections-index">
+<div class="container p-4">
+  <div class="collections-index">
 
   <!-- Logo -->
     <%= image_tag("https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg", alt: "My AI Cookbook Logo", class: "logo") %>
@@ -22,7 +23,7 @@
     <%= link_to collection_path(@favorites), class: "collection-card favorites" do %>
       <div class="text-overlay-container">
         <div class="card-overlay">Favorites</div>
-        <div class="card-overlay">🤍</div>
+        <i class="fa-solid fa-heart"></i>
       </div>
       <div class="card-content">
 
@@ -41,6 +42,7 @@
       <% end %>
     <% end %>
   </div>
-  <!-- Bottom navbar -->
-  <%= render "shared/bottom_navbar" %>
+    <!-- Bottom navbar -->
+    <%= render "shared/bottom_navbar" %>
+  </div>
 </div>
