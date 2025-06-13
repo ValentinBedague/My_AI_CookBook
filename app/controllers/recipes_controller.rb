@@ -2,13 +2,14 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :destroy]
 
   require 'open-uri'
-  
+
   STEPS = %w[name portions preptime ingredients instructions image create]
   SYSTEM_PROMPT = "You are a Cooking Assistant specialized in extracting recipes from images. You must strictly use the original words from the recipe found in the image. Do not paraphrase, invent or translate content."
   SYSTEM_PROMPT_URL = "You are a Cooking Assistant specialized in extracting recipes from text content extracted from cooking recipes webpages. You must strictly use the original words from the text content. Do not paraphrase, invent or translate content."
 
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.all.order(:name)
+    @grouped_recipes = @recipes.group_by { |recipe| recipe.name[0].upcase }
   end
 
   def new
@@ -181,7 +182,7 @@ PROMPT
    @instruction =SYSTEM_PROMPT
    @message = Message.new(role:"user", content: @img_prompt, recipe: @recipe)
    @chat = RubyLLM.chat(model: "gpt-4o")
-   response = @chat.with_instructions(@instruction).ask(@message.content, with: {image: @recipe.image})
+   response = @chat.with_instructions(@instruction).ask(@message.content, with: {image: @recipe.image.url})
    Message.create(role: "assistant", content: response.content, recipe: @recipe)
 
    json_response = Message.last.content
