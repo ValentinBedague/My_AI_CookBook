@@ -1,0 +1,22 @@
+<div id="recipe_form_container">
+  <%= form_with model: @recipe, url: recipes_path, method: :post, data: { turbo_action: "replace" } do |f| %>
+    <%= hidden_field_tag :step, "instructions" %>
+    <%= hidden_field_tag :id, @recipe.id %>
+    <% instruction_step = 0 %>
+
+    <div data-controller="instructions" data-instructions-instructionstep-value="<%= instruction_step %>">
+      <h3>Instructions</h3>
+
+      <div data-instructions-target="list">
+      </div>
+
+      <div>
+        <label for="instruction-input">Instruction <span data-instructions-target="count">1</span></label><br />
+        <input type="text" id="instruction-input" data-instructions-target="input" />
+        <button type="button" data-action="instructions#addInstruction">Add</button>
+      </div>
+    </div>
+
+    <%= f.submit "Next" %>
+  <% end %>
+</div>
