@@ -31,11 +31,11 @@ pancake = Recipe.create!(
   portions: 4,
   preparation_time: 20,
   description: [
-    "1. In a mixing bowl, combine the flour, baking powder, sugar, and salt.",
-    "2. Add the eggs, then gradually whisk in the milk.",
-    "3. Let the batter rest for 10 minutes.",
-    "4. Cook small scoops of batter in a hot greased pan.",
-    "5. Flip when bubbles form and cook until golden on both sides."
+    "In a mixing bowl, combine the flour, baking powder, sugar, and salt.",
+    "Add the eggs, then gradually whisk in the milk.",
+    "Let the batter rest for 10 minutes.",
+    "Cook small scoops of batter in a hot greased pan.",
+    "Flip when bubbles form and cook until golden on both sides."
   ],
   url_image: 'https://www.allrecipes.com/thmb/FE0PiuuR0Uh06uVh1c2AsKjRGbc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/21014-Good-old-Fashioned-Pancakes-mfs_002-0e249c95678f446291ebc9408ae64c05.jpg',
   user_id: user1.id
@@ -56,11 +56,11 @@ spaghetti = Recipe.create!(
   portions: 2,
   preparation_time: 25,
   description: [
-    "1. Chop the vegetables.",
-    "2. Sauté them with olive oil.",
-    "3. Cook the spaghetti.",
-    "4. Mix the pasta with the grilled vegetables.",
-    "5. Add grated parmesan before serving."
+    "Chop the vegetables.",
+    "Sauté them with olive oil.",
+    "Cook the spaghetti.",
+    "Mix the pasta with the grilled vegetables.",
+    "Add grated parmesan before serving."
   ],
   url_image: "https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg",
   user_id: user1.id
@@ -77,11 +77,11 @@ salad = Recipe.create!(
   portions: 4,
   preparation_time: 15,
   description: [
-    "1. Cook the quinoa and let it cool.",
-    "2. Dice the vegetables.",
-    "3. Mix all ingredients in a bowl.",
-    "4. Add lemon juice and olive oil.",
-    "5. Chill before serving."
+    "Cook the quinoa and let it cool.",
+    "Dice the vegetables.",
+    "Mix all ingredients in a bowl.",
+    "Add lemon juice and olive oil.",
+    "Chill before serving."
   ],
   url_image: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg",
   user_id: user1.id
@@ -98,11 +98,11 @@ curry = Recipe.create!(
   portions: 3,
   preparation_time: 30,
   description: [
-    "1. Finely chop the onion and sauté it.",
-    "2. Add the spices and stir.",
-    "3. Add chickpeas, coconut milk, and tomatoes.",
-    "4. Simmer for 20 minutes.",
-    "5. Serve with basmati rice."
+    "Finely chop the onion and sauté it.",
+    "Add the spices and stir.",
+    "Add chickpeas, coconut milk, and tomatoes.",
+    "Simmer for 20 minutes.",
+    "Serve with basmati rice."
   ],
   url_image: "https://images.pexels.com/photos/1640773/pexels-photo-1640773.jpeg",
   user_id: user1.id
@@ -119,11 +119,11 @@ gratin = Recipe.create!(
   portions: 4,
   preparation_time: 20,
   description: [
-    "1. Peel and thinly slice the potatoes.",
-    "2. Rub a baking dish with garlic.",
-    "3. Layer the potatoes and cover with cream.",
-    "4. Add salt, pepper, and bake for 1h at 180°C.",
-    "5. Let rest before serving."
+    "Peel and thinly slice the potatoes.",
+    "Rub a baking dish with garlic.",
+    "Layer the potatoes and cover with cream.",
+    "Add salt, pepper, and bake for 1h at 180°C.",
+    "Let rest before serving."
   ],
   url_image: "https://images.pexels.com/photos/586520/pexels-photo-586520.jpeg",
   user_id: user1.id
@@ -140,11 +140,11 @@ crepes = Recipe.create!(
   portions: 4,
   preparation_time: 15,
   description: [
-    "1. Mix flour, eggs, and sugar.",
-    "2. Gradually add the milk.",
-    "3. Let rest for 30 minutes.",
-    "4. Cook crepes in a hot pan.",
-    "5. Serve with your favorite topping."
+    "Mix flour, eggs, and sugar.",
+    "Gradually add the milk.",
+    "Let rest for 30 minutes.",
+    "Cook crepes in a hot pan.",
+    "Serve with your favorite topping."
   ],
   url_image: "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg",
   user_id: user1.id
