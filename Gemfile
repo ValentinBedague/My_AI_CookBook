@@ -53,6 +53,7 @@ gem "devise" # add devise for users management
 gem "pundit" # add pundit for Authorisation
 gem "ruby_llm" # add rubyllm for AI features
 gem "cloudinary" # add cloudinary for images stockage
+gem "nokogiri"
 
 group :development, :test do
   gem "dotenv-rails"

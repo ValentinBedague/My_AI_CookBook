@@ -1,1 +1,32 @@
-<h1>Upload your image</h1>
+
+<div class="container justify-content-center col-10">
+  <div class="header-actions">
+        <%= link_to :back do %>
+            <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749757945/back_epdna9.svg", alt: "arrow" %>
+        <% end %>
+        <%= link_to root_path do %>
+            <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749757944/quit_jweu9c.svg", alt: "cross" %>
+        <% end %>
+      </div>
+    <h1 class="mb-5">Import a recipe from a picture</h1>
+          <%= simple_form_for(@recipe, url: create_via_img_recipes_path) do |f| %>
+            <div class="custom-file-upload">
+              <%= f.input :image, as: :file,
+                name: "image",
+                label: false,
+                input_html: { id: "recipe_image", class: "custom-file-input", style: "display:none;" }
+              %>
+              <label for="recipe_image" class="custom-file-label">
+                <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749765804/images_a2dvsd.svg", class: "custom-file-icon" %>
+                <span id="custom-file-text">Upload a picture</span>
+              </label>
+            </div>
+            <div class="fixed-bottom-button">
+              <%= button_tag(type: "submit", class: "btn-plain") do %>
+                <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg", class: "btn-icon" %>
+                 Import recipe
+              <% end %>
+            </div>
+          <% end %>
+
+</div>
