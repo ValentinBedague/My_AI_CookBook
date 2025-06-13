@@ -2,35 +2,36 @@
 <nav class="bottom-nav">
   <%= link_to root_path, class: "nav-link" do %>
     <div class="nav-content">
-      <i class="fa-solid fa-house-chimney nav-icon"></i>
+      <i class="fa-solid fa-house-chimney <%= controller_name == 'pages' ? 'active-icon' : 'nav-icon' %>"></i>
       <span class="nav-label">Home</span>
     </div>
   <% end %>
 
   <%= link_to recipes_path, class: "nav-link" do %>
     <div class="nav-content">
-      <i class="fa-solid fa-spoon nav-icon"></i>
+      <i class="fa-solid fa-spoon <%= controller_name == 'recipes' ? 'active-icon' : 'nav-icon' %>"></i>
       <span class="nav-label">Recipes</span>
     </div>
   <% end %>
 
   <%= link_to collections_path, class: "nav-link active" do %>
     <div class="nav-content">
-      <i class="fa-solid fa-book-open nav-icon"></i>     <span class="nav-label">Books</span>
+      <i class="fa-solid fa-book-open <%= controller_name == 'collections' ? 'active-icon' : 'nav-icon' %>"></i>
+      <span class="nav-label">Books</span>
     </div>
   <% end %>
 
   <% if current_user %>
     <%= link_to user_path(current_user), class: "nav-link" do %>
       <div class="nav-content">
-        <i class="fa-solid fa-user-large nav-icon"></i>
+        <i class="fa-solid fa-user-large <%= controller_name == 'users' ? 'active-icon' : 'nav-icon' %> "></i>
         <span class="nav-label">Profile</span>
       </div>
     <% end %>
   <% else %>
     <%= link_to new_user_session_path, class: "nav-link" do %>
       <div class="nav-content">
-        <i class="fa-solid fa-user-large nav-icon"></i>
+        <i class="fa-solid fa-user-large <%= controller_name == 'users' ? 'active-icon' : 'nav-icon' %>"></i>
         <span class="nav-label">Profile</span>
       </div>
     <% end %>
