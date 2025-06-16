@@ -18,7 +18,7 @@ class RecipesController < ApplicationController
     else
       @recipes = Recipe.all.order(:name)
     end
-    @grouped_recipes = @recipes.group_by { |r| r.name[0].upcase }
+    @grouped_recipes = @recipes.select { |r| r.name.present?}.group_by { |recipe| recipe.name[0].upcase }
   end
 
   def new
