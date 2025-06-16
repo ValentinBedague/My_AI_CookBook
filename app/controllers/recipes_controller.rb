@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :destroy]
+  before_action :set_recipe, only: [:show, :edit, :destroy, :ask_ai]
 
   require 'open-uri'
 
@@ -18,6 +18,9 @@ class RecipesController < ApplicationController
   end
 
   def show
+  end
+
+  def ask_ai
   end
 
   def create
