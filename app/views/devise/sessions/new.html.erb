@@ -1,9 +1,11 @@
 <div class="container p-4 d-flex justify-content-center flex-column">
 
-  <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg", alt: "logo", style: "height: 8rem;
-    width: auto;transform: scale(2);" %>
-
-  <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749809545/Chars_hsml9u.png", alt: "cook", class: "mt-5" %>
+  <%= link_to home_path do %>
+    <div class="d-flex justify-content-center">
+      <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg", alt: "logo", style: "height:300px; width: 450px; margin-top:-50px;"%>
+    </div>
+  <% end %>
+  <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749809545/Chars_hsml9u.png", alt: "cook" %>
 
 
 
