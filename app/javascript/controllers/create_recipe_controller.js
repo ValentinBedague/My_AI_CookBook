@@ -6,7 +6,7 @@ export default class extends Controller {
     const plus = document.querySelector("#plus");
     const creation = document.querySelector("#create-recipe");
     const container = document.querySelector(".container");
-    console.log("hello")
+
     plus.addEventListener("click", (event) => {
     // Code JS pour cette page uniquement
     event.preventDefault();
