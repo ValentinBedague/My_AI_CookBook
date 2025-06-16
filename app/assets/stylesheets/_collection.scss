@@ -5,10 +5,11 @@
   position: relative;
   padding-left: 1rem;
   padding-right: 1rem;
+  overflow: visible;
 
   .collection-header-actions {
     display: flex;
-    gap: 0.5rem;
+    gap: 2px;
 
     .icon-button {
       background: none;

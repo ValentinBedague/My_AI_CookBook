@@ -10,13 +10,18 @@
     <% end %>
 
     <!-- Search bar -->
-    <div class="d-flex justify-content-center">
-      <div class="search-bar">
-        <i class="fas fa-search"></i>
-        <input type="text" placeholder="Find a recipe" id="recipe-search-input">
-        <i class="fas fa-filter"></i>
-      </div>
-    </div>
+    <%= form_with url: "", method: :get, local: true,
+          class: "d-flex mt-2", role: "search" do |f| %>
+        <div class="search-wrapper position-relative flex-grow-1 me-2">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <%= f.text_field :query,
+              class: "form-control ps-5",
+              type: "search",
+              placeholder: "Find a recipe",
+              "aria-label": "Search" %>
+        </div>
+        <!-- <%= f.submit "Search", class: "btn btn-outline-success" %> -->
+      <% end %>
 
      <!-- Recipes tri -->
 

@@ -5,11 +5,11 @@
   <% end %>
 
 
-  <%= form_with url: "", method: :get, local: true,
+  <%= form_with url: recipes_path, method: :get, local: true,
       class: "d-flex mt-2", role: "search" do |f| %>
     <div class="search-wrapper position-relative flex-grow-1 me-2">
       <i class="fa-solid fa-magnifying-glass search-icon"></i>
-      <%= f.text_field :q,
+      <%= f.text_field :query,
           class: "form-control ps-5",
           type: "search",
           placeholder: "Find a recipe",

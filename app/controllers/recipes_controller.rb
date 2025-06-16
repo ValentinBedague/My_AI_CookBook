@@ -8,8 +8,17 @@ class RecipesController < ApplicationController
   SYSTEM_PROMPT_URL = "You are a Cooking Assistant specialized in extracting recipes from text content extracted from cooking recipes webpages. You must strictly use the original words from the text content. Do not paraphrase, invent or translate content."
 
   def index
-    @recipes = Recipe.all.order(:name)
-    @grouped_recipes = @recipes.select { |r| r.name.present?}.group_by { |recipe| recipe.name[0].upcase }
+    if params[:query].present?
+      terms = params[:query].split
+      @recipes = Recipe.left_joins(:ingredients)
+      terms.each do |term|
+        @recipes = @recipes.where("recipes.name ILIKE :term OR ingredients.name ILIKE :term", term: "%#{term}%")
+      end
+      @recipes = @recipes.distinct.order(:name)
+    else
+      @recipes = Recipe.all.order(:name)
+    end
+    @grouped_recipes = @recipes.group_by { |r| r.name[0].upcase }
   end
 
   def new
