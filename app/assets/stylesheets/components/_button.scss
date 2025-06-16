@@ -76,3 +76,32 @@
   z-index: 1000;
   align-items: center; // ✅ aligne verticalement
 }
+
+.btn-ok {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 16px;
+  background-color: rgba(240, 240, 240, 0.9);
+  color: $green-primary;
+  font-weight: 500;
+  font-size: 16px;
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(230, 230, 230, 1);
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: rgba(200, 200, 200, 1);
+  }
+
+  p {
+    margin: 0;
+  }
+}
