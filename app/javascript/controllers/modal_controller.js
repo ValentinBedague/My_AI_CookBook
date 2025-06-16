@@ -3,6 +3,7 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
   static targets = ['minusIcon', 'modalHide', 'blurred','okButton'];
   connect() {
+
     // this.modalHideTarget.classList.add('d-none');
     const dots = document.querySelector('.dots');
     const modal = document.querySelector('.modal-options');
@@ -37,5 +38,6 @@ export default class extends Controller {
       icon.classList.add('d-none');
     });
     this.okButtonTarget.classList.add('d-none')
+
   }
 }

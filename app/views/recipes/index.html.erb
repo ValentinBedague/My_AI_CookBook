@@ -3,10 +3,13 @@
   <div class="card-body">
 
     <!-- Logo -->
-    <%= image_tag("https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg", alt: "My AI Cookbook Logo", class: "logo") %>
+    <%= link_to root_path do %>
+      <%= image_tag("https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg",
+                    alt: "My AI Cookbook Logo",
+                    class: "logo") %>
+    <% end %>
 
     <!-- Search bar -->
-
     <div class="d-flex justify-content-center">
       <div class="search-bar">
         <i class="fas fa-search"></i>

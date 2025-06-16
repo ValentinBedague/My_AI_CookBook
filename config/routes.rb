@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  get "home", to: "pages#home_visitor"
   resources :recipes, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
     post 'toggle_favorite', on: :member
     collection do
