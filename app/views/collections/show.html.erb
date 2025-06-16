@@ -1,74 +1,71 @@
-  <div class="container p-4" data-controller="edit-book">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-
-      <%= link_to :back do %>
-       <i class='rounded-white fas fa-arrow-left'></i>
-      <% end %>
-      <div class="d-flex">
-        <i class="far fa-heart me-2 rounded-white"></i>
-
-        <%= button_to false, class:"dot-button" do %>
-        <i class='fas fa-ellipsis-v rounded-white dots'></i>
+<div data-controller="modal">
+    <div class="container p-4" data-modal-target="blurred">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <%= link_to :back do %>
+        <i class='rounded-white fas fa-arrow-left'></i>
         <% end %>
-      </div>
-    </div>
-
-     <h1 class="mb-4"><%=@collection.name.capitalize %></h1>
-
-    <% @collection.recipes.each do |recipe| %>
-      <% tag = @tags.find{ |t| t.recipe_id == recipe.id} %>
-    <div>
-      <div class="recipe-card-link">
-        <div class="recipe-card mb-3" style="background-image: url('<%= recipe.url_image %>');">
-          <!-- Heart button, sorti du link-->
-          <div class="favorite-icon" id="favorite-icon-<%= recipe.id %>">
-
-            <%= button_to tag_path(tag),
-                          method: :delete,
-                          data: { turbo_confirm: "Are you sure?" },
-                          class: "btn btn-link text-danger fw-bold small p-0" do %>
-              <i data-edit-book-target="minusIcon" class="rounded-white fas fa-minus d-none"></i>
-            <% end %>
-          </div>
-          <!-- Cliquable vers la recette -->
-          <%= link_to recipe_path(recipe), class: "card-full-link" do %>
-            <span class="sr-only"><%= recipe.name %></span>
+        <div class="d-flex">
+          <i class="far fa-heart me-2 rounded-white"></i>
+          <%= button_to false, class:"dot-button" do %>
+          <i class='fas fa-ellipsis-v rounded-white dots'></i>
           <% end %>
-          <!-- Overlay-->
-          <div class="card-overlay">
-            <h5><%= recipe.name %></h5>
-            <p><%= pluralize(recipe.ingredients.count, "ingredient") %> | <%= recipe.preparation_time %> Min</p>
+        </div>
+      </div>
+      <div class="d-flex mb-4 align-items-center">
+        <h1><%=@collection.name.capitalize %></h1>
+        <div class="btn btn-ok d-none" data-action="click->modal#ok" data-modal-target="okButton">
+          <p >OK</p>
+        </div>
+      </div>
+
+
+      <% @collection.recipes.each do |recipe| %>
+        <% tag = @tags.find{ |t| t.recipe_id == recipe.id} %>
+        <div>
+          <div class="recipe-card-link" data-controller="removetag">
+            <div class="recipe-card mb-3" style="background-image: url('<%= recipe.url_image %>');">
+              <div class="favorite-icon" id="favorite-icon-<%= recipe.id %>">
+                <%= link_to tag_path(tag),
+                              data: { modal_target:"minusIcon", removetag_target:"tagItem", action:"click->removetag#fetchDelete"},
+                              class: "btn btn-link text-danger fw-bold small p-0 d-none" do %>
+                  <i  class="rounded-white fas fa-minus"></i>
+                <% end %>
+              </div>
+              <!-- Cliquable vers la recette -->
+              <%= link_to recipe_path(recipe), class: "card-full-link" do %>
+                <span class="sr-only"><%= recipe.name %></span>
+              <% end %>
+              <!-- Overlay-->
+              <div class="card-overlay">
+                <h5><%= recipe.name %></h5>
+                <p><%= pluralize(recipe.ingredients.count, "ingredient") %> | <%= recipe.preparation_time %> Min</p>
+              </div>
+            </div>
           </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="modal-options p-5 d-none" data-modal-target="modalHide">
+      <div class="container">
+        <%= link_to "<i id='close' style='font-size: 25px;' class='rounded-white fa-solid fa-xmark'></i>".html_safe %>
+        <h1 class= "text-center fw-normal my-3">Options</h1>
+        <div class="row justify-content-center">
+          <%= link_to "<i class='fa-solid fa-utensils me-2'></i> Add a recipe".html_safe, new_collection_tag_path(@collection), class:"btn btn-plain mt-3" %>
+          <div class="btn btn-outline mt-3 d-flex"data-action="click->modal#remove" >
+            <i class='fa-solid fa-pencil me-2'></i>
+            <span >Edit Book</span>
+          </div>
+          <%= link_to collection_path(@collection),
+              data: {
+                turbo_method: :delete,
+                turbo_confirm: "Are you sure?"
+              },
+              class: "btn btn-outline-red mt-3" do %>
+            <i class="fa-solid fa-trash me-2"></i> Delete book
+          <% end %>
         </div>
       </div>
     </div>
-    <% end %>
-
-    </div>
-
   </div>
-
-  <div class="modal-options p-5 d-none" data-controller="modal">
-  <div class="container">
-    <%= link_to "<i id='close' style='font-size: 25px;' class='rounded-white fa-solid fa-xmark'></i>".html_safe %>
-    <h1 class= "text-center fw-normal my-3">Options</h1>
-    <div class="row justify-content-center">
-      <%= link_to "<i class='fa-solid fa-utensils me-2'></i> Add a recipe".html_safe, new_collection_path, class:"btn btn-plain mt-3" %>
-      <%= link_to "<i class='fa-solid fa-pencil me-2'></i> Edit book".html_safe, "#",
-      class: "btn btn-outline mt-3",
-      data: { action: "click->edit-book#toggleMinusIcons", edit_book_target: "editButton" } %>
-
-      <%= link_to collection_path(@collection),
-          data: {
-            turbo_method: :delete,
-            turbo_confirm: "Are you sure?"
-          },
-          class: "btn btn-outline-red mt-3" do %>
-        <i class="fa-solid fa-trash me-2"></i> Delete book
-      <% end %>
-    </div>
-
-  </div>
-</div>
 <!-- Bottom navbar -->
 <%= render "shared/bottom_navbar" %>
