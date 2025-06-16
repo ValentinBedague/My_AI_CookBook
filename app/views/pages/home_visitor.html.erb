@@ -1,0 +1,15 @@
+<div class="container p-4 d-flex justify-content-center flex-column">
+
+  <%= link_to home_path do %>
+    <div class="d-flex justify-content-center">
+      <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg", alt: "logo", style: "height:300px; width: 450px; margin-top:-50px;"%>
+    </div>
+  <% end %>
+
+  <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750063524/home-img_kpooey.png", alt: "home-image", class: "mb-5"  %>
+
+  <div class="form-actions row justify-content-center mt-5">
+    <%= link_to "Sign in", new_user_session_path, class: "btn btn-plain mb-3" %><br />
+    <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline" %><br />
+  </div>
+</div>
