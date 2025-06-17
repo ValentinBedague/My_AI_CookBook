@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   get "home", to: "pages#home_visitor"
+
   resources :recipes, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
     post 'toggle_favorite', on: :member
     member do
@@ -29,6 +30,12 @@ Rails.application.routes.draw do
     end
     member do
       delete :discard
+    end
+    resources :messages do
+      collection do
+        get :edit_portions
+        post :run_edit_portions
+      end
     end
   end
 
