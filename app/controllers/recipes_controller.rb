@@ -34,6 +34,7 @@ class RecipesController < ApplicationController
     @new_recipe = Recipe.new
     @new_recipe.user = current_user
     @new_recipe.save
+    ingredients_json = @recipe.ingredients.to_json
     @low_cal_prompt = <<~PROMPT
     You will receive information about a cooking recipe.
 
@@ -43,7 +44,7 @@ class RecipesController < ApplicationController
 
     1. Recipe name = #{@recipe.name}
     2. Number of servings = #{@recipe.portions}
-    3. List of ingredients = #{@recipe.ingredients}
+    3. List of ingredients = #{ingredients_json}
     4. Preparation steps = #{@recipe.description}
     5. Preparation time = #{@recipe.preparation_time}
 
@@ -101,9 +102,23 @@ PROMPT
     end
 
    end
-   def view_low_calories
+
+  def view_low_calories
     @new_recipe = Recipe.find(params[:id])
-   end
+    @recipe = Recipe.find(@new_recipe.original_recipe_id)
+  end
+
+  def update_low_calories
+    @recipe = Recipe.find(params[:id])
+    @new_recipe = Recipe.last
+    @recipe.ingredients = @new_recipe.ingredients
+
+     if @recipe.update(name: @new_recipe.name, portions: @new_recipe.portions, preparation_time: @new_recipe.preparation_time, description: @new_recipe.description)
+    redirect_to view_low_calories_recipe_path(@new_recipe), notice: "Low calories #{@recipe.name} 🍽️ has been succesfully created ! ✅"
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
 
   def ask_ai
   end

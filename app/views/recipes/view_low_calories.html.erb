@@ -1,3 +1,78 @@
-<%= @new_recipe.name %>
-<%= @new_recipe.id %>
-<%= @new_recipe.original_recipe_id %>
+<div class="container p-4">
+  <div class="card-body">
+
+   <div class="d-flex justify-content-end align-items-center mb-2">
+      <%= link_to ask_ai_recipe_path(@recipe.id) do %>
+        <i class='rounded-white fas fa-xmark'></i>
+        <% end %>
+   </div>
+
+    <h1 class= "my-4"><i class='fa-solid fa-wand-magic-sparkles me-3'></i><span>Lighten it up, keep flavor</span></h1>
+
+    <div class="recipe-card-link">
+      <div class="recipe-card-link recipe-card" style="background-image: url('<%= @recipe.url_image %>');">
+      </div>
+    </div>
+
+    <h2 class= "my-4">Original calories</h2>
+
+    <p>Instant estimation based on the ingredients and the instructions of the recipe </p>
+
+    <div class="d-flex justify-content-around">
+      <div class='d-flex flex-column justify-content-center bg-white p-3 rounded-4'>
+        <span class='text-center'><strong>457kcal/serving</strong></span>
+        <span>(Protein 29% · Carbs 29% · Fat 29%)</span>
+      </div>
+
+      <div class='d-flex justify-content-center align-items-center bg-white px-4 rounded-4'>
+       <i class="fa-solid fa-face-smile color-green fs-3"></i>
+      </div>
+    </div>
+
+    <h2 class= "my-4">Alternative recipe</h2>
+
+    <p>This is a version of the recipe with some modifications to lower calories</p>
+
+    <h2 class= "mt-4 mb-3">Updated ingredients</h2>
+    <div class="card component-container p-3 rounded-4">
+      <% @new_recipe.ingredients.each do |ingredient| %>
+        <div class="d-flex justify-content-between py-1">
+          <span><%= ingredient.name.capitalize %></span>
+          <span><strong><%= ingredient.quantity %> <%= ingredient.unit %></strong></span>
+        </div>
+      <% end %>
+    </div>
+
+     <h2 class= "mt-4 mb-3">Updated instructions</h2>
+
+    <% @new_recipe.description.each_with_index do |step, index| %>
+      <div class="card component-container p-3 rounded-4 mb-3">
+
+        <span style="color:#438866; font-weight:500;" class= "mb-2">Step <%= index + 1 %></span>
+        <p><%= step %></p>
+      </div>
+    <% end %>
+
+  <p class='mt-5'>Instant estimation based on the ingredients and the instructions of the recipe </p>
+
+    <div class="d-flex justify-content-around mt-4">
+      <div class='d-flex flex-column justify-content-center bg-white p-3 rounded-4'>
+        <span class='text-center'><strong>457kcal/serving</strong></span>
+        <span>(Protein 29% · Carbs 29% · Fat 29%)</span>
+      </div>
+
+      <div class='d-flex justify-content-center align-items-center bg-white px-4 rounded-4'>
+       <i class="fa-solid fa-face-smile color-green fs-3"></i>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <%= link_to  "Make it a new recipe", recipe_path(@new_recipe), class:"btn btn-plain mt-3" %>
+        <%= button_to "Replace the original", update_low_calories_recipe_path(@recipe), method: :patch, class:"btn btn-outline mt-3" %>
+        <%= link_to "Close", edit_recipe_path, class:"btn btn-outline mt-3" %>
+      </div>
+
+  </div>
+  </div>
+</div>

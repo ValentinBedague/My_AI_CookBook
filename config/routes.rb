@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       get :ask_ai
       post :create_low_calories
       get :view_low_calories
+      patch :update_low_calories
+      delete :discard
     end
     collection do
       get :new_via_url
@@ -28,9 +30,6 @@ Rails.application.routes.draw do
       post :generate_img
 
       get :test
-    end
-    member do
-      delete :discard
     end
   end
 
