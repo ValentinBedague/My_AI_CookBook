@@ -7,6 +7,7 @@
   height: 45px;
   width: 249px;
   color: #FFFF;
+  font-weight: 600;
   border-radius: 10px;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -16,6 +17,11 @@
     width: 18px;
     height: 18px;
   }
+}
+
+.btn-plain:disabled,
+.btn-plain[disabled] {
+  background-color: #C6C6C6;
 }
 
 .btn-outline{
@@ -47,4 +53,32 @@
   transform: translateX(-50%);
   z-index: 1000;
   align-items: center; // ✅ aligne verticalement
+}
+
+.btn-small-square{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: $green-primary;
+  height: 45px;
+  width: 45px;
+  color: #FFFF;
+  border-radius: 10px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-width: 0;
+}
+
+button.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: inherit; /* keeps icon color */
+  font-size: inherit;
+}
+button.icon-button:focus {
+  outline: none; /* optional: remove focus ring, or customize */
 }

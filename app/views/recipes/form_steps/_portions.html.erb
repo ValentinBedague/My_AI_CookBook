@@ -3,13 +3,44 @@
     <%= hidden_field_tag :step, "portions" %>
     <%= hidden_field_tag :id, @recipe.id %>
 
-    <h3>Portions</h3>
-
-    <div>
-      <%= f.label :portions %>
-      <%= f.text_field :portions %>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div></div>
+      <%# link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
+      <%= button_to discard_recipe_path(@recipe),
+            method: :delete,
+            data: { turbo_confirm: "Are you sure you want to cancel?" },
+            form: { class: "d-inline", data: { turbo_action: "replace" } },
+            class: "icon-button" do %>
+        <i class="fas fa-xmark rounded-white"></i>
+      <% end %>
     </div>
 
-    <%= f.submit "Next" %>
+    <h1 class= "my-4"><%= @recipe.name || "Create a new recipe" %></h1>
+
+    <div class="steps mb-5">
+      <span class="circle done"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <div class="progress-bar">
+        <span class="indicator"></span>
+      </div>
+    </div>
+
+    <h2 class="mb-4">Portions</h2>
+
+    <div class="mb-4">
+      For how many people is your recipe?
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center" data-controller="counter">
+      <i class='rounded-white fas fa-minus me-3' data-action="click->counter#decrement"></i>
+      <%= f.number_field :portions, class: "form-control form-control-small text-center", style: "font-weight: 600;", value: (@recipe.portions || 4), min: 1, step: 1, data: { counter_target: "input" } %>
+      <i class='rounded-white fas fa-plus ms-3' data-action="click->counter#increment"></i>
+    </div>
+
+    <div class="fixed-bottom-button">
+      <%= f.submit "Next", class: "btn-plain" %>
+    </div>
   <% end %>
 </div>

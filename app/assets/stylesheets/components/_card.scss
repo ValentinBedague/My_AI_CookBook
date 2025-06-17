@@ -2,7 +2,14 @@
   border: 1px;
   background-color: #FFFF;
   color: $green-text;
-  text-transform: capitalize;
+  // text-transform: capitalize;
 
 
+}
+
+.instruction-item i.fa-trash-can {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.9rem;
 }

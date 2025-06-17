@@ -1,15 +1,48 @@
-<div id="recipe_form_container">
+<div id="recipe_form_container" data-controller="preptime">
   <%= form_with model: @recipe, url: recipes_path, method: :post, data: { turbo_action: "replace" } do |f| %>
     <%= hidden_field_tag :step, "preptime" %>
     <%= hidden_field_tag :id, @recipe.id %>
 
-    <h3>Preparation time</h3>
-
-    <div>
-      <%= f.label :preparation_time %>
-      <%= f.text_field :preparation_time %>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div></div>
+      <%# link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
+      <%= button_to discard_recipe_path(@recipe),
+            method: :delete,
+            data: { turbo_confirm: "Are you sure you want to cancel?" },
+            form: { class: "d-inline", data: { turbo_action: "replace" } },
+            class: "icon-button" do %>
+        <i class="fas fa-xmark rounded-white"></i>
+      <% end %>
     </div>
 
-    <%= f.submit "Next" %>
+    <h1 class= "my-4"><%= @recipe.name || "Create a new recipe" %></h1>
+
+    <div class="steps mb-5">
+      <span class="circle done"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <div class="progress-bar">
+        <span class="indicator"></span>
+      </div>
+    </div>
+
+    <h2 class="mb-4">Preparation time</h2>
+
+    <div class="d-flex justify-content-center align-items-center">
+      <%= number_field_tag :preptime_number, (@recipe.preparation_time || 0), min: 0, class: "form-control form-control-small text-center me-3", style: "font-weight: 600;", data: { action: "input->preptime#update" } %>
+
+      <select id="preptime_unit" class="form-select" style="font-weight: 600;" data-action="change->preptime#update" data-preptime-target="unit">
+        <option value="minutes" <%= "selected" if (@recipe.preparation_time && @recipe.preparation_time < 60) %>>Minutes</option>
+        <option value="hours" <%= "selected" if (@recipe.preparation_time && @recipe.preparation_time >= 60) %>>Hours</option>
+      </select>
+    </div>
+
+    <!-- Hidden input that actually submits preparation_time in minutes -->
+    <%= f.hidden_field :preparation_time, data: { preptime_target: "result" } %>
+
+    <div class="fixed-bottom-button">
+      <%= f.submit "Next", class: "btn-plain" %>
+    </div>
   <% end %>
 </div>

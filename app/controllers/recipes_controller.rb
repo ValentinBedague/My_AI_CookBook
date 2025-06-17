@@ -2,7 +2,7 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :destroy]
 
   require 'open-uri'
-  
+
   STEPS = %w[name portions preptime ingredients instructions image create]
   SYSTEM_PROMPT = "You are a Cooking Assistant specialized in extracting recipes from images. You must strictly use the original words from the recipe found in the image. Do not paraphrase, invent or translate content."
   SYSTEM_PROMPT_URL = "You are a Cooking Assistant specialized in extracting recipes from text content extracted from cooking recipes webpages. You must strictly use the original words from the text content. Do not paraphrase, invent or translate content."
@@ -31,13 +31,26 @@ class RecipesController < ApplicationController
     @step = params[:step]
     @recipe.save(validate: false)
     if last_step
-      @recipe.save!
-      redirect_to recipe_path(@recipe), notice: "Recipe created successfully!"
+      if @recipe.save
+        respond_to do |format|
+          format.html { redirect_to recipe_path(@recipe), notice: "Recipe created successfully!" }
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace(
+              "recipe_form_container",
+              partial: "recipes/form_steps/confirmation_modal",
+              locals: { recipe: @recipe }
+            )
+          end
+        end
+      else
+        # render errors as usual
+        render :new, status: :unprocessable_entity
+      end
     else
       # Move to next step
       @step = next_step
-      Rails.logger.info "Current step: #{@step.inspect}"
-      Rails.logger.info "Next step: #{next_step.inspect}"
+      # Rails.logger.info "Current step: #{@step.inspect}"
+      # Rails.logger.info "Next step: #{next_step.inspect}"
       respond_to do |format|
         format.html { render :new }
         format.turbo_stream do
@@ -48,6 +61,71 @@ class RecipesController < ApplicationController
           )
         end
       end
+    end
+  end
+
+  def parse_ingredient
+    text = params[:text]
+    parse_prompt = <<~PROMPT
+      Extract the ingredient information from the following text and return a JSON object with keys: "name", "quantity", and "unit".
+      - "name" is the ingredient name as a string (with normal capitalization).
+      - "quantity" is the numeric quantity as a float number.
+      - "unit" is the unit of measurement as a string (e.g., g, ml, tbsp, etc.).
+      If any information is missing, leave it as an empty string.
+
+      Example input: "150g of white flour"
+      Expected output:
+      {
+        "name": "White flour",
+        "quantity": "150",
+        "unit": "g"
+      }
+
+      Now parse this ingredient text: #{text}
+    PROMPT
+    chat = RubyLLM.chat
+    response = chat.ask(parse_prompt)
+    ingredient = response.content
+    # ingredient = { name: "flour", quantity: "150", unit: "g" }
+    render json: ingredient
+  end
+
+  def generate_img
+    @recipe = Recipe.find(params[:id])
+    ingredients = []
+    @recipe.ingredients.each do |ingredient|
+      ingredients << ingredient.name
+    end
+    ingredients_list = ingredients.join(', ')
+    description = @recipe.description.join(' ')
+    prompt_text = <<~PROMPT
+      You are a professional chef and food stylist tasked with creating a high-quality, realistic image of a recipe for use in a culinary blog.
+
+        - Recipe Name: #{@recipe.name}
+        - Number of Servings: #{@recipe.portions}
+        - Ingredients: #{ingredients_list}
+        - Instruction of the recipe: #{description}
+
+      Create an image that captures the finished dish alone, styled naturally and beautifully. The image should resemble typical recipe photos found on food blogs, characterized by:
+
+      - A clean, minimalist composition focusing solely on the plated dish.
+      - A simple, uncluttered table with only one or two subtle props very close to the dish—like a single fork or a small pinch of spices—used sparingly and only if they enhance the composition without drawing attention away from the food.
+      - No text, logos, or distracting elements in the frame.
+      - A neutral or softly textured background (wood, linen, or rustic) that enhances the dish without overpowering it.
+      - Soft, natural lighting emphasizing the colors, textures, and freshness of the food.
+      - Artistic but subtle presentation to make the dish look appetizing and authentic.
+
+      The final image should be visually inviting, professional, and suitable for publication in a high-quality food blog or magazine.
+    PROMPT
+
+    image = RubyLLM.paint(prompt_text, model: "dall-e-3", size: "1792x1024")
+    image_url = image&.url
+    Rails.logger.info("Generated image: #{image.inspect}")
+    Rails.logger.info("Image URL: #{image_url}")
+    if image_url.present?
+      render json: { url_image: image_url }
+    else
+      render json: { error: "Image generation failed" }, status: :unprocessable_entity
     end
   end
 
@@ -224,6 +302,15 @@ PROMPT
     end
   end
 
+  def discard
+    @recipe = Recipe.find(params[:id])
+    @recipe.destroy if @recipe.persisted?
+    redirect_to root_path
+  end
+
+  def test
+  end
+
   private
 
   def set_recipe
@@ -241,6 +328,14 @@ PROMPT
   def next_step
     STEPS[STEPS.index(@step) + 1]
   end
+
+  def previous_step
+    current_index = STEPS.index(@step)
+    return STEPS.first if current_index.nil? || current_index.zero?
+
+    STEPS[current_index - 1]
+  end
+  helper_method :previous_step
 
   def url_params
     params.require(:url_form).permit(:url)
