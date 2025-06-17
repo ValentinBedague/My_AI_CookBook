@@ -95,11 +95,29 @@ textarea::placeholder {
   height: 20px !important;
   display: block;
 }
+.form-check-input.is-valid ~.form-check-label {
+  color: $green-text;
+}
 
 .custom-file-input {
   display: none !important;
 }
 
+.col-form-label{
+  display: none;
+}
+
+.restriction-checkbox {
+  display: none; /* Cacher la checkbox */
+}
+
+.restriction-checkbox:checked + label::after {
+  font-family: 'Font Awesome 6 Free';
+  content: "\f00c";
+  font-weight: 900;
+  color: $green-text ;
+  margin-left: 20px;
+}
 /* step tracker classes */
 
 .steps {
@@ -179,6 +197,7 @@ textarea::placeholder {
     width: var(--bar-width); /* end width */
   }
 }
+
 // <--search-bar-->>
 
 .search-bar {
