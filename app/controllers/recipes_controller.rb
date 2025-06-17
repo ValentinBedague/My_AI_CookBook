@@ -38,7 +38,7 @@ class RecipesController < ApplicationController
     @low_cal_prompt = <<~PROMPT
     You will receive information about a cooking recipe.
 
-    Your task is to **transform this recipe into a much lower-calorie version**, while preserving its core identity and flavor as much as possible.
+    Your task is to **transform this recipe into a much lower-calorie version**. You must not touch at the number of servings (portions), and at the end your new recipe must have the same amount of food, do not lower the calories by lowering the amount of food.
 
     Use the information below:
 
@@ -111,10 +111,19 @@ PROMPT
   def update_low_calories
     @recipe = Recipe.find(params[:id])
     @new_recipe = Recipe.last
-    @recipe.ingredients = @new_recipe.ingredients
+    @recipe.ingredients.destroy_all
+    @new_recipe.ingredients.each do  |ingredient|
+
+      Ingredient.create(name: ingredient.name,
+       quantity: ingredient.quantity,
+       unit: ingredient.unit,
+       recipe_id: @recipe.id
+      )
+    end
 
      if @recipe.update(name: @new_recipe.name, portions: @new_recipe.portions, preparation_time: @new_recipe.preparation_time, description: @new_recipe.description)
-    redirect_to view_low_calories_recipe_path(@new_recipe), notice: "Low calories #{@recipe.name} 🍽️ has been succesfully created ! ✅"
+      @new_recipe.destroy
+      redirect_to @recipe, notice: "#{@recipe.name} 🍽️ has been succesfully updated ! ✅"
     else
       render :new, status: :unprocessable_entity
     end
