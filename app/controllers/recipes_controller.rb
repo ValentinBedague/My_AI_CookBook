@@ -38,7 +38,7 @@ class RecipesController < ApplicationController
     @low_cal_prompt = <<~PROMPT
     You will receive information about a cooking recipe.
 
-    Your task is to **transform this recipe into a much lower-calorie version**. You must not touch at the number of servings (portions), and at the end your new recipe must have the same amount of food, do not lower the calories by lowering the amount of food.
+    Your task is to transform this recipe into a much lower-calorie version, while keeping the number of servings exactly the same. Do not reduce the total amount of food to lower the calories. Instead, focus on replacing ingredients with lower-calorie alternatives wherever possible.
 
     Use the information below:
 
