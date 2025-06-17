@@ -21,6 +21,14 @@ Rails.application.routes.draw do
 
       get :new_via_img
       post :create_via_img
+
+      post :parse_ingredient
+      post :generate_img
+
+      get :test
+    end
+    member do
+      delete :discard
     end
   end
 

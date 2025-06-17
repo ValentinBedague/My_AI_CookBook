@@ -1,3 +1,10 @@
+.recipe-card-manual {
+  border: 1px;
+  background-color: #FFFF;
+  color: $green-text;
+  // text-transform: capitalize;
+}
+
 .recipe-card-link {
   text-decoration: none;
   color: inherit;
@@ -71,4 +78,11 @@
       }
     }
   }
+}
+
+.instruction-item i.fa-trash-can {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.9rem;
 }

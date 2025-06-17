@@ -1,3 +1,27 @@
 .modal-options {
   background-color: #FFFF;
 }
+
+.blur-backdrop {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); /* for Safari */
+  background-color: rgba(255, 255, 255, 0.1); /* subtle light tint */
+  z-index: 1050;
+}
+
+.modal-content {
+  border: none;
+}
+
+.modal {
+  --bs-modal-margin: 2rem;
+}
+
+.modal-text {
+  color: $green-primary;
+  font-size: 20px;
+}

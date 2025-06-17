@@ -3,23 +3,46 @@
     <%= hidden_field_tag :step, "ingredients" %>
     <%= hidden_field_tag :id, @recipe.id %>
 
-    <div data-controller="ingredients">
-      <h3>Ingredients</h3>
-
-      <div id="ingredients-list" data-ingredients-target="list">
-      </div>
-
-        <%= f.fields_for :ingredients do |ingredient_fields| %>
-          <div class="ingredient-field">
-            <%= ingredient_fields.text_field :name, placeholder: "Ingredient" %>
-            <%= ingredient_fields.text_field :quantity, placeholder: "Quantity" %>
-            <%= ingredient_fields.text_field :unit, placeholder: "Unit" %>
-          </div>
-        <% end %>
-
-      <button type="button" data-action="click->ingredients#addIngredient">Add</button>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div></div>
+      <%# link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
+      <%= button_to discard_recipe_path(@recipe),
+            method: :delete,
+            data: { turbo_confirm: "Are you sure you want to cancel?" },
+            form: { class: "d-inline", data: { turbo_action: "replace" } },
+            class: "icon-button" do %>
+        <i class="fas fa-xmark rounded-white"></i>
+      <% end %>
     </div>
 
-    <%= f.submit "Next" %>
+    <h1 class= "my-4"><%= @recipe.name || "Create a new recipe" %></h1>
+
+    <div class="steps mb-5">
+      <span class="circle done"></span>
+      <span class="circle active animated-circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <div class="progress-bar">
+        <span class="indicator indicator-2 animated-bar"></span>
+      </div>
+    </div>
+
+    <div data-controller="ingredients">
+
+      <h2 class="mb-4">Ingredients</h2>
+
+      <div data-ingredients-target="list">
+      </div>
+
+      <!-- Free text input for new ingredient -->
+      <div class="d-flex justify-content-between align-items-center">
+        <input class="form-control me-2" type="text" data-ingredients-target="input" placeholder="e.g. 200g sugar" />
+        <button class="btn-small-square" data-action="ingredients#addIngredient" data-ingredients-target="addButton" type="button">Add</button>
+      </div>
+
+      <div class="fixed-bottom-button">
+        <%= f.submit "Next", class: "btn-plain", data: { ingredients_target: "submit" }, disabled: true  %>
+      </div>
+    </div>
   <% end %>
 </div>

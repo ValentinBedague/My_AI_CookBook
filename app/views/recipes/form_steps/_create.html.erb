@@ -4,12 +4,38 @@
     <%= hidden_field_tag :id, @recipe.id %>
     <%= f.hidden_field :url_image %>
 
-    <h3>Cover image</h3>
-
-    <div>
-      <img src="<%= @recipe.url_image %>" alt="recipe image">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div></div>
+      <%# link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
+      <%= button_to discard_recipe_path(@recipe),
+            method: :delete,
+            data: { turbo_confirm: "Are you sure you want to cancel?" },
+            form: { class: "d-inline", data: { turbo_action: "replace" } },
+            class: "icon-button" do %>
+        <i class="fas fa-xmark rounded-white"></i>
+      <% end %>
     </div>
 
-    <%= f.submit "Create recipe" %>
+    <h1 class= "my-4"><%= @recipe.name || "Create a new recipe" %></h1>
+
+    <div class="steps mb-5">
+      <span class="circle done"></span>
+      <span class="circle done"></span>
+      <span class="circle done"></span>
+      <span class="circle done"></span>
+      <div class="progress-bar">
+        <span class="indicator indicator-4"></span>
+      </div>
+    </div>
+
+    <h2 class="mb-4">Cover image</h2>
+
+    <div class="my-3 position-relative">
+      <img src="<%= @recipe.url_image %>" alt="recipe image" class="img-fluid rounded-4">
+    </div>
+
+    <div class="fixed-bottom-button">
+      <%= f.submit "Create recipe", class: "btn-plain" %>
+    </div>
   <% end %>
 </div>

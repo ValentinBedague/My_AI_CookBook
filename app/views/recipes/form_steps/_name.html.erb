@@ -1,14 +1,32 @@
-<div id="recipe_form_container">
+<div id="recipe_form_container" data-controller="form-validation">
   <%= form_with model: @recipe, url: recipes_path, method: :post, data: { turbo_action: "replace" } do |f| %>
     <%= hidden_field_tag :step, "name" %>
 
-    <h3>Name</h3>
-
-    <div>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div></div>
+      <%# link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
+      <%= link_to "<i class='fas fa-xmark rounded-white'></i>".html_safe, root_path %>
     </div>
 
-    <%= f.submit "Next" %>
+    <h1 class= "my-4"><%= @recipe.name || "Create a new recipe" %></h1>
+
+    <div class="steps mb-5">
+      <span class="circle done"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <div class="progress-bar">
+        <span class="indicator"></span>
+      </div>
+    </div>
+
+    <h2 class="mb-4">Name</h2>
+
+    <div>
+      <%= f.text_field :name, class: "form-control", placeholder: "e.g. Chocolate cake", data: { action: "input->form-validation#toggleButton", "form-validation-target": "input" } %>
+    </div>
+    <div class="fixed-bottom-button">
+      <%= f.submit "Next", class: "btn-plain", data: { form_validation_target: "submit" }, disabled: true %>
+    </div>
   <% end %>
 </div>
