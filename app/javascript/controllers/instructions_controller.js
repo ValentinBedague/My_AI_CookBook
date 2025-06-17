@@ -37,7 +37,7 @@ export default class extends Controller {
 
     // Display div
     const displayDiv = document.createElement("div")
-    displayDiv.classList.add("card", "recipe-card", "p-3", "rounded-4")
+    displayDiv.classList.add("card", "component-container", "p-3", "rounded-4")
     displayDiv.innerHTML = `
       <span style="color:#438866; font-weight:500;" class="mb-2">Step ${this.instructionCount}</span>
       <p>${this.capitalizeFirstWord(value)}</p>
