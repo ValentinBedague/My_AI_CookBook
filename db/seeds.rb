@@ -209,4 +209,25 @@ tag5 = Tag.create!(
   collection_id: favorites.id,
   recipe_id: curry.id
 )
+
 puts "Collections successfully fulfilled 🚀"
+
+restrictions = [
+  "Végétarien",
+  "Végan",
+  "Sans Gluten",
+  "Sans Lactose",
+  "Sans Arachides",
+  "Sans Fruits de Mer",
+  "Sans Œufs",
+  "Sans Soja",
+  "Sans Noix",
+  "Sans Poisson",
+  "Femme enceinte"
+]
+
+restrictions.each do |name|
+  Restriction.find_or_create_by!(name: name)
+end
+
+puts "Restrictions successfully created 🚀"
