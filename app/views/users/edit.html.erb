@@ -1,4 +1,9 @@
 <div class="container p-4">
+  <div class="d-flex justify-content-end">
+     <%= link_to user_path(current_user) do %>
+      <i class='fa-solid fa-xmark rounded-white'></i>
+    <% end %>
+  </div>
   <h1>Edit my profile</h1>
   <div class="d-flex justify-content-center">
     <%= content_tag :div, user_avatar(current_user, :large), class: "align-self-center mt-4" %>
