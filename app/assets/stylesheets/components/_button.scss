@@ -122,7 +122,7 @@ button.icon-button {
 button.icon-button:focus {
   outline: none; /* optional: remove focus ring, or customize */
 }
-  
+
 .btn-ok {
   display: flex;
   align-items: center;
@@ -149,5 +149,40 @@ button.icon-button:focus {
 
   p {
     margin: 0;
+  }
+}
+// AI actions divs
+.ai-actions-container{
+  gap: 1rem;
+
+}
+
+.ai-actions{
+background-color: white;
+border-radius: 9999px;
+padding: 2.5rem;
+text-justify: auto;
+width: 328px;
+height: 68px;
+font-size: 19px;
+}
+
+.ai-actions-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 45px;
+  height: 45px;
+  background-color: $green-primary;
+  color: #FFFF;
+  font-weight: 600;
+  border-radius: 10px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-width: 0;
+
+  &:hover {
+    transform: scale(1.03);
   }
 }

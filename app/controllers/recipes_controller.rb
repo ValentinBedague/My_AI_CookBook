@@ -1,11 +1,12 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :destroy, :ask_ai]
+  before_action :set_recipe, only: [:show, :edit, :destroy, :ask_ai, :create_low_calories]
 
   require 'open-uri'
 
   STEPS = %w[name portions preptime ingredients instructions image create]
   SYSTEM_PROMPT = "You are a Cooking Assistant specialized in extracting recipes from images. You must strictly use the original words from the recipe found in the image. Do not paraphrase, invent or translate content."
   SYSTEM_PROMPT_URL = "You are a Cooking Assistant specialized in extracting recipes from text content extracted from cooking recipes webpages. You must strictly use the original words from the text content. Do not paraphrase, invent or translate content."
+  SYSTEM_PROMPT_LOWCAL = "You are a Cooking Assistant specialized in reducing the calories of recipes. You must strictly use the original words from the recipe found in the image. Do not paraphrase, invent or translate content."
 
   def index
     if params[:query].present?
@@ -28,6 +29,81 @@ class RecipesController < ApplicationController
 
   def show
   end
+
+  def create_low_calories
+    @new_recipe = Recipe.new
+    @new_recipe.user = current_user
+    @new_recipe.save
+    @low_cal_prompt = <<~PROMPT
+    You will receive information about a cooking recipe.
+
+    Your task is to **transform this recipe into a much lower-calorie version**, while preserving its core identity and flavor as much as possible.
+
+    Use the information below:
+
+    1. Recipe name = #{@recipe.name}
+    2. Number of servings = #{@recipe.portions}
+    3. List of ingredients = #{@recipe.ingredients}
+    4. Preparation steps = #{@recipe.description}
+    5. Preparation time = #{@recipe.preparation_time}
+
+    Return the data as a JSON object with the exact structure below:
+
+    {
+      "name": "Name of the recipe as a string (leave empty if not found) concatenate with "low calories"(string)",
+      "portions": "Number of servings as a string or integer (leave empty if not found)",
+      "preparation_time": "Preparation time as an integer (in minutes, e.g., 30 for 30 minutes) (leave empty if not found)",
+      "description": "An array of step-by-step instructions as strings (e.g., 'Do this', 'Then do that'). Leave empty if not found.",
+      "ingredients": {
+        "ingredient1": {
+          "name": "Ingredient name as a string (leave empty if not found)",
+          "quantity": "Quantity as a number (integer or float, e.g., 500 or 0.5) (leave empty if not found)",
+          "unit": "Unit as a string (leave empty if not found or not applicable)"
+        },
+        "ingredient2": {
+          "name": "Ingredient name as a string (leave empty if not found)",
+          "quantity": "Quantity as a number (integer or float, e.g., 500 or 0.5) (leave empty if not found)",
+          "unit": "Unit as a string (leave empty if not found or not applicable)"
+        }
+        # Add as many ingredients as needed, using the same structure
+      }
+    }
+
+    ⚠️ Strict instructions:
+    - If a piece of information is missing or not clearly visible in the image, leave the corresponding field empty. Do not guess or make assumptions.
+    - Return **only** the final JSON object.
+    - Do NOT include markdown code blocks or any formatting.
+    - Do not include explanations, notes, or headers.
+    - Ensure the JSON is syntactically valid.
+PROMPT
+    @instruction =SYSTEM_PROMPT_LOWCAL
+    @message = Message.new(role:"user", content: @low_cal_prompt, recipe: @recipe)
+    @chat = RubyLLM.chat(model: "gpt-4o")
+    response = @chat.with_instructions(@instruction).ask(@message.content)
+    Message.create(role: "assistant", content: response.content, recipe: @recipe)
+
+    json_response = Message.last.content
+    data = JSON.parse(json_response)
+    name = data["name"]
+    portions = data["portions"]
+    preparation_time = data["preparation_time"]
+    description = data["description"]
+    ingredients = data["ingredients"]
+
+    ingredients.each do |key,ingredient|
+      Ingredient.create(name: ingredient["name"], quantity: ingredient["quantity"], unit: ingredient["unit"], recipe_id: @new_recipe.id)
+    end
+
+    if @new_recipe.update(name: name, portions: portions, preparation_time: preparation_time, description: description, url_image: "https://www.ensto-ebs.fr/modules/custom/legrand_ecat/assets/img/no-image.png", original_recipe_id: @recipe.id)
+    redirect_to view_low_calories_recipe_path(@new_recipe), notice: "Low calories #{@recipe.name} 🍽️ has been succesfully created ! ✅"
+    else
+      render :new, status: :unprocessable_entity
+    end
+
+   end
+   def view_low_calories
+    @new_recipe = Recipe.find(params[:id])
+   end
 
   def ask_ai
   end
