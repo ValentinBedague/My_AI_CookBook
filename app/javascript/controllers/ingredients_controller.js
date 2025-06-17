@@ -65,7 +65,7 @@ export default class extends Controller {
 
       // Display div
       const displayDiv = document.createElement("div")
-      displayDiv.classList.add("card", "recipe-card", "p-2", "rounded-4", "flex-grow-1")
+      displayDiv.classList.add("card", "component-container", "p-2", "rounded-4", "flex-grow-1")
       displayDiv.innerHTML = `
         <div class="d-flex justify-content-between py-1">
         <span>${data.name}</span>

@@ -39,7 +39,7 @@ class RecipesController < ApplicationController
     else
       @recipe = Recipe.new(recipe_params)
       @recipe.user = current_user
-      @recipe.ingredients.build if @recipe.ingredients.empty?
+      # @recipe.ingredients.build if @recipe.ingredients.empty?
     end
     @step = params[:step]
     @recipe.save(validate: false)
@@ -133,10 +133,12 @@ class RecipesController < ApplicationController
 
     image = RubyLLM.paint(prompt_text, model: "dall-e-3", size: "1792x1024")
     image_url = image&.url
+    uploaded_image = Cloudinary::Uploader.upload(image_url)
+    image_url_secured = uploaded_image["secure_url"]
     Rails.logger.info("Generated image: #{image.inspect}")
     Rails.logger.info("Image URL: #{image_url}")
     if image_url.present?
-      render json: { url_image: image_url }
+      render json: { url_image: image_url_secured }
     else
       render json: { error: "Image generation failed" }, status: :unprocessable_entity
     end
