@@ -1,18 +1,6 @@
 class Restriction < ApplicationRecord
-  belongs_to :user
+  has_many :user_restrictions
+  has_many :users, through: :user_restrictions
 
-  AVAILABLE_DIETS = [
-    ['Végétarien', 'vegetarian'],
-    ['Végétalien', 'vegan'],
-    ['Sans gluten', 'gluten_free'],
-    ['Sans lactose', 'dairy_free'],
-    ['Sans noix', 'nut_free'],
-    ['Halal', 'halal'],
-    ['Casher', 'kosher']
-  ].freeze
-
-  # Initialiser diet comme un array vide
-  def diet
-    super || []
-  end
+  validates :name, presence: true, uniqueness: true
 end

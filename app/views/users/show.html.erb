@@ -6,7 +6,7 @@
   <% end %>
   <div class="d-flex justify-content-between align-items-center mb-2">
     <h1>Profile</h1>
-    <%= link_to false do %>
+    <%= link_to edit_user_path do %>
       <i class="fa-solid fa-pen rounded-white me-2"></i>
     <% end %>
   </div>
@@ -17,18 +17,24 @@
     <div class="form-control mt-4">
       <span> <%= @user.recipes.count %> recipes</span>
       <span> | </span>
-      <span> <%= @user.recipes.count %> books</span>
+      <span> <%= @user.collections.count %> books</span>
     </div>
 
 
   </div>
 
-   <div class="d-flex justify-content-between align-items-center mb-2 mt-5">
+   <div class="d-flex justify-content-between align-items-center my-5">
     <h1>My personal diet</h1>
-    <%= link_to false do %>
+
+    <%= link_to edit_user_path do %>
       <i class="fa-solid fa-pen rounded-white me-2"></i>
     <% end %>
   </div>
+  <% @user.restrictions.each do |restriction| %>
+    <div class="form-control mb-3 py-2 text-center">
+      <%= restriction.name %>
+    </div>
+  <% end %>
 
 </div>
 <!-- Bottom navbar -->
