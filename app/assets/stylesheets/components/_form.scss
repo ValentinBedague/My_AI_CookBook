@@ -24,6 +24,20 @@
   color: $green-text;
 }
 
+.search-wrapper {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $green-primary;
+  z-index: 2;
+  pointer-events: none;
+}
+
 input::placeholder,
 textarea::placeholder {
   color: $green-text !important;
@@ -85,7 +99,6 @@ textarea::placeholder {
 .custom-file-input {
   display: none !important;
 }
-
 
 /* step tracker classes */
 
@@ -165,4 +178,61 @@ textarea::placeholder {
   to {
     width: var(--bar-width); /* end width */
   }
+
+// <--search-bar-->>
+
+.search-bar {
+  background-color: white;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  width: 326px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+    input {
+      border: none;
+      outline: none;
+      flex-grow: 1;
+      margin: 0 0.5rem;
+      font-size: 1rem;
+      color: #03542c;
+    }
+
+    i {
+      color: #03542c;
+    }
+  }
+
+.searchbar {
+  position: absolute;
+  right: 60px; /* aligne à droite avec l'ex loupe */
+  top: 50%;
+  transform: translateY(-50%) translateX(100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 10;
+  width: calc(100% - 200px); /* largeur dynamique (ajuste si nécessaire) */
+}
+
+.searchbar.show {
+  transform: translateY(-50%) translateX(0%);
+  opacity: 1;
+}
+
+.search-input {
+  height: 42px;
+  border-radius: 20px;
+  padding: 0 16px;
+  border: none;
+  background-color: white;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  color: #2e7d6f;
+  font-size: 1rem;
+}
+
+/* Icône loupe masquée au clic */
+#search-btn.hide {
+  display: none;
 }

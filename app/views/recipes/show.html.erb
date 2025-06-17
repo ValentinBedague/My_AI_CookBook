@@ -5,13 +5,15 @@
 
     <div class="d-flex justify-content-between align-items-center mb-2">
 
-      <%= link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
-
-      <div>
+      <%= link_to :back do %>
+       <i class='rounded-white fas fa-arrow-left'></i>
+      <% end %>
+      <div class="d-flex">
         <i class="far fa-heart me-2 rounded-white"></i>
 
-        <%= link_to "<i class='fas fa-ellipsis-v rounded-white dots'></i>".html_safe %>
-
+        <%= button_to false, class:"dot-button" do %>
+        <i class='fas fa-ellipsis-v rounded-white dots'></i>
+        <% end %>
       </div>
     </div>
 
@@ -47,12 +49,12 @@
   </div>
 </div>
 
-<div class="modal-options p-5 d-none">
+<div class="modal-options p-5 d-none" data-controller="modal">
   <div class="container">
     <%= link_to "<i id='close' style='font-size: 25px;' class='rounded-white fa-solid fa-xmark'></i>".html_safe %>
     <h1 class= "text-center fw-normal my-3">Options</h1>
     <div class="row justify-content-center">
-      <%= link_to "<i class='fa-solid fa-wand-magic-sparkles me-2'></i> Ask AI assistant".html_safe, "#", class:"btn btn-plain mt-3" %>
+      <%= link_to "<i class='fa-solid fa-wand-magic-sparkles me-2'></i> Ask AI assistant".html_safe, ask_ai_recipe_path(@recipe), class:"btn btn-plain mt-3" %>
       <%= link_to "<i class='fa-solid fa-pencil me-2'></i> Edit recipe".html_safe, edit_recipe_path, class:"btn btn-outline mt-3" %>
       <%= link_to recipe_path(@recipe),
           data: {

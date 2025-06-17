@@ -1,39 +1,66 @@
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1 class="h4">My AI Cookbook</h1>
-    <%= link_to 'New Recipe', new_recipe_path, class: 'btn btn-success' %>
-  </div>
+<div class="container p-4">
 
-  <div class="form-group mb-4">
-    <%= form_with url: recipes_path, method: :get, local: true do %>
-      <%= text_field_tag :search, params[:search], placeholder: "Find a recipe", class: "form-control" %>
+  <div class="card-body">
+
+    <!-- Logo -->
+    <%= link_to root_path do %>
+      <%= image_tag("https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg",
+                    alt: "My AI Cookbook Logo",
+                    class: "logo") %>
     <% end %>
-  </div>
 
-  <% grouped = @recipes.select { |r| r.name.present? }.sort_by(&:name).group_by { |r| r.name[0].upcase } %>
+    <!-- Search bar -->
+    <%= form_with url: "", method: :get, local: true,
+          class: "d-flex mt-2", role: "search" do |f| %>
+        <div class="search-wrapper position-relative flex-grow-1 me-2">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <%= f.text_field :query,
+              class: "form-control ps-5",
+              type: "search",
+              placeholder: "Find a recipe",
+              "aria-label": "Search" %>
+        </div>
+        <!-- <%= f.submit "Search", class: "btn btn-outline-success" %> -->
+      <% end %>
 
-  <% grouped.each do |letter, recipes| %>
-    <h5 class="text-uppercase mt-4"><%= letter %></h5>
-    <div class="row">
-      <% recipes.each do |recipe| %>
-        <div class="col-md-6 mb-3">
-          <div class="card shadow-sm">
-            <%= image_tag(recipe.url_image.presence || "placeholder.jpg", class: "card-img-top", style: "height: 150px; object-fit: cover;") %>
-            <div class="card-body">
-              <h5 class="card-title"><%= link_to recipe.name, recipe_path(recipe), class: "stretched-link text-decoration-none text-dark" %></h5>
-              <p class="card-text text-muted">
-                <%= pluralize(recipe.ingredients.count, "ingredient") %> |
-                <%= recipe.preparation_time %> min
-              </p>
-              <%= link_to recipe_path(recipe), class: 'btn btn-light btn-sm float-end' do %>
-                <i class="bi bi-heart"></i>
+     <!-- Recipes tri -->
+
+    <div class="recipes-container mt-4">
+      <% @grouped_recipes.each do |letter, recipes| %>
+        <h5 class="text-uppercase mb-2"><%= letter %></h5>
+
+        <!-- Recipe cards -->
+
+        <% recipes.each do |recipe| %>
+          <div class="recipe-card-link">
+            <div class="recipe-card mb-3" style="background-image: url('<%= recipe.url_image %>');">
+              <!-- Heart button, sorti du link-->
+              <div class="favorite-icon" id="favorite-icon-<%= recipe.id %>">
+                <%= button_to toggle_favorite_recipe_path(recipe),
+                              method: :post,
+                              remote: true,
+                              form: { data: { turbo_stream: true } },
+                              class: "favorite-btn" do %>
+
+                  <% is_favorite = Collection.find_by(name: 'Favorites')&.recipes&.include?(recipe) %>
+                  <i class="<%= is_favorite ? 'fas' : 'far' %> fa-heart"></i>
+                <% end %>
+              </div>
+              <!-- Cliquable vers la recette -->
+              <%= link_to recipe_path(recipe), class: "card-full-link" do %>
+                <span class="sr-only"><%= recipe.name %></span>
               <% end %>
+              <!-- Overlay-->
+              <div class="card-overlay">
+                <h5><%= recipe.name %></h5>
+                <p><%= pluralize(recipe.ingredients.count, "ingredient") %> | <%= recipe.preparation_time %> Min</p>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
-<!-- Bottom navbar -->
+
 <%= render "shared/bottom_navbar" %>

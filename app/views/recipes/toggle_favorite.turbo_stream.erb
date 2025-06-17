@@ -1,0 +1,14 @@
+<turbo-stream target="favorite-icon-<%= @recipe.id %>" action="replace">
+  <template>
+    <div class="favorite-icon" id="favorite-icon-<%= @recipe.id %>">
+      <%= button_to toggle_favorite_recipe_path(@recipe),
+                    method: :post,
+                    remote: true,
+                    form: { data: { turbo_stream: true } },
+                    class: "favorite-btn" do %>
+
+        <i class="<%= @favorited ? 'fas' : 'far' %> fa-heart"></i>
+      <% end %>
+    </div>
+  </template>
+</turbo-stream>

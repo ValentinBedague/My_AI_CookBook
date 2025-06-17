@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :destroy]
+  before_action :set_recipe, only: [:show, :edit, :destroy, :ask_ai]
 
   require 'open-uri'
 
@@ -8,7 +8,17 @@ class RecipesController < ApplicationController
   SYSTEM_PROMPT_URL = "You are a Cooking Assistant specialized in extracting recipes from text content extracted from cooking recipes webpages. You must strictly use the original words from the text content. Do not paraphrase, invent or translate content."
 
   def index
-    @recipes = Recipe.all
+    if params[:query].present?
+      terms = params[:query].split
+      @recipes = Recipe.left_joins(:ingredients)
+      terms.each do |term|
+        @recipes = @recipes.where("recipes.name ILIKE :term OR ingredients.name ILIKE :term", term: "%#{term}%")
+      end
+      @recipes = @recipes.distinct.order(:name)
+    else
+      @recipes = Recipe.all.order(:name)
+    end
+    @grouped_recipes = @recipes.select { |r| r.name.present?}.group_by { |recipe| recipe.name[0].upcase }
   end
 
   def new
@@ -17,6 +27,9 @@ class RecipesController < ApplicationController
   end
 
   def show
+  end
+
+  def ask_ai
   end
 
   def create
@@ -309,6 +322,24 @@ PROMPT
   end
 
   def test
+  end
+
+  def toggle_favorite
+    @recipe = Recipe.find(params[:id])
+    favorite_collection = Collection.find_by(name: 'Favorites')
+
+    if favorite_collection.recipes.include?(@recipe)
+      favorite_collection.recipes.delete(@recipe)
+      @favorited = false
+    else
+      favorite_collection.recipes << @recipe
+      @favorited = true
+    end
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to recipe_path(@recipe) }
+    end
   end
 
   private

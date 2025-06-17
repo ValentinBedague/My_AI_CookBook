@@ -1,7 +1,23 @@
 class CollectionsController < ApplicationController
+
   def index
-    @collections = Collection.all
-    @favorites = Collection.find_by(name: "Favorites")
+
+    if params[:query].present?
+      terms = params[:query].split
+      @collections = Collection.joins(tags: :recipe).distinct
+
+      terms.each do |term|
+        @collections = @collections.where(
+          "collections.name ILIKE :term OR recipes.name ILIKE :term",
+          term: "%#{term}%"
+          )
+      end
+
+      @favorites = nil
+    else
+      @collections = Collection.all
+      @favorites = Collection.find_by(name: "Favorites")
+    end
   end
 
   def show

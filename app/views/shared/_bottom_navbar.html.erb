@@ -2,37 +2,37 @@
 <nav class="bottom-nav">
   <%= link_to root_path, class: "nav-link" do %>
     <div class="nav-content">
-      <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/home_afkoel.svg", alt: "Home", class: "nav-icon" %>
-      <span class="nav-label">Home</span>
+      <i class="fa-solid fa-house-chimney <%= controller_name == 'pages' ? 'active-icon' : 'nav-icon' %>"></i>
+      <span class="<%= controller_name == 'pages' ? 'active-label' : 'nav-label' %>">Home</span>
     </div>
   <% end %>
 
   <%= link_to recipes_path, class: "nav-link" do %>
     <div class="nav-content">
-      <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654035/spoon_ubduiu.svg", alt: "Recipes", class: "nav-icon" %>
-      <span class="nav-label">Recipes</span>
+      <i class="fa-solid fa-spoon <%= controller_name == 'recipes' ? 'active-icon' : 'nav-icon' %>"></i>
+      <span class="<%= controller_name == 'recipes' ? 'active-label' : 'nav-label' %>">Recipes</span>
     </div>
   <% end %>
 
   <%= link_to collections_path, class: "nav-link active" do %>
     <div class="nav-content">
-      <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/book_vljedv.svg", alt: "Books", class: "nav-icon" %>
-      <span class="nav-label">Books</span>
+      <i class="fa-solid fa-book-open <%= controller_name == 'collections' ? 'active-icon' : 'nav-icon' %>"></i>
+      <span class="<%= controller_name == 'collections' ? 'active-label' : 'nav-label' %>">Books</span>
     </div>
   <% end %>
 
   <% if current_user %>
     <%= link_to user_path(current_user), class: "nav-link" do %>
       <div class="nav-content">
-        <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/profile_f9vtwn.svg", alt: "Profile", class: "nav-icon" %>
-        <span class="nav-label">Profile</span>
+        <i class="fa-solid fa-user-large <%= controller_name == 'users' ? 'active-icon' : 'nav-icon' %> "></i>
+        <span class="<%= controller_name == 'users' ? 'active-label' : 'nav-label' %>">Profile</span>
       </div>
     <% end %>
   <% else %>
     <%= link_to new_user_session_path, class: "nav-link" do %>
       <div class="nav-content">
-        <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/profile_f9vtwn.svg", alt: "Profile", class: "nav-icon" %>
-        <span class="nav-label">Profile</span>
+        <i class="fa-solid fa-user-large <%= controller_name == 'users' ? 'active-icon' : 'nav-icon' %>"></i>
+        <span class="<%= controller_name == 'users' ? 'active-label' : 'nav-label' %>" do %>Profile</span>
       </div>
     <% end %>
   <% end %>

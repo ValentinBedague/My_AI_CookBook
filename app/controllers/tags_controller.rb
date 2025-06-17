@@ -17,15 +17,14 @@ class TagsController < ApplicationController
     end
   end
 
-  def destroy
+def destroy
     @tag = Tag.find(params[:id])
     recipe_name = @tag.recipe.name
     @collection = @tag.collection
-
-    if @tag.destroy
-      redirect_to @collection, notice: "#{recipe_name} was succesfully remove from #{@collection}"
-    else
-      render :new, status: :unprocessable_entity
+    @tag.destroy
+    respond_to do |format|
+      format.html
+      format.json { head :no_content }
     end
   end
 

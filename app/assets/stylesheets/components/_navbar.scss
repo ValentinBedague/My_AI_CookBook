@@ -30,14 +30,23 @@
     }
 
     .nav-icon {
-      width: 24px;
-      height: 24px;
       margin-bottom: 3px;
+      font-size: 24px;
+      color: $green-bg-icon;
+    }
+    .active-icon {
+      margin-bottom: 3px;
+      font-size: 24px;
+      color: $green-primary;
     }
 
     .nav-label {
       line-height: 1;
-      color: #438866;
+      color: $green-bg-icon;
+    }
+      .active-label {
+      line-height: 1;
+      color: $green-primary;
     }
   }
 }

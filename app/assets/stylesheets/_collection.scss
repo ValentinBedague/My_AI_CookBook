@@ -1,24 +1,3 @@
-.collections-index {
-  background-color: #CBD8C5;
-  font-family: 'Helvetica Neue', sans-serif;
-  padding: 1rem;
-  min-height: 100vh;
-  box-sizing: border-box;
-  position: relative;
-}
-
-
-  .logo {
-    height: 3rem;
-    width: auto;
-    transform: scale(2);
-    display: block;
-    margin-bottom: 1rem;
-    padding-left: 0.8rem;
-  }
-
-
-
 .collection-header {
   display: flex;
   align-items: center;
@@ -26,10 +5,11 @@
   position: relative;
   padding-left: 1rem;
   padding-right: 1rem;
+  overflow: visible;
 
   .collection-header-actions {
     display: flex;
-    gap: 0.5rem;
+    gap: 2px;
 
     .icon-button {
       background: none;

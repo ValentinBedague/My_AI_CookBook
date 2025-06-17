@@ -31,3 +31,24 @@ h2 {
   font-size: 22px;
   font-weight: 300;
 }
+
+a {
+  text-decoration: none;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.logo {
+  height: 3rem;
+  width: auto;
+  transform: scale(2);
+  display: block;
+  margin-bottom: 1rem;
+  padding-left: 0.8rem;
+}
+
+.container {
+  transition: filter 0.1s;
+}
