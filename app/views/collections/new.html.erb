@@ -1,6 +1,7 @@
-<%= link_to "◀️collections", collections_path, class: "text-primary fw-bold small" %>
-<%= simple_form_for @collection do |f| %>
-  <%= f.input :name %>
-  <%= f.input :url_image %>
-  <%= f.button :submit, "create", class: "btn btn-primary" %>
-<% end %>
+<div class="container p-4">
+  <div class="card-body">
+    <div id="collection_form_container">
+      <%= render partial: "collections/form_steps/#{@step}" %>
+    </div>
+  </div>
+</div>
