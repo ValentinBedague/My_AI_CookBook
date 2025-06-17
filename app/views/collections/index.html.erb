@@ -8,14 +8,27 @@
                     class: "logo") %>
     <% end %>
   <div class="collection-header">
-    <h1>My books</h1>
 
-    <div class="collection-header-actions">
-      <%= link_to "#", class: "icon-button" do %>
-          <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/loupe_vqrpe1.svg", alt: "loupe", class: "nav-icon" %>
+    <h1 id="collection-title">My books</h1>
+
+    <!-- searchbar cachée -->
+    <div id="searchbar" class="searchbar d-none">
+      <%= form_with url: collections_path, method: :get, local: true do |f| %>
+       <%= f.text_field :query,
+              class: "form-control ps-5",
+              type: "search",
+              placeholder: "Find a book",
+              "aria-label": "Search" %>
       <% end %>
-      <%= link_to new_collection_path, class: "icon-button" do %>
-          <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/icon-plus_lipxxr.svg", alt: "plus", class: "nav-icon" %>
+    </div>
+
+    <!-- Boutons -->
+    <div class="collection-header-actions">
+      <a href="#" id="search-btn" class="icon-button rounded-white" onclick="toggleSearch(event)">
+        <i class="fa-solid fa-magnifying-glass icon-green"></i>
+      </a>
+      <%= link_to new_collection_path, class: "icon-button rounded-white" do %>
+        <i class="fa-solid fa-plus icon-green"></i>
       <% end %>
     </div>
   </div>
@@ -24,7 +37,9 @@
 
   <!-- Collection cards -->
   <div class="collections-grid">
-    <%= link_to collection_path(@favorites), class: "collection-card favorites" do %>
+
+  <% if @favorites %>
+       <%= link_to collection_path(@favorites), class: "collection-card favorites" do %>
       <div class="text-overlay-container">
         <div class="card-overlay">Favorites</div>
         <i class="fa-solid fa-heart"></i>
@@ -33,6 +48,9 @@
 
       </div>
     <% end %>
+  <% end %>
+
+
     <% @collections.reject { |c| c.name == "Favorites" }.each do |collection| %>
       <%= link_to collection_path(collection), class: "collection-card" do %>
         <div style="position: relative; width: 100%; height: 100%;">
@@ -50,3 +68,36 @@
     <%= render "shared/bottom_navbar" %>
   </div>
 </div>
+
+<script>
+  function toggleSearch(event) {
+    event.preventDefault();
+
+    const searchbar = document.getElementById("searchbar");
+    const searchBtn = document.getElementById("search-btn");
+
+    searchBtn.classList.add("hide");
+    searchbar.classList.remove("d-none");
+
+    // Delay to allow transition
+    setTimeout(() => {
+      searchbar.classList.add("show");
+    }, 10);
+
+    // Fermer si clic en dehors
+    document.addEventListener("click", function closeOnClickOutside(e) {
+      if (
+        !searchbar.contains(e.target) &&
+        !searchBtn.contains(e.target)
+      ) {
+        searchbar.classList.remove("show");
+        setTimeout(() => {
+          searchbar.classList.add("d-none");
+          searchBtn.classList.remove("hide");
+        }, 300);
+
+        document.removeEventListener("click", closeOnClickOutside);
+      }
+    });
+  }
+</script>

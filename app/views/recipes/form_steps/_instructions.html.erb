@@ -4,19 +4,48 @@
     <%= hidden_field_tag :id, @recipe.id %>
     <% instruction_step = 0 %>
 
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div></div>
+      <%# link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
+      <%= button_to discard_recipe_path(@recipe),
+            method: :delete,
+            data: { turbo_confirm: "Are you sure you want to cancel?" },
+            form: { class: "d-inline", data: { turbo_action: "replace" } },
+            class: "icon-button" do %>
+        <i class="fas fa-xmark rounded-white"></i>
+      <% end %>
+    </div>
+
+    <h1 class= "my-4"><%= @recipe.name || "Create a new recipe" %></h1>
+
+    <div class="steps mb-5">
+      <span class="circle done"></span>
+      <span class="circle done"></span>
+      <span class="circle active animated-circle"></span>
+      <span class="circle"></span>
+      <div class="progress-bar">
+        <span class="indicator indicator-3 animated-bar"></span>
+      </div>
+    </div>
+
     <div data-controller="instructions" data-instructions-instructionstep-value="<%= instruction_step %>">
-      <h3>Instructions</h3>
+
+      <h2 class="mb-4">Instructions</h2>
 
       <div data-instructions-target="list">
       </div>
 
       <div>
-        <label for="instruction-input">Instruction <span data-instructions-target="count">1</span></label><br />
-        <input type="text" id="instruction-input" data-instructions-target="input" />
-        <button type="button" data-action="instructions#addInstruction">Add</button>
+        <label class="mb-2" for="instruction-input">Step <span data-instructions-target="count">1</span></label>
+        <div class="d-flex justify-content-between align-items-center">
+          <input class="form-control me-2" type="text" id="instruction-input" data-instructions-target="input" />
+          <button class="btn-small-square" type="button" data-action="instructions#addInstruction">Add</button>
+        </div>
+      </div>
+
+      <div class="fixed-bottom-button">
+        <%= f.submit "Next", class: "btn-plain", data: { instructions_target: "submit" }, disabled: true %>
       </div>
     </div>
-
-    <%= f.submit "Next" %>
   <% end %>
 </div>
