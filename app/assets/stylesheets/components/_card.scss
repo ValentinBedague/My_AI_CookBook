@@ -8,82 +8,157 @@
 .recipe-card-link {
   text-decoration: none;
   color: inherit;
-
-  .recipe-card {
-    position: relative;
-    border-radius: 12px;
-    height: 160px;
-    width: 350px;
-    background-size: cover;
-    overflow: hidden;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-
-     &:hover {
-      transform: scale(1.03);
- }
-
-     &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: inherit;
-    z-index: 0;
   }
 
-  .card-full-link {
+.recipe-card {
+  position: relative;
+  border-radius: 12px;
+  height: 160px;
+  background-size: cover;
+  overflow: hidden;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+    &:hover {
+    transform: scale(1.03);
+}
+
+    &::before {
+  content: "";
   position: absolute;
-  inset: 0; // couvre toute la carte
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.card-full-link {
+position: absolute;
+inset: 0; // couvre toute la carte
+z-index: 1;
+}
+
+
+.favorite-icon,
+.card-overlay {
+  position: relative;
   z-index: 1;
+}
+
+  .favorite-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: white;
+    font-size: 1.2rem;
+    z-index: 2;
   }
 
+  .favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color:white;
+  }
 
-  .favorite-icon,
   .card-overlay {
-    position: relative;
-    z-index: 1;
-  }
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    padding: 0.5rem;
+    color: white;
+    z-index: 2;
 
-    .favorite-icon {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      color: white;
-      font-size: 1.2rem;
-      z-index: 2;
+    h5 {
+      font-size: 1rem;
+      font-weight: bold;
+      margin: 0;
     }
 
-    .favorite-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      color:white;
-    }
-
-    .card-overlay {
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-      padding: 0.5rem;
-      color: white;
-      z-index: 2;
-
-      h5 {
-        font-size: 1rem;
-        font-weight: bold;
-        margin: 0;
-      }
-
-      p {
-        font-size: 0.85rem;
-        margin: 0;
-        color: #ddd;
-      }
+    p {
+      font-size: 0.85rem;
+      margin: 0;
+      color: #ddd;
     }
   }
 }
+
+.recipe-card-home {
+  position: relative;
+  border-radius: 12px;
+  height: 160px;
+  width: 350px;
+  background-size: cover;
+  overflow: hidden;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+    &:hover {
+    transform: scale(1.03);
+}
+
+    &::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.card-full-link {
+position: absolute;
+inset: 0; // couvre toute la carte
+z-index: 1;
+}
+
+
+.favorite-icon,
+.card-overlay {
+  position: relative;
+  z-index: 1;
+}
+
+  .favorite-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: white;
+    font-size: 1.2rem;
+    z-index: 2;
+  }
+
+  .favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color:white;
+  }
+
+  .card-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    padding: 0.5rem;
+    color: white;
+    z-index: 2;
+
+    h5 {
+      font-size: 1rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    p {
+      font-size: 0.85rem;
+      margin: 0;
+      color: #ddd;
+    }
+  }
+}
+
 
 .instruction-item i.fa-trash-can {
   position: absolute;

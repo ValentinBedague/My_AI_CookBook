@@ -42,7 +42,7 @@
       <% @recipes.each do |recipe| %>
         <div class="recipe-card-link">
           <%= link_to recipe_path(recipe), class: "card-full-link" do %>
-            <div class="recipe-card mb-3" style="background-image: url('<%= recipe.url_image %>');">
+            <div class="recipe-card-home mb-3" style="background-image: url('<%= recipe.url_image %>');">
               <!-- Overlay cliquable -->
               <div class="card-overlay">
                 <h5><%= recipe.name %></h5>

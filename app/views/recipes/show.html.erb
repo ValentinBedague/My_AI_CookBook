@@ -19,8 +19,8 @@
 
     <h1 class= "my-4"><%= @recipe.name %></h1>
 
-    <div class="my-3 position-relative">
-      <img src="<%= @recipe.url_image %>" alt="<%= @recipe.name %>" class="img-fluid rounded-4">
+    <div class="my-3 position-relative my-3 position-relative rounded-4 overflow-hidden" style="height: 220px;">
+      <img src="<%= @recipe.url_image %>" alt="<%= @recipe.name %>" class="w-100 h-100 object-fit-cover">
       <div class="position-absolute bottom-0 start-0 m-2 d-flex gap-2">
         <span class="badge bg-light text-dark"><i class="fas fa-utensils me-1"></i><%= @recipe.portions %> portions</span>
         <span class="badge bg-light text-dark"><i class="fas fa-clock me-1"></i>Prep. time <%= @recipe.preparation_time %> Min</span>
@@ -32,7 +32,9 @@
       <% @recipe.ingredients.each do |ingredient| %>
         <div class="d-flex justify-content-between py-1">
           <span><%= ingredient.name.capitalize %></span>
-          <span><strong><%= ingredient.quantity %> <%= ingredient.unit %></strong></span>
+          <span><strong>
+            <%= (ingredient.quantity.to_f == ingredient.quantity.to_i ? ingredient.quantity.to_i : ingredient.quantity) %> <%= ingredient.unit %>
+          </strong></span>
         </div>
       <% end %>
     </div>
