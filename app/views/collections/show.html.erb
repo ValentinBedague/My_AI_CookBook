@@ -4,8 +4,14 @@
         <%= link_to :back do %>
         <i class='rounded-white fas fa-arrow-left'></i>
         <% end %>
-        <div class="d-flex">
-          <i class="far fa-heart me-2 rounded-white"></i>
+        <div class="d-flex gap-2">
+          <button class="favorite-btn-show"
+                  data-controller="favorite-collection"
+                  data-action="click->favorite-collection#toggle"
+                  data-favorite-collection-id-value="<%= @collection.id %>">
+            <i class="<%= @collection.isfavorite ? 'fas' : 'far' %> fa-heart rounded-white fs-6"></i>
+          </button>
+
           <%= button_to false, class:"dot-button" do %>
           <i class='fas fa-ellipsis rounded-white dots'></i>
           <% end %>

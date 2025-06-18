@@ -36,15 +36,12 @@
             <div class="recipe-card mb-3" style="background-image: url('<%= recipe.url_image %>');">
               <!-- Heart button, sorti du link-->
               <div class="favorite-icon" id="favorite-icon-<%= recipe.id %>">
-                <%= button_to toggle_favorite_recipe_path(recipe),
-                              method: :post,
-                              remote: true,
-                              form: { data: { turbo_stream: true } },
-                              class: "favorite-btn" do %>
-
-                  <% is_favorite = Collection.find_by(name: 'Favorites')&.recipes&.include?(recipe) %>
-                  <i class="<%= is_favorite ? 'fas' : 'far' %> fa-heart"></i>
-                <% end %>
+                <button class="favorite-btn"
+                        data-controller="favorite"
+                        data-action="click->favorite#toggle"
+                        data-favorite-recipe-id-value="<%= recipe.id %>">
+                  <i class="<%= favorite?(recipe) ? 'fas' : 'far' %> fa-heart"></i>
+                </button>
               </div>
               <!-- Cliquable vers la recette -->
                <%= link_to recipe_path(recipe), class: "card-full-link" do %>

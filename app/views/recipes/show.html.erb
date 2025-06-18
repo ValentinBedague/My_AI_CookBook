@@ -8,19 +8,23 @@
       <%= link_to :back do %>
        <i class='rounded-white fas fa-arrow-left'></i>
       <% end %>
-      <div class="d-flex">
-        <i class="far fa-heart me-2 rounded-white"></i>
-
-        <%= button_to false, class:"dot-button" do %>
-        <i class='fas fa-ellipsis rounded-white dots'></i>
-        <% end %>
-      </div>
+        <div class="d-flex gap-2">
+          <button class="favorite-btn-show"
+                  data-controller="favorite"
+                  data-action="click->favorite#toggle"
+                  data-favorite-recipe-id-value="<%= @recipe.id %>">
+            <i class="<%= favorite?(@recipe) ? 'fas' : 'far' %> fa-heart rounded-white"></i>
+          </button>
+          <%= button_to false, class:"dot-button" do %>
+          <i class='fas fa-ellipsis rounded-white dots'></i>
+          <% end %>
+        </div>
     </div>
 
     <h1 class= "my-4"><%= @recipe.name %></h1>
 
-    <div class="my-3 position-relative">
-      <img src="<%= @recipe.url_image %>" alt="<%= @recipe.name %>" class="img-fluid rounded-4">
+    <div class="my-3 position-relative my-3 position-relative rounded-4 overflow-hidden" style="height: 220px;">
+      <img src="<%= @recipe.url_image %>" alt="<%= @recipe.name %>" class="w-100 h-100 object-fit-cover">
       <div class="position-absolute bottom-0 start-0 m-2 d-flex gap-2">
         <span class="badge bg-light text-dark"><i class="fas fa-utensils me-1"></i><%= @recipe.portions %> portions</span>
         <span class="badge bg-light text-dark"><i class="fas fa-clock me-1"></i>Prep. time <%= @recipe.preparation_time %> Min</span>

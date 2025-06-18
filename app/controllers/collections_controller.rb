@@ -87,6 +87,12 @@ class CollectionsController < ApplicationController
     redirect_to collections_path
   end
 
+  def toggle_favorite
+    @collection = Collection.find(params[:id])
+    @collection.update(isfavorite: !@collection.isfavorite)
+    render json: { favorited: @collection.isfavorite }
+  end
+
   private
 
   def collection_params

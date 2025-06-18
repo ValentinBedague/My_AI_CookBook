@@ -76,6 +76,23 @@
     font-weight: lighter;
     }
 
+    .favorite-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: white;
+    font-size: 1.2rem;
+    z-index: 2;
+  }
+
+  .favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color:white;
+  }
+
 
 
     &.favorites {
