@@ -1,0 +1,32 @@
+<div class="container p-4">
+ <div class="d-flex justify-content-end">
+    <%= link_to recipe_path(@recipe) do %>
+      <i class='fa-solid fa-xmark rounded-white'></i>
+    <% end %>
+  </div>
+  <div class="d-flex my-4">
+    <i class="fa-solid fa-wand-magic-sparkles"></i>
+    <h1>Smart-scale portions</h1>
+  </div>
+
+  <img src="<%= @recipe.url_image %>" alt="<%= @recipe.name %>" class="img-fluid rounded-4">
+
+  <h2 class= "mt-4">For how many people do you want to cook ?</h2>
+
+  <p>I will suggest new quantities for each ingredients and adapt instructions</p>
+
+  <%= form_with model: @recipe, url: run_edit_portions_recipe_messages_path(@recipe), method: :post, data: { turbo_action: "replace" } do |f| %>
+    <%= hidden_field_tag :step, "portions" %>
+    <%= hidden_field_tag :id, @recipe.id %>
+    <div class="d-flex justify-content-center align-items-center" data-controller="counter">
+      <i class='rounded-white fas fa-minus me-3' data-action="click->counter#decrement"></i>
+      <%= f.number_field :new_portions, class: "form-control form-control-small text-center", style: "font-weight: 600;", value: (@recipe.portions), min: 1, step: 1, data: { counter_target: "input" } %>
+      <i class='rounded-white fas fa-plus ms-3' data-action="click->counter#increment"></i>
+    </div>
+    <div class="fixed-bottom-button">
+      <%= f.button type: "submit", class: "btn-plain" do %>
+        <i class='fa-solid fa-wand-magic-sparkles me-2'></i> Modify recipe
+      <% end %>
+    </div>
+   <% end %>
+</div>

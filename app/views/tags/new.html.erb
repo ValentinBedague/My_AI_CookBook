@@ -1,9 +1,20 @@
-<%= link_to "◀️back", collection_path(@collection), class: "text-primary fw-bold small" %>
-<%= simple_form_for [@collection, @tag] do |f| %>
-  <div class="mb-3">
-    <%= f.association :recipe, label: "Choose a recipe", input_html: { class: "form-select" } %>
+<div class="container p-4">
+  <div class="d-flex justify-content-end">
+    <%= link_to collection_path(@collection) do %>
+      <i class='fa-solid fa-xmark rounded-white'></i>
+    <% end %>
   </div>
-  <div class="mb-3">
-  </div>
-  <%= f.button :submit, "🍽️ Add to #{@collection.name}", class: "btn btn-primary w-100 mb-3" %>
-<% end %>
+
+  <%= simple_form_for [@collection, @tag] do |f| %>
+    <div class="mt-5 mb-3">
+      <h1 class="mb-4">Choose a recipe</h1>
+      <%= f.association :recipe,
+                        label: false,
+                        input_html: { class: "form-select" }
+      %>
+    </div>
+    <div class="mb-3">
+    </div>
+    <%= f.button :submit, "Add to #{@collection.name.capitalize}", class: "btn btn-plain fixed-bottom-button" %>
+  <% end %>
+</div>

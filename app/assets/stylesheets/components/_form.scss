@@ -118,6 +118,20 @@ textarea::placeholder {
   color: $green-text ;
   margin-left: 20px;
 }
+
+/* card selection classes (e.g. image gallery) */
+
+.gallery-image {
+  border: 1px solid transparent; /* default no visible border */
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.gallery-image.selected {
+  border-color: $green-primary; /* green border when selected */
+  box-shadow: 0 0 10px rgba(172, 172, 172, 0.7); /* optional subtle glow */
+}
+
 /* step tracker classes */
 
 .steps {
@@ -126,6 +140,10 @@ textarea::placeholder {
   width: 75%;
   justify-content: space-between;
   position: relative;
+}
+
+.steps-small {
+  width:37%;
 }
 
 .steps .circle {

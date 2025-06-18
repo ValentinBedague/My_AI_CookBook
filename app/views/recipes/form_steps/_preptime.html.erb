@@ -5,13 +5,12 @@
 
     <div class="d-flex justify-content-between align-items-center mb-2">
       <div></div>
-      <%# link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
       <%= button_to discard_recipe_path(@recipe),
-            method: :delete,
-            data: { turbo_confirm: "Are you sure you want to cancel?" },
-            form: { class: "d-inline", data: { turbo_action: "replace" } },
-            class: "icon-button" do %>
-        <i class="fas fa-xmark rounded-white"></i>
+        method: :delete,
+        class:"dot-button",
+        data: { turbo_confirm: "Are you sure you want to cancel?" },
+        form: { data: { turbo_action: "replace" } } do %>
+        <i class='fas fa-xmark rounded-white'></i>
       <% end %>
     </div>
 

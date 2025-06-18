@@ -1,0 +1,17 @@
+{
+  "background_color": "white",
+  "description": "My AI Cookbook lets you import your favorite recipes from any source, unify them in one beautiful cookbook and use AI to adapt them on demand.",
+  "display": "fullscreen",
+  "name": "My AI Cookbook",
+  "icons": [
+    <% files = Dir.entries(Rails.root.join("app/assets/images/icons/")).select {|f| !File.directory? f} %>
+    <% files.each_with_index do |file, index| %>
+      <% match = file.match(/.+-(?<size>\d{2,3}x\d{2,3}).png/) %>
+      {
+        "src": "<%= image_path "icons/#{file}" %>",
+        "sizes": "<%= match && match[:size] %>",
+        "type": "image/png"
+      }<%= "," unless (files.size - 1) == index %>
+    <% end %>
+  ]
+}
