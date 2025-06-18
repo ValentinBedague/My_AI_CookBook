@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     post 'toggle_favorite', on: :member
     member do
       get :ask_ai
+      post :create_low_calories
+      get :view_low_calories
     end
     collection do
       get :new_via_url

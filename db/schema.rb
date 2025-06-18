@@ -109,6 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_17_094519) do
     t.string "url_image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "original_recipe_id"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 

@@ -21,6 +21,10 @@
     flex-direction: column;
     justify-content: flex-end;
 
+     &:hover {
+      transform: scale(1.03);
+ }
+
      &::before {
     content: "";
     position: absolute;
