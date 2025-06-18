@@ -38,7 +38,11 @@ class RecipesController < ApplicationController
     @low_cal_prompt = <<~PROMPT
     You will receive information about a cooking recipe.
 
-    Your task is to transform this recipe into a much lower-calorie version, while keeping the number of servings exactly the same. Do not reduce the total amount of food to lower the calories. Instead, focus on replacing ingredients with lower-calorie alternatives wherever possible.
+    Your task is to transform this recipe into a much lower-calorie version, while keeping the number of servings exactly the same. Do not reduce the total quantity of food to lower the calories. Instead, focus on replacing high-calorie ingredients with lower-calorie alternatives.
+
+    Whenever possible, prefer natural substitutions over simply using “light” or reduced-fat versions of the same ingredient. For example, in a cake recipe, you could replace butter with grated carrot, zucchini, or sweet potato if they help reduce calories.
+
+    🛠️ Make sure to update the step-by-step instructions accordingly to reflect the ingredient changes. These instructions must remain coherent with the new set of ingredients.
 
     Use the information below:
 
@@ -51,7 +55,7 @@ class RecipesController < ApplicationController
     Return the data as a JSON object with the exact structure below:
 
     {
-      "name": "Name of the recipe as a string (leave empty if not found) concatenate with "low calories"(string)",
+      "name": "Recipe name as a string (leave empty if not found). If a name is present, append 'low calories' to it."
       "portions": "Number of servings as a string or integer (leave empty if not found)",
       "preparation_time": "Preparation time as an integer (in minutes, e.g., 30 for 30 minutes) (leave empty if not found)",
       "description": "An array of step-by-step instructions as strings (e.g., 'Do this', 'Then do that'). Leave empty if not found.",
@@ -71,7 +75,7 @@ class RecipesController < ApplicationController
     }
 
     ⚠️ Strict instructions:
-    - If a piece of information is missing or not clearly visible in the image, leave the corresponding field empty. Do not guess or make assumptions.
+    - If a piece of information is missing or not provided in the input, leave the corresponding field empty. Do not guess or make assumptions.
     - Return **only** the final JSON object.
     - Do NOT include markdown code blocks or any formatting.
     - Do not include explanations, notes, or headers.
@@ -95,7 +99,7 @@ PROMPT
       Ingredient.create(name: ingredient["name"], quantity: ingredient["quantity"], unit: ingredient["unit"], recipe_id: @new_recipe.id)
     end
 
-    if @new_recipe.update(name: name, portions: portions, preparation_time: preparation_time, description: description, url_image: "https://www.ensto-ebs.fr/modules/custom/legrand_ecat/assets/img/no-image.png", original_recipe_id: @recipe.id)
+    if @new_recipe.update(name: name, portions: portions, preparation_time: preparation_time, description: description, url_image: @recipe.url_image, original_recipe_id: @recipe.id)
     redirect_to view_low_calories_recipe_path(@new_recipe), notice: "Low calories #{@recipe.name} 🍽️ has been succesfully created ! ✅"
     else
       render :new, status: :unprocessable_entity
@@ -411,7 +415,13 @@ PROMPT
     @recipe = Recipe.find(params[:id])
 
     if @recipe.destroy
-      redirect_to recipes_path, notice: "#{@recipe.name} was succesfully destroyed"
+      notice_message = "#{@recipe.name} was successfully destroyed"
+
+      if @recipe.original_recipe_id.present?
+        redirect_to recipe_path(@recipe.original_recipe_id), notice: notice_message
+      else
+        redirect_to recipes_path, notice: notice_message
+      end
     else
       render :new, status: :unprocessable_entity
     end

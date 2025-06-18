@@ -1,13 +1,8 @@
 <div class="container p-4">
   <div class="card-body">
 
-   <div class="d-flex justify-content-end align-items-center mb-2">
-      <%= link_to ask_ai_recipe_path(@recipe.id) do %>
-        <i class='rounded-white fas fa-xmark'></i>
-        <% end %>
-   </div>
 
-    <h1 class= "my-4"><i class='fa-solid fa-wand-magic-sparkles me-3'></i><span>Lighten it up, keep flavor</span></h1>
+    <h1 class= "mb-4"><i class='fa-solid fa-wand-magic-sparkles me-3'></i><span>Lighten it up, keep flavor</span></h1>
 
     <div class="recipe-card-link">
       <div class="recipe-card-link recipe-card" style="background-image: url('<%= @recipe.url_image %>');">
@@ -67,10 +62,10 @@
     </div>
 
     <div class="container mt-5">
-      <div class="row justify-content-center">
-        <%= link_to  "Make it a new recipe", recipe_path(@new_recipe), class:"btn btn-plain mt-3" %>
-        <%= button_to "Replace the original", update_low_calories_recipe_path(@recipe), method: :patch, class:"btn btn-outline mt-3" %>
-        <%= link_to "Close", edit_recipe_path, class:"btn btn-outline mt-3" %>
+      <div class="d-flex flex-wrap justify-content-center align-items-center">
+        <%= link_to  "Make it a new recipe", recipe_path(@new_recipe), class:"btn btn-plain mt-3 me-3" %>
+        <%= button_to "Replace the original", update_low_calories_recipe_path(@recipe), method: :patch, class:"btn btn-outline mt-3 me-3" %>
+        <%= button_to "Close", recipe_path(@new_recipe),method: :delete, class:"btn btn-outline mt-3 me-3" %>
       </div>
 
   </div>
