@@ -16,7 +16,7 @@
     <h2 class= "my-4">Wich ingredients do you want to change?</h2>
 
     <p>I will suggest other ingredients that will match with the orignal recipe! </p>
-    <%= form_with url: swap_ingredients_recipe_ingredients_path(@recipe), method: :patch, local: true do %>
+    <%= form_with url: swap_ingredients_recipe_ingredients_path(@recipe), method: :post, local: true do %>
           <div class=" p-3 fw-bold mb-1">
             <div class="d-flex justify-content-center py-1">
               <span class="pe-2"> take in account your personal diet ?</span>

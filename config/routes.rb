@@ -40,7 +40,8 @@ Rails.application.routes.draw do
       member do
       end
       collection do
-        patch :swap_ingredients
+        post :swap_ingredients
+        patch :update_swap_ingredients
         get :view_swap_ingredients
         get :choice_swap_ingredients
       end
