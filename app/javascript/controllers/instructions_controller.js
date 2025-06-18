@@ -1,11 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["input", "list", "count", "submit"]
+  static targets = ["input", "list", "count", "submit", "addButton"]
 
   capitalizeFirstWord(str) {
     if (!str) return ""
     return str.charAt(0).toUpperCase() + str.slice(1)
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
   }
 
   connect() {
@@ -14,12 +18,24 @@ export default class extends Controller {
     this.toggleSubmitButton()
   }
 
-  addInstruction(event) {
+  async addInstruction(event) {
     event.preventDefault()
     // console.log(this.inputTarget.value)
     const value = this.inputTarget.value.trim()
     // console.log(value)
     if (value === "") return
+
+    // Show spinner on Add button during 1s
+    const originalButtonHTML = this.addButtonTarget.innerHTML
+    this.addButtonTarget.innerHTML = `
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <span class="visually-hidden">Loading...</span>
+    `
+    this.addButtonTarget.disabled = true
+    await this.sleep(500)
+    // Restore Add button text & state
+    this.addButtonTarget.innerHTML = originalButtonHTML
+    this.addButtonTarget.disabled = false
 
     this.instructionCount++
     this.updateCount()
