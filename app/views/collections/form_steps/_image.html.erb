@@ -52,10 +52,23 @@
     </div>
     <div data-form-gallery-target="gallerycontainer" class="d-none mb-4">
       <div class="collections-grid mb-4">
-        <% (1..11).each do |i| %>
-          <div class="collection-card gallery-image" id='Gallery<%= i %>' data-form-gallery-target="gallerycard" data-action="click->form-gallery#toggleGalleryButton">
+        <% galleries = [
+          "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750176342/Gallery1_sdzzsc.png",
+          "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750176342/Gallery2_uszpsg.png",
+          "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750176342/Gallery3_jehzyp.png",
+          "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750176343/Gallery4_pznvcs.png",
+          "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750176342/Gallery5_h0awyj.png",
+          "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750176341/Gallery6_y7bl0n.png",
+          "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750176340/Gallery7_kjjl7y.png",
+          "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750176342/Gallery8_reladr.png",
+          "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750176341/Gallery9_aolcf7.png",
+          "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750176340/Gallery10_fg5kis.png"
+        ] %>
+
+        <% galleries.each_with_index do |url, i| %>
+          <div class="collection-card gallery-image" id="gallery<%= i+1 %>" data-form-gallery-target="gallerycard" data-action="click->form-gallery#toggleGalleryButton">
             <div style="position: relative; width: 100%; height: 100%;">
-              <%= image_tag "Gallery#{i}.png", alt: "Gallery#{i}", class: "img-fluid rounded-4 mb-3", style: "width: 100%; height: 100%; object-fit: cover; display: block;" %>
+              <%= image_tag url, alt: "Gallery#{i+1}", class: "img-fluid rounded-4 mb-3", style: "width: 100%; height: 100%; object-fit: cover; display: block;" %>
               <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.1)); pointer-events: none;"></div>
             </div>
           </div>

@@ -34,16 +34,20 @@ export default class extends Controller {
 
   toggleGalleryButton(event) {
     const clickedCard = event.target.closest(".collection-card")
+    if (!clickedCard) return
     // Remove "selected" class from all gallery images
     this.gallerycardTargets.forEach(card => card.classList.remove("selected"))
     // Add "selected" class to clicked image
     clickedCard.classList.add("selected")
     // Store the selected image id
-    this.selectedImageId = clickedCard.id
-    console.log("Selected image id:", this.selectedImageId)
-    const image_path = "assets/" + this.selectedImageId + ".png";
-    this.inputTarget.value = image_path
-    console.log("Selected image path:", image_path)
+    const imgElement = clickedCard.querySelector("img")
+    if (!imgElement) {
+      console.warn("No image found inside the clicked card.")
+      return
+    }
+    const imageUrl = imgElement.src
+    this.inputTarget.value = imageUrl
+    console.log("Selected image path:", imageUrl)
     this.gallerysubmitTarget.disabled = false
   }
 }
