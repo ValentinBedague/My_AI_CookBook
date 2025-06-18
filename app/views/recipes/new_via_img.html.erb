@@ -1,32 +1,47 @@
+<div class="container p-4" data-controller="file-upload">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div></div>
+      <%# link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
+      <%= link_to "<i class='fas fa-xmark rounded-white'></i>".html_safe, root_path %>
+    </div>
 
-<div class="container justify-content-center col-10">
-  <div class="header-actions">
-        <%= link_to :back do %>
-            <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749757945/back_epdna9.svg", alt: "arrow" %>
-        <% end %>
-        <%= link_to root_path do %>
-            <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749757944/quit_jweu9c.svg", alt: "cross" %>
-        <% end %>
-      </div>
-    <h1 class="mb-5">Import a recipe from a picture</h1>
-          <%= simple_form_for(@recipe, url: create_via_img_recipes_path) do |f| %>
-            <div class="custom-file-upload" data-controller="file-upload">
+    <h1 class="my-4">Import a recipe from a picture</h1>
+          <%= simple_form_for(@recipe, url: create_via_img_recipes_path, data: { action: "submit->file-upload#onFormSubmit" }) do |f| %>
+            <div class="custom-file-upload">
               <%= f.input :image, as: :file,
                 name: "image",
                 label: false,
-                input_html: { id: "recipe_image", class: "custom-file-input", style: "display:none;", data: {file_upload_target: "input"} }
+                input_html: { id: "recipe_image", class: "custom-file-input", style: "display:none;", data: { file_upload_target: "input"} }
               %>
               <label for="recipe_image" class="custom-file-label">
-                <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749765804/images_a2dvsd.svg", class: "custom-file-icon" %>
+                <i class="fa-solid fa-camera input-icon"></i>
                 <span id="custom-file-text" data-file-upload-target="text">Upload a picture</span>
               </label>
             </div>
             <div class="fixed-bottom-button">
-              <%= button_tag(type: "submit", class: "btn-plain") do %>
-                <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg", class: "btn-icon" %>
+              <%= button_tag(type: "submit", class: "btn-plain", data: { file_upload_target: "submit" }, disabled: true) do %>
+                <i class="fa-solid fa-wand-magic-sparkles btn-icon"></i>
                  Import recipe
               <% end %>
             </div>
           <% end %>
 
+        <div id="loading-modal" class="d-none">
+          <div class="modal-backdrop blur-backdrop"></div>
+          <div class="modal show d-block" tabindex="-1" role="status" aria-modal="true" style="z-index: 1051;">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content text-center p-4 rounded-4">
+                <div class="modal-text d-flex align-items-center justify-content-center">
+                  Analyzing your image...
+                  <span class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>
+                </div>
+                <div class="d-flex flex-column align-items-center justify-content-center m-4">
+                  <%= render "shared/svg/lady" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
 </div>

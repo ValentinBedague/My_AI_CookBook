@@ -158,26 +158,31 @@ end
 puts "Sweet Crepes recipe successfully created ✅"
 brunch = Collection.create!(
   name: "brunch",
-  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654124/brunch_x10hlt.png"
+  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654124/brunch_x10hlt.png",
+  user_id: user1.id
 )
 puts "brunch collection successfully created ✅"
 healthy = Collection.create!(
   name: "healthy",
-  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654213/healthy_ystbgg.jpg"
+  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654213/healthy_ystbgg.jpg",
+  user_id: user1.id
 )
 puts "healthy collection successfully created ✅"
 favorites = Collection.create!(
   name: "Favorites",
-  url_image: "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/dinner.jpg"
+  url_image: "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/dinner.jpg",
+  user_id: user1.id
 )
 puts "Favorites collection successfully created ✅"
 cheap = Collection.create!(
   name: "cheap",
-  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654154/cheap_pm6vvh.jpg"
+  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654154/cheap_pm6vvh.jpg",
+  user_id: user1.id
 )
 asian = Collection.create!(
   name: "asian",
-  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654186/asian_jimmjc.jpg"
+  url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654186/asian_jimmjc.jpg",
+  user_id: user1.id
 )
 puts "Favorites collection successfully created ✅"
 

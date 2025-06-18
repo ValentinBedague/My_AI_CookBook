@@ -41,6 +41,9 @@ Rails.application.routes.draw do
 
   resources :collections do
     resources :tags, only: [:new, :create]
+    member do
+      delete :discard
+    end
   end
   resources :tags, only: [:destroy]
 

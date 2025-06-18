@@ -5,11 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :recipes
-  has_many :collections, -> { distinct }, through: :recipes
+  has_many :collections
   has_one_attached :photo
 
   # Gestion des restrictions
   has_many :user_restrictions, dependent: :destroy
   has_many :restrictions, through: :user_restrictions
-
 end
