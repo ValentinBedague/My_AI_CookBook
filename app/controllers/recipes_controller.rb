@@ -438,20 +438,17 @@ PROMPT
 
   def toggle_favorite
     @recipe = Recipe.find(params[:id])
-    favorite_collection = Collection.find_by(name: 'Favorites')
+    favorites_collection = Collection.find_by(name: 'Favorites')
 
-    if favorite_collection.recipes.include?(@recipe)
-      favorite_collection.recipes.delete(@recipe)
-      @favorited = false
+    if favorites_collection.recipes.include?(@recipe)
+      favorites_collection.recipes.delete(@recipe)
+      favorited = false
     else
-      favorite_collection.recipes << @recipe
-      @favorited = true
+      favorites_collection.recipes << @recipe
+      favorited = true
     end
 
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to recipe_path(@recipe) }
-    end
+    render json: { favorited: favorited }
   end
 
   private
