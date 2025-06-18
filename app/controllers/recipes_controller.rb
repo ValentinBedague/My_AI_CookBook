@@ -99,11 +99,11 @@ PROMPT
     else
       render :new, status: :unprocessable_entity
     end
+  end
 
-   end
-   def view_low_calories
+  def view_low_calories
     @new_recipe = Recipe.find(params[:id])
-   end
+  end
 
   def ask_ai
   end
@@ -295,7 +295,7 @@ PROMPT
     end
 
     if @recipe.update(name: name, portions: portions, preparation_time: preparation_time, description: description, url_image: "https://www.ensto-ebs.fr/modules/custom/legrand_ecat/assets/img/no-image.png")
-      redirect_to @recipe, notice: "#{@recipe.name} 🍽️ has been succesfully created ! ✅"
+      redirect_to edit_recipe_path(@recipe)
     else
       render :new, status: :unprocessable_entity
     end
@@ -366,21 +366,23 @@ PROMPT
    end
 
    if @recipe.update(name: name, portions: portions, preparation_time: preparation_time, description: description, url_image: "https://www.ensto-ebs.fr/modules/custom/legrand_ecat/assets/img/no-image.png")
-   redirect_to @recipe, notice: "#{@recipe.name} 🍽️ has been succesfully created ! ✅"
+      redirect_to edit_recipe_path(@recipe)
    else
      render :new, status: :unprocessable_entity
    end
   end
 
   def edit
+    @recipe = Recipe.find(params[:id])
   end
 
   def update
+    @recipe = Recipe.find(params[:id])
     if @recipe.update(recipe_params)
-    redirect_to @recipe, notice: "#{@recipe.name} was successfully updated!"
-   else
-    render :edit, status: :unprocessable_entity
-   end
+      redirect_to @recipe, notice: "Recipe updated successfully"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy

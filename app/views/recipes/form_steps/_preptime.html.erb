@@ -14,7 +14,7 @@
       <% end %>
     </div>
 
-    <h1 class= "my-4"><%= @recipe.name || "Create a new recipe" %></h1>
+    <h1 class= "mb-4"><%= @recipe.name || "Create a new recipe" %></h1>
 
     <div class="steps mb-5">
       <span class="circle done"></span>
@@ -32,8 +32,8 @@
       <%= number_field_tag :preptime_number, (@recipe.preparation_time || 0), min: 0, class: "form-control form-control-small text-center me-3", style: "font-weight: 600;", data: { action: "input->preptime#update" } %>
 
       <select id="preptime_unit" class="form-select" style="font-weight: 600;" data-action="change->preptime#update" data-preptime-target="unit">
-        <option value="minutes" <%= "selected" if (@recipe.preparation_time && @recipe.preparation_time < 60) %>>Minutes</option>
-        <option value="hours" <%= "selected" if (@recipe.preparation_time && @recipe.preparation_time >= 60) %>>Hours</option>
+        <option value="minutes" selected>Minutes</option>
+        <option value="hours">Hours</option>
       </select>
     </div>
 

@@ -21,4 +21,10 @@ module ApplicationHelper
                   class: "avatar avatar-#{size} avatar-default"
     end
   end
+
+  def display_number(num)
+    return "" if num.nil?
+
+    (num % 1).zero? ? num.to_i : num
+  end
 end

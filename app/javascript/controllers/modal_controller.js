@@ -3,7 +3,6 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
   static targets = ['minusIcon', 'modalHide', 'blurred','okButton'];
   connect() {
-
     // this.modalHideTarget.classList.add('d-none');
     const dots = document.querySelector('.dots');
     const modal = document.querySelector('.modal-options');
@@ -12,7 +11,8 @@ export default class extends Controller {
     dots.addEventListener('click', (event) => {
       event.preventDefault();
       modal.classList.remove('d-none');
-      modal.setAttribute('style', 'position: fixed; bottom:60px;');
+      // modal.setAttribute('style', 'position: fixed; bottom:60px;');
+      modal.setAttribute('style', 'position: fixed; bottom:0px;');
       container.setAttribute('style', 'filter: blur(4px);');
       document.body.classList.add('no-scroll');
     });
@@ -23,6 +23,7 @@ export default class extends Controller {
       document.body.classList.remove('no-scroll');
     });
   }
+
   remove() {
     this.minusIconTargets.forEach((icon) => {
       icon.classList.remove('d-none');
@@ -34,6 +35,7 @@ export default class extends Controller {
     this.blurredTarget.setAttribute('style', 'filter: blur(0px);');
     document.body.classList.remove('no-scroll');
   }
+
   ok() {
     this.minusIconTargets.forEach((icon) => {
       icon.classList.add('d-none');
@@ -41,6 +43,5 @@ export default class extends Controller {
     if (this.hasOkButtonTarget) {
       this.okButtonTarget.classList.add("d-none")
     }
-
   }
 }
