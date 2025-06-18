@@ -9,7 +9,7 @@
                   data-controller="favorite-collection"
                   data-action="click->favorite-collection#toggle"
                   data-favorite-collection-id-value="<%= @collection.id %>">
-            <i class="<%= @collection.isfavorite ? 'fas' : 'far' %> fa-heart rounded-white fs-6"></i>
+            <i class="<%= @collection.isfavorite ? 'fas' : 'far' %> fa-star rounded-white fs-6"></i>
           </button>
 
           <%= button_to false, class:"dot-button" do %>

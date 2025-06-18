@@ -3,11 +3,13 @@
   <div class="card-body">
 
     <!-- Logo -->
-    <%= link_to root_path do %>
-      <%= image_tag("https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg",
-                    alt: "My AI Cookbook Logo",
-                    class: "logo") %>
-    <% end %>
+    <div class="d-flex">
+      <%= link_to root_path do %>
+        <%= image_tag("https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg",
+                      alt: "My AI Cookbook Logo",
+                      class: "logo") %>
+      <% end %>
+    </div>
 
     <!-- Search bar -->
     <%= form_with url: "", method: :get, local: true,

@@ -2,12 +2,15 @@
   <div class="collections-index">
 
   <!-- Logo -->
-    <%= link_to root_path do %>
-      <%= image_tag("https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg",
-                    alt: "My AI Cookbook Logo",
-                    class: "logo") %>
-    <% end %>
-  <div class="collection-header">
+    <div class="d-flex">
+      <%= link_to root_path do %>
+        <%= image_tag("https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg",
+                      alt: "My AI Cookbook Logo",
+                      class: "logo") %>
+      <% end %>
+    </div>
+
+  <div class="collection-header mt-2">
 
     <h1 id="collection-title">My books</h1>
 
@@ -24,10 +27,10 @@
 
     <!-- Boutons -->
     <div class="collection-header-actions">
-      <a href="#" id="search-btn" class="icon-button rounded-white" onclick="toggleSearch(event)">
+      <a href="#" id="search-btn" class="icon-button me-2" onclick="toggleSearch(event)">
         <i class="fa-solid fa-magnifying-glass icon-green"></i>
       </a>
-      <%= link_to new_collection_path, class: "icon-button rounded-white" do %>
+      <%= link_to new_collection_path, class: "icon-button" do %>
         <i class="fa-solid fa-plus icon-green"></i>
       <% end %>
     </div>
@@ -58,7 +61,7 @@
                         data-controller="favorite-collection"
                         data-action="click->favorite-collection#toggle"
                         data-favorite-collection-id-value="<%= collection.id %>">
-                  <i class="<%= collection.isfavorite ? 'fas' : 'far' %> fa-heart"></i>
+                  <i class="<%= collection.isfavorite ? 'fas' : 'far' %> fa-star"></i>
                 </button>
               </div>
         <%= link_to collection_path(collection) do %>
