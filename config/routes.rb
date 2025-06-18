@@ -39,6 +39,10 @@ Rails.application.routes.draw do
   end
 
   resources :collections do
+    member do
+      post :toggle_favorite
+    end
+
     resources :tags, only: [:new, :create]
     member do
       delete :discard
