@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :destroy, :ask_ai, :create_low_calories]
+  before_action :set_recipe, only: [:show, :edit, :destroy, :ask_ai, :create_low_calories, :swap_ingredients, :view_swap_ingredients, :choice_swap_ingredients]
 
   require 'open-uri'
 
@@ -115,19 +115,20 @@ PROMPT
   def update_low_calories
     @recipe = Recipe.find(params[:id])
     @new_recipe = Recipe.last
-    @recipe.ingredients.destroy_all
-    @new_recipe.ingredients.each do  |ingredient|
 
-      Ingredient.create(name: ingredient.name,
-       quantity: ingredient.quantity,
-       unit: ingredient.unit,
-       recipe_id: @recipe.id
-      )
-    end
 
      if @recipe.update(name: @new_recipe.name, portions: @new_recipe.portions, preparation_time: @new_recipe.preparation_time, description: @new_recipe.description)
-      @new_recipe.destroy
-      redirect_to @recipe, notice: "#{@recipe.name} 🍽️ has been succesfully updated ! ✅"
+        @recipe.ingredients.destroy_all
+        @new_recipe.ingredients.each do  |ingredient|
+
+          Ingredient.create(name: ingredient.name,
+          quantity: ingredient.quantity,
+          unit: ingredient.unit,
+          recipe_id: @recipe.id
+          )
+        end
+        @new_recipe.destroy
+        redirect_to @recipe, notice: "#{@recipe.name} 🍽️ has been succesfully updated ! ✅"
     else
       render :new, status: :unprocessable_entity
     end

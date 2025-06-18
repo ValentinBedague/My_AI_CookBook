@@ -1,0 +1,48 @@
+<div class="container p-4">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <%= link_to "<i class='fas fa-arrow-left rounded-white'></i>".html_safe, ask_ai_recipe_path(@recipe) %>
+      <!-- <i class='rounded-white fas fa-arrow-left'></i> -->
+      <%= link_to "<i class='fas fa-xmark rounded-white'></i>".html_safe, @recipe %>
+    </div>
+
+    <h1 class= "mb-4"><i class='fa-solid fa-wand-magic-sparkles me-3'></i><span>Smart ingredient swap</span></h1>
+
+    <div class="recipe-card-link">
+      <div class="recipe-card-link recipe-card" style="background-image: url('<%= @recipe.url_image %>');">
+      </div>
+    </div>
+
+    <h2 class= "my-4">Wich ingredients do you want to change?</h2>
+
+    <p>I will suggest other ingredients that will match with the orignal recipe! </p>
+    <%= form_with url: swap_ingredients_recipe_ingredients_path(@recipe), method: :patch, local: true do %>
+          <div class=" p-3 fw-bold mb-1">
+            <div class="d-flex justify-content-center py-1">
+              <span class="pe-2"> take in account your personal diet ?</span>
+              <%= check_box_tag "use_restrictions", "1", false, id: "use_restrictions" %>
+            </div>
+          </div>
+
+      <div class="card component-container p-3 rounded-4">
+        <% @ingredients.each do |ingredient| %>
+          <div class="d-flex justify-content-between py-1">
+            <span><%= ingredient.name.capitalize %></span>
+            <%= check_box_tag "ingredient_ids[]", ingredient.id, false, id: "ingredient_#{ingredient.id}" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="mt-4">
+        <%= label_tag "diet_explanation", "Why?", class: "mb-3" %>
+        <%= text_area_tag "diet_explanation", "", class: "form-control mb-5", rows: 2, placeholder: "Explain your dietary preferences or allergies…" %>
+      </div>
+      <div class="fixed-bottom-button">
+        <%= button_tag(type: "submit", class: "btn-plain") do %>
+          <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg", class: "btn-icon" %>
+          Find substitutes
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

@@ -36,6 +36,15 @@ Rails.application.routes.draw do
         post :run_edit_portions
       end
     end
+    resources :ingredients do
+      member do
+      end
+      collection do
+        patch :swap_ingredients
+        get :view_swap_ingredients
+        get :choice_swap_ingredients
+      end
+    end
   end
 
   resources :collections do
