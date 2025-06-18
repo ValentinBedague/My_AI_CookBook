@@ -47,14 +47,15 @@
                 <% end %>
               </div>
               <!-- Cliquable vers la recette -->
-              <%= link_to recipe_path(recipe), class: "card-full-link" do %>
-                <span class="sr-only"><%= recipe.name %></span>
-              <% end %>
-              <!-- Overlay-->
-              <div class="card-overlay">
-                <h5><%= recipe.name %></h5>
-                <p><%= pluralize(recipe.ingredients.count, "ingredient") %> | <%= recipe.preparation_time %> Min</p>
-              </div>
+               <%= link_to recipe_path(recipe), class: "card-full-link" do %>
+                  <div class="recipe-card mb-3" style="background-image: url('<%= recipe.url_image %>');">
+                    <!-- Overlay cliquable -->
+                    <div class="card-overlay">
+                      <h5><%= recipe.name %></h5>
+                      <p><%= pluralize(recipe.ingredients.count, "ingredient") %> | <%= recipe.preparation_time %> Min</p>
+                    </div>
+                  </div>
+                <% end %>
             </div>
           </div>
         <% end %>

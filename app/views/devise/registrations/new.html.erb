@@ -32,15 +32,16 @@
                     as: :file,
                     label: "Photo de profil (optionnel)",
                     hint: "Formats accecptés: JPEG, PNG, GIF (max 5MB)",
+                    hint_html: { class: "ms-3" },
+                    label_html: { class: "ms-3" },
                     input_html: { accept: "image/*" } %>
       </div>
 
 
 
       <div class="form-actions d-flex justify-content-center">
-        <%= f.button :submit, "Save my profile", class: "btn btn-plain" %>
+        <%= f.button :submit, "Create my profile", class: "btn btn-plain fixed-bottom-button" %>
       </div>
     <% end %>
   </div>
-  <%= render "devise/shared/links" %>
 </div>
