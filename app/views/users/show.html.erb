@@ -25,10 +25,6 @@
 
    <div class="d-flex justify-content-between align-items-center my-5">
     <h1>My personal diet</h1>
-
-    <%= link_to edit_user_path do %>
-      <i class="fa-solid fa-pen rounded-white me-2"></i>
-    <% end %>
   </div>
   <% @user.restrictions.each do |restriction| %>
     <div class="form-control mb-3 py-2 text-center">
