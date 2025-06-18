@@ -1,18 +1,16 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["input", "text", "submit"]
+  static targets = ["input", "submit"]
 
   connect() {
-    this.inputTarget.addEventListener("change", () => {
-      if (this.inputTarget.files.length > 0) {
-        this.textTarget.textContent = this.inputTarget.files[0].name;
-        this.submitTarget.disabled = false
-      } else {
-        this.textTarget.textContent = "Upload a picture";
-        this.submitTarget.disabled = true
-      }
-    });
+    this.toggleButton()
+  }
+
+  toggleButton() {
+    const hasValue = this.inputTargets.some(input => input.value.trim() !== "")
+    console.log(hasValue)
+    this.submitTarget.disabled = !hasValue
   }
 
   onFormSubmit(event) {
