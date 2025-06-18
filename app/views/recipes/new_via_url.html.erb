@@ -5,7 +5,7 @@
       <%# link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
       <%= link_to "<i class='fas fa-xmark rounded-white'></i>".html_safe, root_path %>
     </div>
-    <h1 class="my-4">Import a recipe from the Web</h1>
+    <h1 class="mb-4">Import a recipe from the Web</h1>
           <%= simple_form_for :url_form, url: create_via_url_recipes_path, method: :post, data: { action: "submit->url-upload#onFormSubmit" } do |f| %>
             <div class="input-with-icon">
               <i class="fa-solid fa-link input-icon"></i>

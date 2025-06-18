@@ -16,7 +16,7 @@
             <i class="<%= favorite?(@recipe) ? 'fas' : 'far' %> fa-heart rounded-white"></i>
           </button>
           <%= button_to false, class:"dot-button" do %>
-          <i class='fas fa-ellipsis-v rounded-white dots'></i>
+          <i class='fas fa-ellipsis rounded-white dots'></i>
           <% end %>
         </div>
     </div>
@@ -36,9 +36,7 @@
       <% @recipe.ingredients.each do |ingredient| %>
         <div class="d-flex justify-content-between py-1">
           <span><%= ingredient.name.capitalize %></span>
-          <span><strong>
-            <%= (ingredient.quantity.to_f == ingredient.quantity.to_i ? ingredient.quantity.to_i : ingredient.quantity) %> <%= ingredient.unit %>
-          </strong></span>
+          <span><strong><%= display_number(ingredient.quantity) %> <%= ingredient.unit %></strong></span>
         </div>
       <% end %>
     </div>
@@ -47,7 +45,6 @@
 
     <% @recipe.description.each_with_index do |step, index| %>
       <div class="card component-container p-3 rounded-4 mb-3">
-
         <span style="color:#438866; font-weight:500;" class= "mb-2">Step <%= index + 1 %></span>
         <p><%= step %></p>
       </div>
@@ -55,7 +52,7 @@
   </div>
 </div>
 
-<div class="modal-options p-5 d-none" data-controller="modal">
+<div class="modal-options p-5 d-none rounded-top-4" data-controller="modal">
   <div class="container">
     <%= link_to "<i id='close' style='font-size: 25px;' class='rounded-white fa-solid fa-xmark'></i>".html_safe %>
     <h1 class= "text-center fw-normal my-3">Options</h1>
