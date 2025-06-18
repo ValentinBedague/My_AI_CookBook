@@ -21,4 +21,8 @@ module ApplicationHelper
                   class: "avatar avatar-#{size} avatar-default"
     end
   end
+
+  def favorite?(recipe)
+    Collection.find_by(name: 'Favorites')&.recipes&.include?(recipe)
+  end
 end

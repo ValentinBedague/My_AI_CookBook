@@ -5,7 +5,9 @@
         <i class='rounded-white fas fa-arrow-left'></i>
         <% end %>
         <div class="d-flex">
-          <i class="far fa-heart me-2 rounded-white"></i>
+          <button id="favorite-button" class="btn p-0 border-0 bg-transparent">
+            <i id="favorite-icon" class="<%= @collection.isfavorite ? 'fas' : 'far' %> fa-heart me-2 rounded-white fs-4"></i>
+          </button>
           <%= button_to false, class:"dot-button" do %>
           <i class='fas fa-ellipsis-v rounded-white dots'></i>
           <% end %>
