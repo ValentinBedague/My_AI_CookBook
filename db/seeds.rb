@@ -347,14 +347,91 @@ names.each_with_index do |name, i|
 end
 puts "Lentil Veggie Soup recipe successfully created ✅"
 
+chocolate_cake = Recipe.create!(
+  name: "Chocolate Fudge Cake",
+  portions: 8,
+  preparation_time: 60,
+  description: [
+    "Preheat the oven to 180°C (350°F).",
+    "Melt butter and dark chocolate together.",
+    "Whisk eggs and sugar until light and fluffy.",
+    "Fold in the melted chocolate mixture, then add flour and cocoa powder.",
+    "Pour into a greased cake tin and bake for 40 minutes.",
+    "Let cool before serving with whipped cream or ice cream."
+  ],
+  url_image: "https://foodland.ca/wp-content/uploads/2021/03/Fudge_Layer_Cake_Chocolate_Avocado_Icing_3528v1.jpg",
+  user_id: user1.id
+)
+names = ["dark chocolate", "butter", "eggs", "sugar", "flour", "cocoa powder"]
+quantities = [200, 150, 3, 150, 100, 30]
+units = ["g", "g", "", "g", "g", "g"]
+6.times do |i|
+  chocolate_cake.ingredients.create!(name: names[i], quantity: quantities[i], unit: units[i])
+end
+puts "Chocolate Fudge Cake recipe successfully created ✅"
+
+# Lemon Cheesecake
+cheesecake = Recipe.create!(
+  name: "Lemon Cheesecake",
+  portions: 6,
+  preparation_time: 30,
+  description: [
+    "Crush the biscuits and mix with melted butter to form the crust.",
+    "Press the mixture into the bottom of a springform pan.",
+    "Beat cream cheese, sugar, lemon juice and zest until smooth.",
+    "Fold in whipped cream.",
+    "Pour mixture over crust and refrigerate for 4 hours.",
+    "Garnish with lemon slices before serving."
+  ],
+  url_image: "https://www.giallozafferano.com/images/237-23777/Lemon-cheesecake_1200x800.jpg",
+  user_id: user1.id
+)
+names = ["biscuits", "butter", "cream cheese", "sugar", "lemon", "whipping cream"]
+quantities = [200, 80, 400, 100, 2, 200]
+units = ["g", "g", "g", "g", "", "ml"]
+6.times do |i|
+  cheesecake.ingredients.create!(name: names[i], quantity: quantities[i], unit: units[i])
+end
+puts "Lemon Cheesecake recipe successfully created ✅"
+
+# Strawberry Parfait
+parfait = Recipe.create!(
+  name: "Strawberry Parfait",
+  portions: 4,
+  preparation_time: 15,
+  description: [
+    "Wash and slice the strawberries.",
+    "Whip the cream with a bit of sugar.",
+    "Layer strawberries, whipped cream, and granola in a glass.",
+    "Repeat the layers and top with a strawberry.",
+    "Serve immediately or chill slightly."
+  ],
+  url_image: "https://olivesnthyme.com/wp-content/uploads/2025/04/Strawberry-Parfait-12.jpg",
+  user_id: user1.id
+)
+names = ["strawberries", "whipping cream", "sugar", "granola"]
+quantities = [300, 200, 30, 100]
+units = ["g", "ml", "g", "g"]
+4.times do |i|
+  parfait.ingredients.create!(name: names[i], quantity: quantities[i], unit: units[i])
+end
+puts "Strawberry Parfait recipe successfully created ✅"
+
+
+
+desert = Collection.create!(
+  name: "Desert",
+  url_image: "https://dessertadvisor.com/wp-content/uploads/2020/04/Dessert-Advisor-History-of-Desserts-1-scaled.jpg",
+  user_id: user1.id
+)
 brunch = Collection.create!(
-  name: "brunch",
+  name: "Brunch",
   url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654124/brunch_x10hlt.png",
   user_id: user1.id
 )
 puts "brunch collection successfully created ✅"
 healthy = Collection.create!(
-  name: "healthy",
+  name: "Healthy",
   url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654213/healthy_ystbgg.jpg",
   user_id: user1.id,
   isfavorite: true
@@ -367,13 +444,13 @@ favorites = Collection.create!(
 )
 puts "Favorites collection successfully created ✅"
 cheap = Collection.create!(
-  name: "cheap",
+  name: "Cheap",
   url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654154/cheap_pm6vvh.jpg",
   user_id: user1.id,
   isfavorite: true
 )
 asian = Collection.create!(
-  name: "asian",
+  name: "Asian",
   url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654186/asian_jimmjc.jpg",
   user_id: user1.id,
   isfavorite: true
@@ -452,6 +529,18 @@ tag14 = Tag.create!(
 tag15 = Tag.create!(
   collection_id: favorites.id,
   recipe_id: cheeseburger.id
+)
+tag16 = Tag.create!(
+  collection_id: desert.id,
+  recipe_id: parfait.id
+)
+tag17 = Tag.create!(
+  collection_id: desert.id,
+  recipe_id: chocolate_cake.id
+)
+tag18 = Tag.create!(
+  collection_id: desert.id,
+  recipe_id: cheesecake.id
 )
 
 
