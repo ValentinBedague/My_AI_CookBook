@@ -38,10 +38,32 @@
   pointer-events: none;
 }
 
+// ajoute une border au form-control de diet restrictions
 .selected {
   border: 1px solid $green-primary;
 }
 
+// gestion des checkboxes de choice swap ingredients
+.unchecked-icon {
+  color: $green-primary;
+}
+
+input[type="checkbox"]:checked + .checkbox-icon .unchecked-icon {
+  display: none !important;
+
+}
+
+input[type="checkbox"]:checked + .checkbox-icon .checked-icon {
+  display: inline-block !important;
+  color: $green-primary;
+}
+
+// gestion du textarea de choice swap ingredients
+.textarea-centered {
+  padding-top: 1rem;
+}
+
+//
 input::placeholder,
 textarea::placeholder {
   color: $grey-input-text !important;
