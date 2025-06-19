@@ -10,6 +10,7 @@ class RecipesController < ApplicationController
 
   def index
     if params[:query].present?
+      @initial_value = params[:query]
       terms = params[:query].split
       @recipes = Recipe.left_joins(:ingredients)
       terms.each do |term|

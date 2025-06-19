@@ -20,6 +20,7 @@
        <%= f.text_field :query,
               class: "form-control ps-4",
               type: "search",
+              value: "#{@initial_value}",
               placeholder: "Find a book",
               "aria-label": "Search" %>
       <% end %>
