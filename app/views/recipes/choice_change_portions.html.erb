@@ -1,0 +1,38 @@
+<div class="container p-4">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <%= link_to "<i class='fas fa-arrow-left rounded-white'></i>".html_safe, ask_ai_recipe_path(@recipe) %>
+      <!-- <i class='rounded-white fas fa-arrow-left'></i> -->
+      <%= link_to "<i class='fas fa-xmark rounded-white'></i>".html_safe, @recipe %>
+    </div>
+
+    <h1 class= "mb-4"><i class='fa-solid fa-wand-magic-sparkles me-3'></i><span>Smart-scale portions</span></h1>
+
+    <div class="recipe-card-link">
+      <div class="recipe-card-link recipe-card" style="background-image: url('<%= @recipe.url_image %>');">
+      </div>
+    </div>
+
+    <h2 class= "my-4">For how many people do you want to cook ?</h2>
+
+      <p>I will suggest new quantities for each ingredients and adapt instructions</p>
+
+      <div class="d-flex justify-content-center align-items-center gap-4">
+
+        <%= form_with url:  change_portions_recipe_path(@recipe), method: :post, local: true do |f|%>
+          <div class="d-flex justify-content-center align-items-center" data-controller="counter">
+            <i class='rounded-white fas fa-minus me-3' data-action="click->counter#decrement"></i>
+            <%= f.number_field :portions, class: "form-control form-control-small text-center no-spinner", style: "font-weight: 600;", value: (@recipe.portions), min: 1, step: 1, data: { counter_target: "input" } %>
+            <i class='rounded-white fas fa-plus ms-3' data-action="click->counter#increment"></i>
+          </div>
+          <div class="fixed-bottom-button">
+            <%= button_tag(type: "submit", class: "btn-plain") do %>
+              <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg", class: "btn-icon" %>
+              Modify recipe
+            <% end %>
+          </div>
+        <% end %>
+
+      </div>
+  </div>
+</div>
