@@ -21,9 +21,9 @@
 
         <%= form_with url:  change_portions_recipe_path(@recipe), method: :post, local: true do |f|%>
           <div class="d-flex justify-content-center align-items-center" data-controller="counter">
-            <i class='rounded-white fas fa-minus me-3' data-action="click->counter#decrement"></i>
+            <i class='rounded-white fas fa-minus me-3 counter-btn' data-action="click->counter#decrement"></i>
             <%= f.number_field :portions, class: "form-control form-control-small text-center no-spinner", style: "font-weight: 600;", value: (@recipe.portions), min: 1, step: 1, data: { counter_target: "input" } %>
-            <i class='rounded-white fas fa-plus ms-3' data-action="click->counter#increment"></i>
+            <i class='rounded-white fas fa-plus ms-3 counter-btn' data-action="click->counter#increment"></i>
           </div>
           <div class="fixed-bottom-button">
             <%= button_tag(type: "submit", class: "btn-plain") do %>

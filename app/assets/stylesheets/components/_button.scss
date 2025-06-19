@@ -224,3 +224,11 @@ font-size: 19px;
 .no-spinner {
   -moz-appearance: textfield;
 }
+
+.counter-btn {
+  transition: transform 0.1s ease;
+}
+
+.counter-btn:active {
+  transform: scale(1.03);
+}
