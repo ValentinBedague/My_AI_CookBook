@@ -19,6 +19,8 @@
       </div>
       <h1 class="mb-4"><%=@collection.name.capitalize %></h1>
 
+      <p class="mb-4"><span id="counter"><%= @collection.recipes.count %></span> <%= "recipe".pluralize(@collection.recipes.count) %> in this book<p>
+
       <% @collection.recipes.each do |recipe| %>
         <% tag = @tags.find{ |t| t.recipe_id == recipe.id} %>
         <div class="recipes-in-books">

@@ -66,6 +66,13 @@ export default class extends Controller {
       card.classList.remove('wiggle');
       gsap.killTweensOf(card);
     });
+    const counter = document.getElementById("counter");
+    if (counter) {
+      let currentValue = parseInt(counter.textContent, 10);
+      if (!isNaN(currentValue) && currentValue > 0) {
+        counter.textContent = currentValue - 1;
+      }
+    }
     if (this.hasOkButtonTarget) {
       this.okButtonTarget.classList.add("d-none")
     }
