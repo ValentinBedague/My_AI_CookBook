@@ -9,11 +9,22 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+
+    <!-- Favicon (Cloudinary logo principal) -->
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/book_vljedv.svg">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#ffffff">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
-    <%= render 'shared/ios_pwa_links' %>
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="My AI Cookbook">
+
+    <!-- Apple Touch Icon (seule icône nécessaire pour iOS moderne) -->
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+
+    <!-- Favicon classique -->
+    <link rel="icon" href="/icons/favicon.ico">
   </head>
 
   <body>

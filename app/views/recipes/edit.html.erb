@@ -20,15 +20,15 @@
       </div>
 
 
-      <h2 class="mt-4 mb-2">Portions</h2>
+      <h2 class="mt-4 mb-3">Portions</h2>
       <div class="d-flex justify-content-center align-items-center" data-controller="counter">
-        <i class='rounded-white fas fa-minus me-3' data-action="click->counter#decrement"></i>
+        <i class='rounded-white fas fa-minus me-3 counter-btn' data-action="click->counter#decrement"></i>
         <%= f.number_field :portions, class: "form-control form-control-small text-center", style: "font-weight: 600;", value: @recipe.portions, min: 1, step: 1, data: { counter_target: "input" } %>
-        <i class='rounded-white fas fa-plus ms-3' data-action="click->counter#increment"></i>
+        <i class='rounded-white fas fa-plus ms-3 counter-btn' data-action="click->counter#increment"></i>
       </div>
 
       <div data-controller="preptime">
-        <h2 class="mt-4 mb-2">Preparation time</h2>
+        <h2 class="mt-4 mb-3">Preparation time</h2>
         <div class="d-flex justify-content-center align-items-center">
           <%= number_field_tag :preptime_number, @recipe.preparation_time, min: 0, class: "form-control form-control-small text-center me-3", style: "font-weight: 600;", data: { action: "input->preptime#update" } %>
           <select id="preptime_unit" class="form-select" style="font-weight: 600;" data-action="change->preptime#update" data-preptime-target="unit">
@@ -40,7 +40,7 @@
         <%= f.hidden_field :preparation_time, data: { preptime_target: "result" } %>
       </div>
 
-      <h2 class="mt-4 mb-2">Ingredients</h2>
+      <h2 class="mt-4 mb-3">Ingredients</h2>
       <div data-edit-target="listIngredient">
         <% @recipe.ingredients.each_with_index do |ingredient, i| %>
           <div class="ingredient-item mb-3 d-flex align-items-center justify-content-between" data-ingredient-id="<%= ingredient.id %>">
@@ -64,7 +64,7 @@
         <button class="btn-small-square" data-action="edit#addIngredient" data-edit-target="addIngredientButton" type="button">Add</button>
       </div>
 
-      <h2 class="mt-4 mb-2">Instructions</h2>
+      <h2 class="mt-4 mb-3">Instructions</h2>
       <div data-edit-target="listInstruction">
         <% @recipe.description.each_with_index do |step, index| %>
           <div class="instruction-item mb-3 position-relative">

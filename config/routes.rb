@@ -12,13 +12,21 @@ Rails.application.routes.draw do
   resources :recipes, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
     member do
       get :ask_ai
+
       post :create_low_calories
       get :view_low_calories
       patch :update_low_calories
+
       post :create_pairing_drinks
       get :view_pairing_drinks
+
       delete :discard
       post :toggle_favorite
+
+      get :choice_change_portions
+      post :change_portions
+      get :view_change_portions
+      patch :update_change_portions
     end
     collection do
       get :new_via_url
@@ -29,7 +37,6 @@ Rails.application.routes.draw do
 
       post :parse_ingredient
       post :generate_img
-
       get :test
     end
     resources :messages do
