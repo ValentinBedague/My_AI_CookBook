@@ -1,1 +1,95 @@
-<h1>Edit your recipe</h1>
+<div class="container p-4" data-controller="edit">
+  <div class="card-body">
+    <%= form_with model: @recipe, local: true do |f| %>
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div></div>
+        <%# link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
+        <%= link_to "<i class='fas fa-xmark rounded-white-cross'></i>".html_safe, recipe_path(@recipe) %>
+      </div>
+
+      <h1 class= "mb-4" data-edit-target="name"><%= @recipe.name %></h1>
+
+      <h2 class="mt-4 mb-2">Name</h2>
+      <div>
+        <%= f.text_field :name, class: "form-control", value: @recipe.name, data: { action: "input->edit#updatename" } %>
+      </div>
+
+      <h2 class="mt-4 mb-2">Cover image</h2>
+      <div class="my-3 position-relative">
+        <img src="<%= @recipe.url_image %>" alt="recipe image" class="img-fluid rounded-4">
+      </div>
+
+
+      <h2 class="mt-4 mb-2">Portions</h2>
+      <div class="d-flex justify-content-center align-items-center" data-controller="counter">
+        <i class='rounded-white fas fa-minus me-3' data-action="click->counter#decrement"></i>
+        <%= f.number_field :portions, class: "form-control form-control-small text-center", style: "font-weight: 600;", value: @recipe.portions, min: 1, step: 1, data: { counter_target: "input" } %>
+        <i class='rounded-white fas fa-plus ms-3' data-action="click->counter#increment"></i>
+      </div>
+
+      <div data-controller="preptime">
+        <h2 class="mt-4 mb-2">Preparation time</h2>
+        <div class="d-flex justify-content-center align-items-center">
+          <%= number_field_tag :preptime_number, @recipe.preparation_time, min: 0, class: "form-control form-control-small text-center me-3", style: "font-weight: 600;", data: { action: "input->preptime#update" } %>
+          <select id="preptime_unit" class="form-select" style="font-weight: 600;" data-action="change->preptime#update" data-preptime-target="unit">
+            <option value="minutes" selected>Minutes</option>
+            <option value="hours">Hours</option>
+          </select>
+        </div>
+        <!-- Hidden input that actually submits preparation_time in minutes -->
+        <%= f.hidden_field :preparation_time, data: { preptime_target: "result" } %>
+      </div>
+
+      <h2 class="mt-4 mb-2">Ingredients</h2>
+      <div data-edit-target="listIngredient">
+        <% @recipe.ingredients.each_with_index do |ingredient, i| %>
+          <div class="ingredient-item mb-3 d-flex align-items-center justify-content-between" data-ingredient-id="<%= ingredient.id %>">
+            <input type="hidden" name="recipe[ingredients_attributes][<%= i %>][id]" value="<%= ingredient.id %>" />
+            <input type="hidden" name="recipe[ingredients_attributes][<%= i %>][name]" value="<%= ingredient.name %>" />
+            <input type="hidden" name="recipe[ingredients_attributes][<%= i %>][quantity]" value="<%= ingredient.quantity %>" />
+            <input type="hidden" name="recipe[ingredients_attributes][<%= i %>][unit]" value="<%= ingredient.unit %>" />
+            <div class="card component-container p-2 rounded-4 flex-grow-1">
+              <div class="d-flex justify-content-between py-1">
+              <span><%= ingredient.name.capitalize %></span>
+              <span><strong><%= display_number(ingredient.quantity) %> <%= ingredient.unit %></strong>
+              </div>
+            </div>
+            <i class="fa-solid fa-trash-can" style="width:45px; display: inline-block; text-align:center; cursor:pointer;" role="button" data-action="click->edit#removeOldIngredient"></i>
+          </div>
+        <% end %>
+      </div>
+      <!-- Free text input for new ingredient -->
+      <div class="d-flex justify-content-between align-items-center">
+        <input class="form-control me-2" type="text" data-edit-target="inputIngredient" placeholder="e.g. 200g sugar" />
+        <button class="btn-small-square" data-action="edit#addIngredient" data-edit-target="addIngredientButton" type="button">Add</button>
+      </div>
+
+      <h2 class="mt-4 mb-2">Instructions</h2>
+      <div data-edit-target="listInstruction">
+        <% @recipe.description.each_with_index do |step, index| %>
+          <div class="instruction-item mb-3 position-relative">
+            <div class="card component-container p-3 rounded-4">
+              <input type="hidden" name="recipe[description][]" value="<%= step %>" />
+              <span style="color:#438866; font-weight:500;" class= "mb-2">Step <%= index + 1 %></span>
+              <p><%= step %></p>
+            </div>
+            <i class="fa-solid fa-trash-can" style="cursor:pointer;" role="button" data-action="click->edit#removeInstruction"></i>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <label class="mb-2" for="instruction-input">Step <span data-edit-target="instructionCount">1</span></label>
+        <div class="d-flex justify-content-between align-items-center">
+          <input class="form-control me-2" type="text" id="instruction-input" data-edit-target="inputInstruction" />
+          <button class="btn-small-square" type="button" data-action="edit#addInstruction" data-edit-target="addInstructionButton">Add</button>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center mt-4">
+        <%= f.submit "Update recipe", class: "btn-plain" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

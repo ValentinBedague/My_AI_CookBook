@@ -33,7 +33,7 @@
       <% @new_recipe.ingredients.each do |ingredient| %>
         <div class="d-flex justify-content-between py-1">
           <span><%= ingredient.name.capitalize %></span>
-          <span><strong><%= ingredient.quantity %> <%= ingredient.unit %></strong></span>
+          <span><strong><%= (ingredient.quantity.to_f == ingredient.quantity.to_i ? ingredient.quantity.to_i : ingredient.quantity) %> <%= ingredient.unit %></strong></span>
         </div>
       <% end %>
     </div>

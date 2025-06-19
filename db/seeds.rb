@@ -285,6 +285,7 @@ asian = Collection.create!(
   user_id: user1.id
 )
 puts "Favorites collection successfully created ✅"
+puts "Recipes successfully created 🚀"
 
 pancaketobrunch = Tag.create!(
   collection_id: brunch.id,

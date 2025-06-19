@@ -21,4 +21,13 @@ module ApplicationHelper
                   class: "avatar avatar-#{size} avatar-default"
     end
   end
+
+  def display_number(num)
+    return "" if num.nil?
+    (num % 1).zero? ? num.to_i : num
+  end
+
+  def favorite?(recipe)
+    Collection.find_by(name: 'Favorites')&.recipes&.include?(recipe)
+  end
 end

@@ -1,7 +1,7 @@
-<div class="container p-4">
+<div class="container p-4" data-controller="user-diet">
   <div class="d-flex justify-content-end">
      <%= link_to user_path(current_user) do %>
-      <i class='fa-solid fa-xmark rounded-white'></i>
+      <i class='fa-solid fa-xmark rounded-white-cross'></i>
     <% end %>
   </div>
   <h1>Edit my profile</h1>
@@ -9,7 +9,7 @@
     <%= content_tag :div, user_avatar(current_user, :large), class: "align-self-center mt-4" %>
   </div>
   <%= simple_form_for @user do |f| %>
-    <div class="form-inputs mt-5">
+    <div class="form-inputs mt-4">
       <%= f.input :email,
                   required: false,
                   autofocus: true,
@@ -21,20 +21,19 @@
                   input_html: { autocomplete: "current-password" } %>
     </div>
 
-    <div class="form-actions row justify-content-center mt-5">
-      <%= f.button :submit, "Save my profile", class: "btn-plain mb-3" %>
-    </div>
-  <% end %>
-
-  <h1 class="my-5">Edit my personal diet</h1>
-  <%= simple_form_for @user do |f| %>
+    <h2 class="mt-4 mb-3">Update my personal diet</h2>
       <%= f.association :restrictions,
                         as: :check_boxes,
-                        item_wrapper_class: "form-control mb-3 d-flex justify-content-center",
-                        input_html: { class: "restriction-checkbox" }
+                        item_wrapper_class: "form-control mb-3 d-flex justify-content-center diet-type",
+                        input_html: { class: "restriction-checkbox" },
+                        wrapper_html: {
+                          data: {
+                            action: "click->user-diet#toggle"
+                          }
+                        }
       %>
       <div class="d-flex justify-content-center">
-        <%= f.submit 'Save my personal diet', class: "btn btn-plain d-flex align-self-center" %>
+        <%= f.submit 'Update my profile', class: "btn btn-plain d-flex align-self-center" %>
       </div>
   <% end %>
 </div>

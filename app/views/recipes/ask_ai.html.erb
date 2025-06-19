@@ -1,12 +1,8 @@
 <div class="container p-4">
-  <div class="header-actions">
-        <%= link_to :back do %>
-            <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749757945/back_epdna9.svg", alt: "arrow" %>
-        <% end %>
-        <%= link_to root_path do %>
-            <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749757944/quit_jweu9c.svg", alt: "cross" %>
-        <% end %>
-      </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div></div>
+        <%= link_to "<i class='fas fa-xmark rounded-white-cross'></i>".html_safe, @recipe %>
+    </div>
     <h1 class="mb-5">Ai Assistant</h1>
 
     <div class="ai-actions-container d-flex justify-content-center align-items-center flex-column">
@@ -15,7 +11,7 @@
         <div class="ai-actions d-flex justify-content-center align-items-center">
           <span>Suggest smart ingredient swaps</span>
         </div>
-        <%= button_tag(type: "submit", class: "ai-actions-btn") do %>
+        <%= link_to choice_swap_ingredients_recipe_ingredients_path(@recipe), class: "ai-actions-btn" do %>
           <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg" %>
         <% end %>
       </div>

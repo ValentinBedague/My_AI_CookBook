@@ -10,13 +10,13 @@ Rails.application.routes.draw do
   get "home", to: "pages#home_visitor"
 
   resources :recipes, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
-    post 'toggle_favorite', on: :member
     member do
       get :ask_ai
       post :create_low_calories
       get :view_low_calories
       patch :update_low_calories
       delete :discard
+      post :toggle_favorite
     end
     collection do
       get :new_via_url
@@ -36,9 +36,23 @@ Rails.application.routes.draw do
         post :run_edit_portions
       end
     end
+    resources :ingredients do
+      member do
+      end
+      collection do
+        post :swap_ingredients
+        patch :update_swap_ingredients
+        get :view_swap_ingredients
+        get :choice_swap_ingredients
+      end
+    end
   end
 
   resources :collections do
+    member do
+      post :toggle_favorite
+    end
+
     resources :tags, only: [:new, :create]
     member do
       delete :discard

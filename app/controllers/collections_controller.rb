@@ -21,6 +21,11 @@ class CollectionsController < ApplicationController
   def show
     @collection = Collection.find(params[:id])
     @tags = @collection.tags
+    if params[:return_to].present?
+      @return_to = CGI.unescape(params[:return_to])
+    else
+      @return_to = collections_path
+    end
   end
 
   def new
@@ -85,6 +90,12 @@ class CollectionsController < ApplicationController
     @collection = Collection.find(params[:id])
     @collection.destroy if @collection.persisted?
     redirect_to collections_path
+  end
+
+  def toggle_favorite
+    @collection = Collection.find(params[:id])
+    @collection.update(isfavorite: !@collection.isfavorite)
+    render json: { favorited: @collection.isfavorite }
   end
 
   private

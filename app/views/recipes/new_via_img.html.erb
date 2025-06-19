@@ -3,10 +3,10 @@
     <div class="d-flex justify-content-between align-items-center mb-2">
       <div></div>
       <%# link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
-      <%= link_to "<i class='fas fa-xmark rounded-white'></i>".html_safe, root_path %>
+      <%= link_to "<i class='fas fa-xmark rounded-white-cross'></i>".html_safe, root_path %>
     </div>
 
-    <h1 class="my-4">Import a recipe from a picture</h1>
+    <h1 class="mb-4">Import a recipe from a picture</h1>
           <%= simple_form_for(@recipe, url: create_via_img_recipes_path, data: { action: "submit->file-upload#onFormSubmit" }) do |f| %>
             <div class="custom-file-upload">
               <%= f.input :image, as: :file,

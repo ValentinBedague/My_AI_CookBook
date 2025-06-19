@@ -2,12 +2,15 @@
   <div class="collections-index">
 
   <!-- Logo -->
-    <%= link_to root_path do %>
-      <%= image_tag("https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg",
-                    alt: "My AI Cookbook Logo",
-                    class: "logo") %>
-    <% end %>
-  <div class="collection-header">
+    <div class="d-flex">
+      <%= link_to root_path do %>
+        <%= image_tag("https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654034/myaicookbook_tr1h3a.svg",
+                      alt: "My AI Cookbook Logo",
+                      class: "logo") %>
+      <% end %>
+    </div>
+
+  <div class="collection-header mt-2">
 
     <h1 id="collection-title">My books</h1>
 
@@ -15,7 +18,7 @@
     <div id="searchbar" class="searchbar d-none">
       <%= form_with url: collections_path, method: :get, local: true do |f| %>
        <%= f.text_field :query,
-              class: "form-control ps-5",
+              class: "form-control ps-4",
               type: "search",
               placeholder: "Find a book",
               "aria-label": "Search" %>
@@ -24,10 +27,10 @@
 
     <!-- Boutons -->
     <div class="collection-header-actions">
-      <a href="#" id="search-btn" class="icon-button rounded-white" onclick="toggleSearch(event)">
+      <a href="#" id="search-btn" class="icon-button me-2" onclick="toggleSearch(event)">
         <i class="fa-solid fa-magnifying-glass icon-green"></i>
       </a>
-      <%= link_to new_collection_path, class: "icon-button rounded-white" do %>
+      <%= link_to new_collection_path, class: "icon-button" do %>
         <i class="fa-solid fa-plus icon-green"></i>
       <% end %>
     </div>
@@ -36,7 +39,11 @@
 
 
   <!-- Collection cards -->
-  <div class="collections-grid">
+ <% if @collections.empty? %>
+    <p class="mt-4">No collections found matching your search.</p>
+  <% else %>
+
+  <div class="collections-grid mt-4">
 
   <% if @favorites %>
        <%= link_to collection_path(@favorites), class: "collection-card favorites" do %>
@@ -50,20 +57,30 @@
     <% end %>
   <% end %>
 
-
     <% @collections.reject { |c| c.name == "Favorites" }.each do |collection| %>
-      <%= link_to collection_path(collection), class: "collection-card" do %>
-        <div style="position: relative; width: 100%; height: 100%;">
-          <img src="<%= collection.url_image %>" alt="<%= collection.name %>" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4)); pointer-events: none;"></div>
-        </div>
-        <div class="text-overlay-container">
-          <div class="card-overlay"><%= collection.name %></div>
-          <div class="card-recipe-count"><%= pluralize(collection.recipes.count, 'recipe') %></div>
-        </div>
-      <% end %>
+      <div class="collection-card">
+        <div class="favorite-icon" id="favorite-icon-<%= collection.id %>">
+                <button class="favorite-btn"
+                        data-controller="favorite-collection"
+                        data-action="click->favorite-collection#toggle"
+                        data-favorite-collection-id-value="<%= collection.id %>">
+                  <i class="<%= collection.isfavorite ? 'fas' : 'far' %> fa-star"></i>
+                </button>
+              </div>
+        <%= link_to collection_path(collection) do %>
+          <div style="position: relative; width: 100%; height: 100%;">
+            <img src="<%= collection.url_image %>" alt="<%= collection.name %>" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4)); pointer-events: none;"></div>
+          </div>
+          <div class="text-overlay-container">
+            <div class="card-overlay"><%= collection.name %></div>
+            <div class="card-recipe-count"><%= pluralize(collection.recipes.count, 'recipe') %></div>
+          </div>
+        <% end %>
+      </div>
     <% end %>
   </div>
+   <% end %>
     <!-- Bottom navbar -->
     <%= render "shared/bottom_navbar" %>
   </div>

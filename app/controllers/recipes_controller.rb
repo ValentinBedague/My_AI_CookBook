@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :destroy, :ask_ai, :create_low_calories]
+  before_action :set_recipe, only: [:show, :edit, :destroy, :ask_ai, :create_low_calories, :swap_ingredients, :view_swap_ingredients, :choice_swap_ingredients]
 
   require 'open-uri'
 
@@ -28,6 +28,11 @@ class RecipesController < ApplicationController
   end
 
   def show
+    if params[:return_to].present?
+      @return_to = CGI.unescape(params[:return_to])
+    else
+      @return_to = recipes_path
+    end
   end
 
   def create_low_calories
@@ -104,8 +109,7 @@ PROMPT
     else
       render :new, status: :unprocessable_entity
     end
-
-   end
+  end
 
   def view_low_calories
     @new_recipe = Recipe.find(params[:id])
@@ -115,19 +119,20 @@ PROMPT
   def update_low_calories
     @recipe = Recipe.find(params[:id])
     @new_recipe = Recipe.last
-    @recipe.ingredients.destroy_all
-    @new_recipe.ingredients.each do  |ingredient|
 
-      Ingredient.create(name: ingredient.name,
-       quantity: ingredient.quantity,
-       unit: ingredient.unit,
-       recipe_id: @recipe.id
-      )
-    end
 
      if @recipe.update(name: @new_recipe.name, portions: @new_recipe.portions, preparation_time: @new_recipe.preparation_time, description: @new_recipe.description)
-      @new_recipe.destroy
-      redirect_to @recipe, notice: "#{@recipe.name} 🍽️ has been succesfully updated ! ✅"
+        @recipe.ingredients.destroy_all
+        @new_recipe.ingredients.each do  |ingredient|
+
+          Ingredient.create(name: ingredient.name,
+          quantity: ingredient.quantity,
+          unit: ingredient.unit,
+          recipe_id: @recipe.id
+          )
+        end
+        @new_recipe.destroy
+        redirect_to @recipe, notice: "#{@recipe.name} 🍽️ has been succesfully updated ! ✅"
     else
       render :new, status: :unprocessable_entity
     end
@@ -323,7 +328,7 @@ PROMPT
     end
 
     if @recipe.update(name: name, portions: portions, preparation_time: preparation_time, description: description, url_image: "https://www.ensto-ebs.fr/modules/custom/legrand_ecat/assets/img/no-image.png")
-      redirect_to @recipe, notice: "#{@recipe.name} 🍽️ has been succesfully created ! ✅"
+      redirect_to edit_recipe_path(@recipe)
     else
       render :new, status: :unprocessable_entity
     end
@@ -394,21 +399,23 @@ PROMPT
    end
 
    if @recipe.update(name: name, portions: portions, preparation_time: preparation_time, description: description, url_image: "https://www.ensto-ebs.fr/modules/custom/legrand_ecat/assets/img/no-image.png")
-   redirect_to @recipe, notice: "#{@recipe.name} 🍽️ has been succesfully created ! ✅"
+      redirect_to edit_recipe_path(@recipe)
    else
      render :new, status: :unprocessable_entity
    end
   end
 
   def edit
+    @recipe = Recipe.find(params[:id])
   end
 
   def update
+    @recipe = Recipe.find(params[:id])
     if @recipe.update(recipe_params)
-    redirect_to @recipe, notice: "#{@recipe.name} was successfully updated!"
-   else
-    render :edit, status: :unprocessable_entity
-   end
+      redirect_to @recipe, notice: "Recipe updated successfully"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -438,20 +445,17 @@ PROMPT
 
   def toggle_favorite
     @recipe = Recipe.find(params[:id])
-    favorite_collection = Collection.find_by(name: 'Favorites')
+    favorites_collection = Collection.find_by(name: 'Favorites')
 
-    if favorite_collection.recipes.include?(@recipe)
-      favorite_collection.recipes.delete(@recipe)
-      @favorited = false
+    if favorites_collection.recipes.include?(@recipe)
+      favorites_collection.recipes.delete(@recipe)
+      favorited = false
     else
-      favorite_collection.recipes << @recipe
-      @favorited = true
+      favorites_collection.recipes << @recipe
+      favorited = true
     end
 
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to recipe_path(@recipe) }
-    end
+    render json: { favorited: favorited }
   end
 
   private

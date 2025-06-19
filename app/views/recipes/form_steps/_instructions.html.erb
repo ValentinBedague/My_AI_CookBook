@@ -11,11 +11,11 @@
         class:"dot-button",
         data: { turbo_confirm: "Are you sure you want to cancel?" },
         form: { data: { turbo_action: "replace" } } do %>
-        <i class='fas fa-xmark rounded-white'></i>
+        <i class='fas fa-xmark rounded-white-cross'></i>
       <% end %>
     </div>
 
-    <h1 class= "my-4"><%= @recipe.name || "Create a new recipe" %></h1>
+    <h1 class= "mb-4"><%= @recipe.name || "Create a new recipe" %></h1>
 
     <div class="steps mb-5">
       <span class="circle done"></span>
