@@ -23,9 +23,9 @@ puts "Users restrictions succesfully destroyed ❎"
 UserRestriction.destroy_all
 
 puts "Creating models..."
-file = URI.parse("https://res.cloudinary.com/dhv4phhqr/image/upload/v1750235351/IMG_6555_3_aijjsy.png").open
+file = URI.parse("https://res.cloudinary.com/dhv4phhqr/image/upload/v1750333614/remibogoss_k5bs3y.jpg").open
 user1 = User.new(email: "remibst@gmail.com", password: "Remidu69")
-user1.photo.attach(io: file, filename: "remi.png", content_type: "image/png")
+user1.photo.attach(io: file, filename: "remibogoss_k5bs3y.jpg", content_type: "image/jpg")
 user1.save
 
 puts "User 1 succesfully created ✅"
