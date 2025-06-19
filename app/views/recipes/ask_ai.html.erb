@@ -41,8 +41,10 @@
         <div class="ai-actions d-flex justify-content-center align-items-center">
           <span>Suggest drinks that pair well with this recipe</span>
         </div>
-        <%= button_tag(type: "submit", class: "ai-actions-btn") do %>
-          <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg" %>
+        <%= form_with url: create_pairing_drinks_recipe_path(@recipe), method: :post, local: true do %>
+          <%= button_tag(type: "submit", class: "ai-actions-btn") do %>
+            <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg" %>
+          <% end %>
         <% end %>
       </div>
     </div>

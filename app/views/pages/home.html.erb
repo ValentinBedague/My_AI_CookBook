@@ -22,6 +22,9 @@
 
   <h1 class="mt-3">Favorites books</h1>
 
+    <% if @collections.empty? %>
+      <p class="mt-2">No favorite collections.</p>
+    <% else %>
   <div class="collections-grid mt-3">
       <% @collections.each do |collection| %>
         <%= link_to collection_path(collection, return_to: CGI.escape(request.fullpath)), class: "collection-card" do %>
@@ -36,12 +39,15 @@
         <% end %>
       <% end %>
     </div>
+    <% end %>
 
     <h1 class="mt-4">Favorite recipes</h1>
+    <% if @recipes.empty? %>
+      <p class="mt-2">No favorite recipes.</p>
+    <% else %>
     <div class="recipes-container mt-3 d-flex flex-column align-items-center">
 
         <!-- Recipe cards -->
-
       <% @recipes.each do |recipe| %>
         <div class="recipe-card-link">
           <%= link_to recipe_path(recipe, return_to: CGI.escape(request.fullpath)), class: "card-full-link" do %>
@@ -56,6 +62,7 @@
         </div>
       <% end %>
   </div>
+      <% end %>
 </div>
 
 <%= link_to "<i id='plus' class='fa-solid fa-plus rounded-white-big text-align'></i>".html_safe %>

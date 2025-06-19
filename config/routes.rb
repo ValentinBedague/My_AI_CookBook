@@ -17,6 +17,9 @@ Rails.application.routes.draw do
       get :view_low_calories
       patch :update_low_calories
 
+      post :create_pairing_drinks
+      get :view_pairing_drinks
+
       delete :discard
       post :toggle_favorite
 

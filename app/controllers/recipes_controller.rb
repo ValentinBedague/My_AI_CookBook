@@ -204,7 +204,7 @@ PROMPT
     end
 
     if @new_recipe.update(name: name, portions: portions, preparation_time: preparation_time, description: description, url_image: @recipe.url_image, original_recipe_id: @recipe.id)
-    redirect_to view_low_calories_recipe_path(@new_recipe), notice: "Low calories #{@recipe.name} 🍽️ has been succesfully created ! ✅"
+      redirect_to view_low_calories_recipe_path(@new_recipe), notice: "Low calories #{@recipe.name} 🍽️ has been succesfully created ! ✅"
     else
       render :new, status: :unprocessable_entity
     end
@@ -540,6 +540,63 @@ PROMPT
   end
 
   def test
+  end
+
+  def create_pairing_drinks
+    @recipe = Recipe.find(params[:id])
+    ingredients = []
+    @recipe.ingredients.each do |ingredient|
+      ingredients << ingredient.name
+    end
+    ingredients_list = ingredients.join(', ')
+    description = @recipe.description.join(' ')
+    @pairing_drinks_prompt = <<~PROMPT
+      You are an expert beverage curator.
+
+      TASK
+      Given the recipe below, suggest drinks that pair perfectly with it and return them **as a single valid JSON object**—nothing else.
+
+      RECIPE
+       - Recipe Name: #{@recipe.name}
+        - Number of Servings: #{@recipe.portions}
+        - Ingredients: #{ingredients_list}
+        - Instruction of the recipe: #{description}
+
+      OUTPUT RULES
+      1. Structure:
+      {
+        "alcoholic": [ 4 drink objects ],
+        "non_alcoholic": [ 3 drink objects ]
+      }
+
+      2. For each drink object include exactly:
+        • "title": string
+        • "style": string — **max 2 words** (e.g., "red wine", "abbey ale", "herbal infusion")
+        • "comment": string — **max 20 words**
+
+      3. Composition constraints
+        • alcoholic  → 2 wines, 1 beer, 1 other (cocktail, spirit, etc.)
+        • non_alcoholic → 1 mocktail, 2 other zero-proof drinks
+
+      4. Do not add any keys, text, or comments outside the JSON.
+
+      Return ONLY the JSON object.
+    PROMPT
+    chat = RubyLLM.chat
+    response = chat.ask(@pairing_drinks_prompt)
+    raw_json = response.content
+    clean = raw_json.gsub(/\A```json|```\s*\z/, '').strip
+    @pairings = JSON.parse(clean)
+    @recipe.update!(pairing_drinks: @pairings)
+    redirect_to view_pairing_drinks_recipe_path(@recipe)
+    rescue JSON::ParserError => e
+      flash[:alert] = "Pairing data came back malformed: #{e.message}"
+      redirect_to ask_ai_recipe_path(@recipe)
+  end
+
+  def view_pairing_drinks
+    @recipe = Recipe.find(params[:id])
+    @pairings = @recipe.pairing_drinks
   end
 
   def toggle_favorite
