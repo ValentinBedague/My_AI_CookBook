@@ -3,6 +3,7 @@ class CollectionsController < ApplicationController
 
   def index
     if params[:query].present?
+      @initial_value = params[:query]
       terms = params[:query].split
       @collections = Collection.joins(tags: :recipe).distinct
       terms.each do |term|
