@@ -1,6 +1,11 @@
 <div class="container p-4">
   <div class="card-body">
+    <div class="d-flex justify-content-end align-items-center mb-4">
 
+        <%= button_to "<i class='fas fa-xmark rounded-white'></i>".html_safe, recipe_path(@new_recipe),method: :delete, class:"dot-button" %>
+
+
+    </div>
 
     <h1 class= "mb-4"><i class='fa-solid fa-wand-magic-sparkles me-3'></i><span>Smart-scale portions</span></h1>
 
