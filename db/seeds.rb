@@ -256,6 +256,97 @@ units = ["g (cooked)", "", "", "g", "tbsp", "tbsp"]
 end
 puts "Egg Fried Rice recipe successfully created ✅"
 
+cheeseburger = Recipe.create!(
+  name: "Cheeseburger Deluxe",
+  portions: 2,
+  preparation_time: 25,
+  description: [
+    "Form beef patties and season with salt and pepper.",
+    "Cook patties in a skillet with butter.",
+    "Toast burger buns with butter.",
+    "Assemble burgers with cheddar cheese, bacon, lettuce, tomato, pickles, and sauce.",
+    "Serve with fries."
+  ],
+  url_image: "https://assets.afcdn.com/recipe/20161114/55392_w1024h576c1cx2808cy1872.jpg",
+  user_id: user1.id
+)
+names = ["ground beef", "cheddar cheese", "bacon", "burger buns", "lettuce", "tomato", "pickles", "butter", "burger sauce"]
+quantities = [300, 4, 4, 2, 2, 1, 6, 30, 30]
+units = ["g", "slices", "slices", "", "leaves", "", "slices", "g", "g"]
+names.each_with_index do |name, i|
+  cheeseburger.ingredients.create!(name: name, quantity: quantities[i], unit: units[i])
+end
+puts "Cheeseburger Deluxe recipe successfully created ✅"
+
+# Grasse 2 - Carbonara Crémeuse (cheap aussi)
+carbonara = Recipe.create!(
+  name: "Creamy Carbonara",
+  portions: 2,
+  preparation_time: 20,
+  description: [
+    "Cook spaghetti in boiling salted water.",
+    "Fry diced bacon until crispy.",
+    "Whisk eggs, cream, parmesan, salt and pepper.",
+    "Mix hot pasta with bacon, then pour egg mixture while stirring.",
+    "Serve with extra parmesan."
+  ],
+  url_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtAleP8044NXKMIrsZz4ulOVUp7cCYPVxAkQ&s",
+  user_id: user1.id
+)
+names = ["spaghetti", "bacon", "eggs", "parmesan", "cream", "salt", "pepper"]
+quantities = [200, 100, 2, 50, 50, 1, 1]
+units = ["g", "g", "", "g", "ml", "pinch", "pinch"]
+names.each_with_index do |name, i|
+  carbonara.ingredients.create!(name: name, quantity: quantities[i], unit: units[i])
+end
+puts "Creamy Carbonara recipe successfully created ✅"
+
+# Healthy 1 - Grilled Chicken Salad
+chicken_salad = Recipe.create!(
+  name: "Grilled Chicken Salad",
+  portions: 2,
+  preparation_time: 15,
+  description: [
+    "Grill seasoned chicken breasts and slice.",
+    "Mix lettuce, cucumber, cherry tomatoes, and avocado in a bowl.",
+    "Top with grilled chicken slices.",
+    "Drizzle with olive oil and lemon juice.",
+    "Serve fresh."
+  ],
+  url_image: "https://www.maebells.com/wp-content/uploads/2024/06/Grilled-Chicken-Caesar-Salad-14.jpg",
+  user_id: user1.id
+)
+names = ["chicken breast", "lettuce", "cucumber", "cherry tomatoes", "avocado", "olive oil", "lemon juice"]
+quantities = [300, 100, 1, 100, 1, 20, 20]
+units = ["g", "g", "", "g", "", "ml", "ml"]
+names.each_with_index do |name, i|
+  chicken_salad.ingredients.create!(name: name, quantity: quantities[i], unit: units[i])
+end
+puts "Grilled Chicken Salad recipe successfully created ✅"
+
+# Healthy 2 - Lentil Veggie Soup (healthy + cheap)
+lentil_soup = Recipe.create!(
+  name: "Lentil Veggie Soup",
+  portions: 4,
+  preparation_time: 35,
+  description: [
+    "Sauté chopped onions, garlic, carrots and celery in olive oil.",
+    "Add lentils, diced tomatoes, and vegetable broth.",
+    "Simmer until lentils are tender.",
+    "Season with salt, pepper, and herbs.",
+    "Serve hot."
+  ],
+  url_image: "https://www.allrecipes.com/thmb/UeFtapHyGFBo4Lx-72GxgjrOGnk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/13978-lentil-soup-DDMFS-4x3-edfa47fc6b234e6b8add24d44c036d43.jpg",
+  user_id: user1.id
+)
+names = ["lentils", "onion", "garlic", "carrot", "celery", "diced tomatoes", "vegetable broth", "olive oil", "salt", "pepper"]
+quantities = [200, 1, 2, 2, 2, 400, 800, 30, 1, 1]
+units = ["g", "", "cloves", "", "stalks", "g", "ml", "ml", "tsp", "tsp"]
+names.each_with_index do |name, i|
+  lentil_soup.ingredients.create!(name: name, quantity: quantities[i], unit: units[i])
+end
+puts "Lentil Veggie Soup recipe successfully created ✅"
+
 brunch = Collection.create!(
   name: "brunch",
   url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654124/brunch_x10hlt.png",
@@ -265,7 +356,8 @@ puts "brunch collection successfully created ✅"
 healthy = Collection.create!(
   name: "healthy",
   url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654213/healthy_ystbgg.jpg",
-  user_id: user1.id
+  user_id: user1.id,
+  isfavorite: true
 )
 puts "healthy collection successfully created ✅"
 favorites = Collection.create!(
@@ -277,12 +369,14 @@ puts "Favorites collection successfully created ✅"
 cheap = Collection.create!(
   name: "cheap",
   url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654154/cheap_pm6vvh.jpg",
-  user_id: user1.id
+  user_id: user1.id,
+  isfavorite: true
 )
 asian = Collection.create!(
   name: "asian",
   url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749654186/asian_jimmjc.jpg",
-  user_id: user1.id
+  user_id: user1.id,
+  isfavorite: true
 )
 puts "Favorites collection successfully created ✅"
 puts "Recipes successfully created 🚀"
@@ -335,9 +429,29 @@ tag9 = Tag.create!(
   collection_id: cheap.id,
   recipe_id: fried_rice.id
 )
-tag9 = Tag.create!(
-  collection_id: asian.id,
-  recipe_id: fried_rice.id
+tag10 = Tag.create!(
+  collection_id: healthy.id,
+  recipe_id: chicken_salad.id
+)
+tag11 = Tag.create!(
+  collection_id: cheap.id,
+  recipe_id: lentil_soup.id
+)
+tag12 = Tag.create!(
+  collection_id: healthy.id,
+  recipe_id: lentil_soup.id
+)
+tag13 = Tag.create!(
+  collection_id: cheap.id,
+  recipe_id: carbonara.id
+)
+tag14 = Tag.create!(
+  collection_id: favorites.id,
+  recipe_id: chicken_salad.id
+)
+tag15 = Tag.create!(
+  collection_id: favorites.id,
+  recipe_id: cheeseburger.id
 )
 
 
@@ -353,8 +467,11 @@ restrictions = [
   "Egg-Free",
   "Soy-Free",
   "Nut-Free",
-  "Fish-Free",
-  "Pregnancy-Safe"
+  "Pescatarian",
+  "Pregnancy-Safe",
+  "Halal",
+  "Kosher",
+  "Diabetic"
 ]
 
 restrictions.each do |name|
