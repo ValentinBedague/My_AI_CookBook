@@ -27,21 +27,6 @@
             </div>
           <% end %>
 
-        <div id="loading-modal" class="d-none">
-          <div class="modal-backdrop blur-backdrop"></div>
-          <div class="modal show d-block" tabindex="-1" role="status" aria-modal="true" style="z-index: 1051;">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content text-center p-4 rounded-4">
-                <div class="modal-text d-flex align-items-center justify-content-center">
-                  Analyzing your image...
-                  <span class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>
-                </div>
-                <div class="d-flex flex-column align-items-center justify-content-center m-4">
-                  <%= render "shared/svg/lady" %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <%= render "shared/waiting_modal", display_text: "Analyzing your image..." %>
   </div>
 </div>

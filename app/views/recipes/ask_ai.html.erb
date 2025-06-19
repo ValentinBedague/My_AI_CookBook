@@ -3,55 +3,67 @@
         <div></div>
         <%= link_to "<i class='fas fa-xmark rounded-white-cross'></i>".html_safe, @recipe %>
     </div>
-    <h1 class="mb-5">Ai Assistant</h1>
+    <h1 class="mb-5">AI Assistant</h1>
 
-    <div class="ai-actions-container d-flex justify-content-center align-items-center flex-column">
-
-      <div class="d-flex justify-content-center align-items-center gap-4">
-        <div class="ai-actions d-flex justify-content-center align-items-center">
-          <span>Suggest smart ingredient swaps</span>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex flex-grow-1 text-wrap align-items-center py-2" style="min-width: 0; overflow-wrap: break-word; background: white; border-radius: 10px; font-size: 18px;">
+          <i class="fa-solid fa-rotate mx-3"></i>
+          <div class="text-wrap pe-4" style="min-width: 0; overflow-wrap: break-word; background: white;">
+            Suggest smart ingredient swaps
+          </div>
         </div>
-        <%= link_to choice_swap_ingredients_recipe_ingredients_path(@recipe), class: "ai-actions-btn" do %>
-          <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg" %>
-        <% end %>
-      </div>
-
-      <div class="d-flex justify-content-center align-items-center gap-4">
-        <div class="ai-actions d-flex justify-content-center align-items-center">
-          <span>Smart-scale ingredients to my servings</span>
-        </div>
-        <%= link_to  choice_change_portions_recipe_path(@recipe), class: "ai-actions-btn" do %>
-          <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg" %>
-        <% end %>
-      </div>
-
-
-
-      <div class="d-flex justify-content-center align-items-center gap-4">
-        <div class="ai-actions d-flex justify-content-center align-items-center">
-          <span>Give me a lighter, lower calorie version</span>
-        </div>
-        <%= form_with url: create_low_calories_recipe_path(@recipe), method: :post, local: true do %>
-          <%= button_tag(type: "submit", class: "ai-actions-btn") do %>
+        <div class="ai-actions-btn ms-3 p-3">
+          <%= link_to choice_swap_ingredients_recipe_ingredients_path(@recipe) do %>
             <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg" %>
           <% end %>
-        <% end %>
-      </div>
-      <div class="d-flex justify-content-center align-items-center gap-4">
-        <div class="ai-actions d-flex justify-content-center align-items-center">
-          <span>Suggest drinks that pair well with this recipe</span>
         </div>
-        <%= form_with url: create_pairing_drinks_recipe_path(@recipe), method: :post, local: true do %>
-          <%= button_tag(type: "submit", class: "ai-actions-btn") do %>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex flex-grow-1 text-wrap align-items-center py-2" style="min-width: 0; overflow-wrap: break-word; background: white; border-radius: 10px; font-size: 18px;">
+          <i class="fa-solid fa-up-right-and-down-left-from-center mx-3"></i>
+          <div class="text-wrap pe-4" style="min-width: 0; overflow-wrap: break-word; background: white;">
+            Smart-scale ingredients to my servings
+          </div>
+        </div>
+        <div class="ai-actions-btn ms-3 p-3">
+          <%= link_to choice_change_portions_recipe_path(@recipe) do %>
             <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg" %>
           <% end %>
-        <% end %>
+        </div>
       </div>
-    </div>
-    <div class="fixed-bottom-button">
-      <%= button_tag(type: "submit", class: "btn-plain") do %>
-        <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg", class: "btn-icon" %>
-          Ask me something else!
-      <% end %>
-    </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex flex-grow-1 text-wrap align-items-center py-2" style="min-width: 0; overflow-wrap: break-word; background: white; border-radius: 10px; font-size: 18px;">
+          <i class="fa-solid fa-carrot mx-3"></i>
+          <div class="text-wrap pe-4" style="min-width: 0; overflow-wrap: break-word; background: white;">
+            Give me a lighter, lower calorie version
+          </div>
+        </div>
+        <div class="ai-actions-btn ms-3 p-3">
+          <%= form_with url: create_low_calories_recipe_path(@recipe), method: :post, local: true, data: { controller: "waiting-modal", action: "submit->waiting-modal#onFormSubmit" } do %>
+            <%= button_tag(type: "submit", class: "ai-actions-btn") do %>
+              <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex flex-grow-1 text-wrap align-items-center py-2" style="min-width: 0; overflow-wrap: break-word; background: white; border-radius: 10px; font-size: 18px;">
+          <i class="fa-solid fa-wine-glass mx-3"></i>
+          <div class="text-wrap pe-4" style="min-width: 0; overflow-wrap: break-word; background: white;">
+            Suggest drinks that pair well with this recipe
+          </div>
+        </div>
+        <div class="ai-actions-btn ms-3 p-3">
+          <%= form_with url: create_pairing_drinks_recipe_path(@recipe), method: :post, local: true, data: { controller: "waiting-modal", action: "submit->waiting-modal#onFormSubmit" } do %>
+            <%= button_tag(type: "submit", class: "ai-actions-btn") do %>
+              <%= image_tag "https://res.cloudinary.com/dhv4phhqr/image/upload/v1749762323/magik_iuf3qa.svg" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+    <%= render "shared/waiting_modal", display_text: "Analyzing your recipe..." %>
 </div>

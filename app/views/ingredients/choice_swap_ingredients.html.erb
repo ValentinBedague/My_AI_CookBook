@@ -16,9 +16,9 @@
     <h2 class= "my-4">Wich ingredients do you want to change ?</h2>
 
     <p>I will suggest other ingredients that will match with the orignal recipe ! </p>
-    <%= form_with url: swap_ingredients_recipe_ingredients_path(@recipe), method: :post, local: true do %>
-          <div class=" p-3 fw-bold mb-1">
-            <div class="d-flex justify-content-center py-1">
+    <%= form_with url: swap_ingredients_recipe_ingredients_path(@recipe), method: :post, local: true, data: { controller: "waiting-modal", action: "submit->waiting-modal#onFormSubmit" } do %>
+          <div class="fw-bold mb-3">
+            <div class="d-flex justify-content-start py-1">
               <span class="pe-2"> Take your personal diet into account  ?</span>
               <%= check_box_tag "use_restrictions", "1", false,
                                 id: "use_restrictions",
@@ -48,7 +48,7 @@
         <% end %>
       </div>
       <div class="mt-4">
-        <%= label_tag "diet_explanation", "Why do you want to change this ingredients ?", class: "mb-3" %>
+        <%= label_tag "diet_explanation", "Why do you want to change this ingredients ? (optional)", class: "mb-3" %>
         <%= text_area_tag "diet_explanation", "", class: "form-control textarea-centered mb-5", rows: 2, placeholder: "Explain your dietary preferences or allergies…" %>
       </div>
       <div class="d-flex justify-content-center">
@@ -60,4 +60,6 @@
     <% end %>
 
   </div>
+
+  <%= render "shared/waiting_modal", display_text: "Smart-swaping ingredients..." %>
 </div>
