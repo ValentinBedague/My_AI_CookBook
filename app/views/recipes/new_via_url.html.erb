@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between align-items-center mb-2">
       <div></div>
       <%# link_to "<i class='rounded-white fas fa-arrow-left'></i>".html_safe, :back %>
-      <%= link_to "<i class='fas fa-xmark rounded-white'></i>".html_safe, root_path %>
+      <%= link_to "<i class='fas fa-xmark rounded-white-cross'></i>".html_safe, root_path %>
     </div>
     <h1 class="mb-4">Import a recipe from the Web</h1>
           <%= simple_form_for :url_form, url: create_via_url_recipes_path, method: :post, data: { action: "submit->url-upload#onFormSubmit" } do |f| %>

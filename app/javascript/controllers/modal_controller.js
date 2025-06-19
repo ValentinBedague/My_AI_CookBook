@@ -22,12 +22,33 @@ export default class extends Controller {
       container.setAttribute('style', 'filter: blur(0px);');
       document.body.classList.remove('no-scroll');
     });
+    this.applyWiggleToAll()
+  }
+
+  applyWiggleToAll() {
+    const wiggleElements = this.element.querySelectorAll(".wiggle")
+    wiggleElements.forEach(el => {
+      gsap.to(el, {
+        rotation: 0.5,
+        yoyo: true,
+        repeat: -1,
+        duration: 0.15,
+        ease: "sine.inOut",
+        transformOrigin: "50% 50%"
+      })
+    })
   }
 
   remove() {
     this.minusIconTargets.forEach((icon) => {
       icon.classList.remove('d-none');
+      icon.classList.add('wiggle');
     });
+    const cards = document.querySelectorAll('.recipes-in-books')
+    cards.forEach((card) => {
+      card.classList.add('wiggle');
+    });
+    this.applyWiggleToAll()
     if (this.hasOkButtonTarget) {
       this.okButtonTarget.classList.remove("d-none")
     }
@@ -39,6 +60,11 @@ export default class extends Controller {
   ok() {
     this.minusIconTargets.forEach((icon) => {
       icon.classList.add('d-none');
+    });
+    const cards = document.querySelectorAll('.recipes-in-books')
+    cards.forEach((card) => {
+      card.classList.remove('wiggle');
+      gsap.killTweensOf(card);
     });
     if (this.hasOkButtonTarget) {
       this.okButtonTarget.classList.add("d-none")

@@ -21,6 +21,11 @@ class CollectionsController < ApplicationController
   def show
     @collection = Collection.find(params[:id])
     @tags = @collection.tags
+    if params[:return_to].present?
+      @return_to = CGI.unescape(params[:return_to])
+    else
+      @return_to = collections_path
+    end
   end
 
   def new

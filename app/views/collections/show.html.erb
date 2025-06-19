@@ -1,7 +1,7 @@
 <div data-controller="modal">
     <div class="container p-4" data-modal-target="blurred">
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <%= link_to :back do %>
+        <%= link_to @return_to do %>
         <i class='rounded-white fas fa-arrow-left'></i>
         <% end %>
         <div class="d-flex gap-2">
@@ -9,7 +9,7 @@
                   data-controller="favorite-collection"
                   data-action="click->favorite-collection#toggle"
                   data-favorite-collection-id-value="<%= @collection.id %>">
-            <i class="<%= @collection.isfavorite ? 'fas' : 'far' %> fa-star rounded-white fs-6"></i>
+            <i class="<%= @collection.isfavorite ? 'fas' : 'far' %> fa-star rounded-white"></i>
           </button>
 
           <%= button_to false, class:"dot-button" do %>
@@ -17,16 +17,11 @@
           <% end %>
         </div>
       </div>
-      <div class="d-flex mb-4 align-items-center">
-        <h1><%=@collection.name.capitalize %></h1>
-        <div class="btn btn-ok d-none" data-action="click->modal#ok" data-modal-target="okButton">
-          <p >OK</p>
-        </div>
-      </div>
+      <h1 class="mb-4"><%=@collection.name.capitalize %></h1>
 
       <% @collection.recipes.each do |recipe| %>
         <% tag = @tags.find{ |t| t.recipe_id == recipe.id} %>
-        <div>
+        <div class="recipes-in-books">
           <div class="recipe-card-link" data-controller="removetag">
             <div class="recipe-card mb-3" style="background-image: url('<%= recipe.url_image %>');">
               <div class="favorite-icon" id="favorite-icon-<%= recipe.id %>">
@@ -37,7 +32,7 @@
                 <% end %>
               </div>
               <!-- Cliquable vers la recette -->
-              <%= link_to recipe_path(recipe), class: "card-full-link" do %>
+              <%= link_to recipe_path(recipe, return_to: CGI.escape(request.fullpath)), class: "card-full-link" do %>
                 <span class="sr-only"><%= recipe.name %></span>
               <% end %>
               <!-- Overlay-->
@@ -49,6 +44,9 @@
           </div>
         </div>
       <% end %>
+      <div class="d-flex mt-4 align-items-center justify-content-center">
+        <div class="btn-plain d-none" data-action="click->modal#ok" data-modal-target="okButton">Update book content</div>
+      </div>
     </div>
     <!-- edit options-->
     <div class="modal-options p-5 d-none rounded-top-4" data-modal-target="modalHide">

@@ -14,10 +14,11 @@
     <!-- Search bar -->
     <%= form_with url: "", method: :get, local: true,
           class: "d-flex mt-2", role: "search" do |f| %>
-        <div class="search-wrapper position-relative flex-grow-1 me-2">
+        <div class="search-wrapper position-relative flex-grow-1">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
           <%= f.text_field :query,
-              class: "form-control ps-5",
+              class: "form-control",
+              style: "padding-left: 2.5rem; color: #438866;",
               type: "search",
               placeholder: "Find a recipe",
               "aria-label": "Search" %>
@@ -28,11 +29,13 @@
      <!-- Recipes tri -->
 
     <div class="recipes-container mt-4">
+    <% if @recipes.empty? %>
+      <p>No recipes found matching your search.</p>
+    <% else %>
       <% @grouped_recipes.each do |letter, recipes| %>
-        <h5 class="text-uppercase mb-2"><%= letter %></h5>
+        <h5 class="text-uppercase mb-2" style="color: #438866;"><%= letter %></h5>
 
         <!-- Recipe cards -->
-
         <% recipes.each do |recipe| %>
           <div class="recipe-card-link">
             <div class="recipe-card mb-3" style="background-image: url('<%= recipe.url_image %>');">
@@ -59,6 +62,7 @@
           </div>
         <% end %>
       <% end %>
+    <% end %>
     </div>
   </div>
 </div>
