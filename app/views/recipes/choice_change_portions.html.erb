@@ -19,7 +19,7 @@
 
       <div class="d-flex justify-content-center align-items-center gap-4">
 
-        <%= form_with url:  change_portions_recipe_path(@recipe), method: :post, local: true do |f|%>
+        <%= form_with url:  change_portions_recipe_path(@recipe), method: :post, local: true, data: { controller: "waiting-modal", action: "submit->waiting-modal#onFormSubmit" } do |f|%>
           <div class="d-flex justify-content-center align-items-center" data-controller="counter">
             <i class='rounded-white fas fa-minus me-3 counter-btn' data-action="click->counter#decrement"></i>
             <%= f.number_field :portions, class: "form-control form-control-small text-center no-spinner", style: "font-weight: 600;", value: (@recipe.portions), min: 1, step: 1, data: { counter_target: "input" } %>
@@ -35,4 +35,5 @@
 
       </div>
   </div>
+  <%= render "shared/waiting_modal", display_text: "Smart-scaling portions..." %>
 </div>

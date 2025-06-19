@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="d-flex justify-content-end align-items-center mb-4">
 
-        <%= button_to "<i class='fas fa-xmark rounded-white'></i>".html_safe, recipe_path(@new_recipe),method: :delete, class:"dot-button" %>
+        <%= button_to "<i class='fas fa-xmark rounded-white'></i>".html_safe, ask_ai_recipe_path(@recipe),method: :delete, class:"dot-button" %>
 
 
     </div>
@@ -42,9 +42,8 @@
     <div class="container mt-5">
       <div class="d-flex flex-wrap justify-content-center align-items-center">
         <%= button_to "Replace the original", update_change_portions_recipe_path(@recipe), method: :patch, class:"btn btn-outline mt-3 me-3" %>
-        <%= button_to "Close", recipe_path(@new_recipe),method: :delete, class:"btn btn-plain mt-3 me-3" %>
+        <%= button_to "Close", ask_ai_recipe_path(@recipe),method: :delete, class:"btn btn-plain mt-3 me-3" %>
       </div>
-
-  </div>
+    </div>
   </div>
 </div>
