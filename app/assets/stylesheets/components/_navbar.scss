@@ -7,8 +7,9 @@
   display: flex;
   justify-content: space-around;
   border-top: 1px solid #ccc;
-  height: 62px;
+  // height: 62px;
   padding-top: 2px;
+  padding-bottom: 6px; // prevent bad display of text on rounded corner phones
   z-index: 10;
 
   .nav-link {

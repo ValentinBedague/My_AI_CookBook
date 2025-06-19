@@ -18,7 +18,7 @@
     <div id="searchbar" class="searchbar d-none">
       <%= form_with url: collections_path, method: :get, local: true do |f| %>
        <%= f.text_field :query,
-              class: "form-control ps-5",
+              class: "form-control ps-4",
               type: "search",
               placeholder: "Find a book",
               "aria-label": "Search" %>
@@ -39,7 +39,11 @@
 
 
   <!-- Collection cards -->
-  <div class="collections-grid">
+ <% if @collections.empty? %>
+    <p class="mt-4">No collections found matching your search.</p>
+  <% else %>
+
+  <div class="collections-grid mt-4">
 
   <% if @favorites %>
        <%= link_to collection_path(@favorites), class: "collection-card favorites" do %>
@@ -52,7 +56,6 @@
       </div>
     <% end %>
   <% end %>
-
 
     <% @collections.reject { |c| c.name == "Favorites" }.each do |collection| %>
       <div class="collection-card">
@@ -77,6 +80,7 @@
       </div>
     <% end %>
   </div>
+   <% end %>
     <!-- Bottom navbar -->
     <%= render "shared/bottom_navbar" %>
   </div>

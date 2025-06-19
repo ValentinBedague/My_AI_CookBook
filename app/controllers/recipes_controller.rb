@@ -28,6 +28,11 @@ class RecipesController < ApplicationController
   end
 
   def show
+    if params[:return_to].present?
+      @return_to = CGI.unescape(params[:return_to])
+    else
+      @return_to = recipes_path
+    end
   end
 
   def create_low_calories

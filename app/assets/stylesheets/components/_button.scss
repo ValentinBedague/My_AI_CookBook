@@ -35,7 +35,7 @@
 }
 
 .btn-outline-red{
-  background-color: #FFFF;
+  background-color: transparent;
   height: 45px;
   width: 249px;
   color: #b00100;
@@ -88,6 +88,18 @@
   margin-top: 20px;
   position: fixed;
   bottom: 39px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  align-items: center; // ✅ aligne verticalement
+}
+
+.fixed-bottom-logout {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  position: fixed;
+  bottom: 90px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
