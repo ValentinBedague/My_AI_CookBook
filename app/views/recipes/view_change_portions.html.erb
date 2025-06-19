@@ -1,0 +1,50 @@
+<div class="container p-4">
+  <div class="card-body">
+    <div class="d-flex justify-content-end align-items-center mb-4">
+
+        <%= button_to "<i class='fas fa-xmark rounded-white'></i>".html_safe, recipe_path(@new_recipe),method: :delete, class:"dot-button" %>
+
+
+    </div>
+
+    <h1 class= "mb-4"><i class='fa-solid fa-wand-magic-sparkles me-3'></i><span>Smart-scale portions</span></h1>
+
+    <div class="recipe-card-link">
+      <div class="recipe-card-link recipe-card" style="background-image: url('<%= @recipe.url_image %>');">
+      </div>
+    </div>
+
+
+    <h2 class= "my-4">Updated recipe</h2>
+
+    <p>This is a version of the recipe with some modifications to feed <strong><%= @new_recipe.portions %></strong> people.</p>
+
+    <h2 class= "mt-4 mb-3">Updated ingredients</h2>
+    <div class="card component-container p-3 rounded-4">
+      <% @new_recipe.ingredients.each do |ingredient| %>
+        <div class="d-flex justify-content-between py-1">
+          <span><%= ingredient.name.capitalize %></span>
+          <span><strong><%= (ingredient.quantity.to_f == ingredient.quantity.to_i ? ingredient.quantity.to_i : ingredient.quantity) %> <%= ingredient.unit %></strong></span>
+        </div>
+      <% end %>
+    </div>
+
+     <h2 class= "mt-4 mb-3">Instructions</h2>
+
+    <% @new_recipe.description.each_with_index do |step, index| %>
+      <div class="card component-container p-3 rounded-4 mb-3">
+
+        <span style="color:#438866; font-weight:500;" class= "mb-2">Step <%= index + 1 %></span>
+        <p><%= step %></p>
+      </div>
+    <% end %>
+
+    <div class="container mt-5">
+      <div class="d-flex flex-wrap justify-content-center align-items-center">
+        <%= button_to "Replace the original", update_change_portions_recipe_path(@recipe), method: :patch, class:"btn btn-outline mt-3 me-3" %>
+        <%= button_to "Close", recipe_path(@new_recipe),method: :delete, class:"btn btn-plain mt-3 me-3" %>
+      </div>
+
+  </div>
+  </div>
+</div>

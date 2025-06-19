@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :destroy, :ask_ai, :create_low_calories, :swap_ingredients, :view_swap_ingredients, :choice_swap_ingredients]
+  before_action :set_recipe, only: [:show, :edit, :destroy, :ask_ai, :create_low_calories, :swap_ingredients, :view_swap_ingredients, :choice_swap_ingredients, :choice_change_portions, :change_portions]
 
   require 'open-uri'
 
@@ -33,6 +33,104 @@ class RecipesController < ApplicationController
       @return_to = CGI.unescape(params[:return_to])
     else
       @return_to = recipes_path
+    end
+  end
+
+  def choice_change_portions
+  end
+  def change_portions
+    @new_recipe = Recipe.new
+    @new_recipe.user = current_user
+    @new_recipe.save
+    @new_portions = params[:portions]
+    ingredients_json = @recipe.ingredients.to_json
+    @portion_prompt = <<~PROMPT
+  You are a Cooking Assistant. Your outputs need to be realistic and preserve qualitative recipes. Your answers need to respect the language of the user's recipe.
+
+  You will receive information about a cooking recipe.
+
+  Your task is to **recalculate the quantity of each ingredient for #{@new_portions} servings**, starting from the original recipe which serves #{@recipe.portions} people.
+
+  🧠 Be smart in your scaling:
+  - Return **rounded quantities** that are practical for home cooking.
+  - Avoid unrealistic fractions for indivisible ingredients (e.g., don't return 0.3 egg or 1.7 tomatoes).
+  - In those cases, prefer qualitative descriptions like “small tomato” or “large potato” to keep the result applicable and realistic.
+  - Do not significantly alter the original spirit of the recipe during scaling.
+
+  Use the information below:
+
+  1. Recipe name = #{@recipe.name}
+  2. Original number of servings = #{@recipe.portions}
+  3. List of ingredients = #{ingredients_json}
+
+  Return the data as a JSON object with the exact structure below:
+
+  {
+    "ingredients": {
+      "ingredient1": {
+        "name": "Ingredient name as a string",
+        "quantity": "Quantity as a number (integer or float, e.g., 500 or 0.5)",
+        "unit": "Unit as a string (leave empty if not found or not applicable)"
+      },
+      "ingredient2": {
+        "name": "Ingredient name as a string",
+        "quantity": "Quantity as a number (integer or float, e.g., 500 or 0.5)",
+        "unit": "Unit as a string (leave empty if not found or not applicable)"
+      }
+      # Add as many ingredients as needed, using the same structure
+    }
+  }
+
+  ⚠️ Strict instructions:
+  - Do not guess or invent missing data.
+  - Return **only** the final JSON object.
+  - Do NOT include markdown code blocks or formatting.
+  - Do not include explanations or comments.
+  - Ensure the JSON is syntactically valid.
+PROMPT
+    @message = Message.new(role: "user", content: @portion_prompt, recipe: @recipe)
+    @chat = RubyLLM.chat
+    response = @chat.ask(@message.content)
+    Message.create(role: "assistant", content: response.content, recipe: @recipe)
+
+    json_response = Message.last.content
+    data = JSON.parse(json_response)
+    ingredients = data["ingredients"]
+
+    ingredients.each do |key,ingredient|
+      Ingredient.create(name: ingredient["name"], quantity: ingredient["quantity"], unit: ingredient["unit"], recipe_id: @new_recipe.id)
+    end
+
+    if @new_recipe.update(name: @recipe.name, portions: @new_portions, preparation_time: @recipe.preparation_time, description: @recipe.description, url_image: @recipe.url_image, original_recipe_id: @recipe.id)
+    redirect_to view_change_portions_recipe_path(@new_recipe)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def view_change_portions
+    @new_recipe = Recipe.find(params[:id])
+    @recipe = Recipe.find(@new_recipe.original_recipe_id)
+  end
+
+  def update_change_portions
+    @recipe = Recipe.find(params[:id])
+    @new_recipe = Recipe.last
+
+    if @recipe.update(portions: @new_recipe.portions)
+      @recipe.ingredients.destroy_all
+      @new_recipe.ingredients.each do  |ingredient|
+
+        Ingredient.create(name: ingredient.name,
+        quantity: ingredient.quantity,
+        unit: ingredient.unit,
+        recipe_id: @recipe.id
+        )
+      end
+      @new_recipe.destroy
+      redirect_to @recipe, notice: "#{@recipe.name} 🍽️ has been succesfully updated ! ✅"
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
