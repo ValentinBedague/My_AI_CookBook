@@ -4,6 +4,7 @@ class Recipe < ApplicationRecord
 
   has_many :tags, dependent: :destroy
   has_many :collections, through: :tags
+  has_many :messages, dependent: :destroy
 
   has_one_attached :image
 

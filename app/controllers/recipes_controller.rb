@@ -426,7 +426,7 @@ PROMPT
       Ingredient.create(name: ingredient["name"], quantity: ingredient["quantity"], unit: ingredient["unit"], recipe_id: @recipe.id)
     end
 
-    if @recipe.update(name: name, portions: portions, preparation_time: preparation_time, description: description, url_image: "https://www.ensto-ebs.fr/modules/custom/legrand_ecat/assets/img/no-image.png")
+    if @recipe.update(name: name, portions: portions, preparation_time: preparation_time, description: description, url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750407569/noimage2_nfthhw.png")
       redirect_to edit_recipe_path(@recipe)
     else
       render :new, status: :unprocessable_entity
@@ -497,7 +497,7 @@ PROMPT
     Ingredient.create(name: ingredient["name"], quantity: ingredient["quantity"], unit: ingredient["unit"], recipe_id: @recipe.id)
    end
 
-   if @recipe.update(name: name, portions: portions, preparation_time: preparation_time, description: description, url_image: "https://www.ensto-ebs.fr/modules/custom/legrand_ecat/assets/img/no-image.png")
+   if @recipe.update(name: name, portions: portions, preparation_time: preparation_time, description: description, url_image: "https://res.cloudinary.com/dhv4phhqr/image/upload/v1750407569/noimage2_nfthhw.png")
       redirect_to edit_recipe_path(@recipe)
    else
      render :new, status: :unprocessable_entity
