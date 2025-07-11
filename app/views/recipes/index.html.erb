@@ -38,29 +38,23 @@
 
         <!-- Recipe cards -->
         <% recipes.each do |recipe| %>
-          <div class="recipe-card-link">
-            <div class="recipe-card mb-3" style="background-image: url('<%= recipe.url_image %>');">
-              <!-- Heart button, sorti du link-->
-              <div class="favorite-icon" id="favorite-icon-<%= recipe.id %>">
-                <button class="favorite-btn"
-                        data-controller="favorite"
-                        data-action="click->favorite#toggle"
-                        data-favorite-recipe-id-value="<%= recipe.id %>">
-                  <i class="<%= favorite?(recipe) ? 'fas' : 'far' %> fa-heart"></i>
-                </button>
-              </div>
-              <!-- Cliquable vers la recette -->
-               <%= link_to recipe_path(recipe), class: "card-full-link" do %>
-                  <div class="recipe-card mb-3" style="background-image: url('<%= recipe.url_image %>');">
-                    <!-- Overlay cliquable -->
-                    <div class="card-overlay">
-                      <h5><%= recipe.name %></h5>
-                      <p><%= pluralize(recipe.ingredients.count, "ingredient") %> | <%= recipe.preparation_time %> Min</p>
-                    </div>
-                  </div>
-                <% end %>
+          <%= link_to recipe_path(recipe), class: "recipe-card mb-3", style: "background-image: url('#{recipe.url_image}');" do %>
+            <!-- Heart button indépendant -->
+            <div class="favorite-icon" id="favorite-icon-<%= recipe.id %>">
+              <button class="favorite-btn"
+                      data-controller="favorite"
+                      data-action="click->favorite#toggle"
+                      data-favorite-recipe-id-value="<%= recipe.id %>">
+                <i class="<%= favorite?(recipe) ? 'fas' : 'far' %> fa-heart"></i>
+              </button>
             </div>
-          </div>
+
+            <!-- Overlay -->
+            <div class="card-overlay">
+              <h5><%= recipe.name %></h5>
+              <p><%= pluralize(recipe.ingredients.count, "ingredient") %> | <%= recipe.preparation_time %> Min</p>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>

@@ -49,7 +49,7 @@
   <% if @favorites %>
        <%= link_to collection_path(@favorites), class: "collection-card favorites" do %>
       <div class="text-overlay-container">
-        <div class="card-overlay">Favorites</div>
+        <div>Favorites</div>
         <i class="fa-solid fa-heart"></i>
       </div>
       <div class="card-content">
@@ -74,7 +74,7 @@
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4)); pointer-events: none;"></div>
           </div>
           <div class="text-overlay-container">
-            <div class="card-overlay"><%= collection.name %></div>
+            <div class="collection-name"><%= collection.name %></div>
             <div class="card-recipe-count"><%= pluralize(collection.recipes.count, 'recipe') %></div>
           </div>
         <% end %>

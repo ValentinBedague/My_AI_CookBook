@@ -5,82 +5,65 @@
   // text-transform: capitalize;
 }
 
-.recipe-card-link {
-  text-decoration: none;
-  color: inherit;
-  }
-
 .recipe-card {
   position: relative;
   border-radius: 12px;
   height: 160px;
   background-size: cover;
-  overflow: hidden;
   background-position: center;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 
-    &:hover {
+  &:hover {
     transform: scale(1.03);
+    transition: transform 0.3s ease;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: inherit;
+    z-index: 0; // derrière tout
+  }
 }
 
-    &::before {
-  content: "";
+.favorite-icon {
   position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: inherit;
-  z-index: 0;
+  top: 8px;
+  right: 8px;
+  z-index: 2; // tout en haut
+  color: white;
 }
 
-.card-full-link {
-position: absolute;
-inset: 0; // couvre toute la carte
-z-index: 1;
+.favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: white;
 }
 
-
-.favorite-icon,
 .card-overlay {
   position: relative;
   z-index: 1;
-}
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  padding: 0.5rem;
+  color: white;
 
-  .favorite-icon {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    color: white;
-    font-size: 1.2rem;
-    z-index: 2;
+  h5 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
   }
 
-  .favorite-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    color:white;
-  }
-
-  .card-overlay {
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-    padding: 0.5rem;
-    color: white;
-    z-index: 2;
-
-    h5 {
-      font-size: 1rem;
-      font-weight: bold;
-      margin: 0;
-    }
-
-    p {
-      font-size: 0.85rem;
-      margin: 0;
-      color: #ddd;
-    }
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #ddd;
   }
 }
 
@@ -162,6 +145,12 @@ z-index: 1;
       color: #ffffff;
     }
   }
+}
+
+.collection-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
 }
 
 .instruction-item i.fa-trash-can {
